@@ -28,7 +28,7 @@ final class CSMForm extends StatelessWidget {
       autovalidateMode: options.validateMode,
       canPop: options.canDismiss,
       onChanged: options.onChange,
-      onPopInvoked: options.onPop,
+      onPopInvokedWithResult: options.onPop,
       child: child,
     );
   }
