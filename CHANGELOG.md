@@ -1,14 +1,14 @@
 # CHANGELOG
 
-## CURRENT
+## 4.0.0  - [24.10-2024]
 
 - Notes:
 
-    1. Template
+    1. Upgrade of GoRouter.
 
 - Dependencies Upgrade:
 
-    1. Template
+    1. go_router ([14.3.0])
 
 ## 3.1.0
 

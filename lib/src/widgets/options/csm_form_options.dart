@@ -55,7 +55,7 @@ final class CSMFormOptions {
   /// Action to perform each time the [CSMForm] is being tried to be popped.
   ///
   /// [didPop] - wheter the operation has been performed successfuly or not.
-  final void Function(bool didPop)? onPop;
+  final PopInvokedWithResultCallback<Object?>? onPop;
 
   /// Generates a new [CSMFormOptions] options.
   const CSMFormOptions({
