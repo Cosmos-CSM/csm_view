@@ -131,38 +131,40 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
   }
 
   Widget _frameListener(BuildContext ctx, Widget? child) {
-    child ??= const CSMLanding();
+    Widget fixedChild = child ?? const CSMLanding();
 
-    child = widget.builder?.call(context, child) ?? child;
-    child = DefaultTextStyle(
+    fixedChild = widget.builder?.call(context, fixedChild) ?? fixedChild;
+    fixedChild = DefaultTextStyle(
       style: const TextStyle(
         decoration: TextDecoration.none,
         fontSize: 15,
         fontWeight: FontWeight.w500,
       ),
-      child: child,
+      child: fixedChild,
     );
-    if (!widget.listenFrame) return child;
+    if (widget.listenFrame) {
+      fixedChild = Stack(
+        textDirection: TextDirection.ltr,
+        children: <Widget>[
+          fixedChild,
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 16,
+            ),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: _CSMFrameIndicator(),
+            ),
+          ),
+        ],
+      );
+    }
 
     return ValueListenableBuilder<CSMThemeBase>(
       valueListenable: listener,
       builder: (BuildContext context, _, __) {
-        return Stack(
-          textDirection: TextDirection.ltr,
-          children: <Widget>[
-            child!,
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 16,
-                left: 16,
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: _CSMFrameIndicator(),
-              ),
-            ),
-          ],
-        );
+        return fixedChild;
       },
     );
   }

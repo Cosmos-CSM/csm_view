@@ -4,6 +4,10 @@
 
 - Notes:
 
+    1. Fixed a problem was causing application handler wasn't linstening at Theme Changes.
+    2. Self theme storing utilities got deprecated.
+    3. Removed property [storeKey] from [UpdateTheme] method to avoid is usage.
+
 - Dependencies: N/A
 
 ## 4.0.0  - [24.10-2024]
