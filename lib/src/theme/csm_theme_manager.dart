@@ -22,12 +22,7 @@ ValueNotifier<CSMThemeBase> get _validNotifier {
 /// about the update of the current theme to use.
 ///
 /// [identifier] - theme identifier set at the [CSMTheme] implementation to localize it.
-/// [saveLocalKey] - special storage key to store the theme result at local storage.
-void updateTheme<TTheme extends CSMThemeBase>(
-  String identifier, {
-  String? saveLocalKey,
-}) {
-  if (saveLocalKey != null) {}
+void updateTheme<TTheme extends CSMThemeBase>(String identifier) {
   CSMThemeBase? base = _themes.where((CSMThemeBase element) => element.identifier == identifier).firstOrNull;
   if (base == null) throw Exception('The identifier wasn\'t found in the themes subscribed');
   try {
@@ -40,6 +35,7 @@ void updateTheme<TTheme extends CSMThemeBase>(
   }
 }
 
+@Deprecated('Local Storaging Utilities Deprecation')
 /// Looks for local storaged references about the theme selected by the user
 /// to use it.
 ///

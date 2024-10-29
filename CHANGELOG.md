@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 5.0.0 - [29.10-2024]
+
+- Notes:
+
+    1. Fixed a problem was causing application handler wasn't linstening at Theme Changes.
+    2. Self theme storing utilities got deprecated.
+    3. Removed property [storeKey] from [UpdateTheme] method to avoid is usage.
+
+- Dependencies:
+
+    1. go_router ([14.3.0])
+
 ## 4.0.0  - [24.10-2024]
 
 - Notes:
