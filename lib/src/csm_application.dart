@@ -131,38 +131,40 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
   }
 
   Widget _frameListener(BuildContext ctx, Widget? child) {
-    child ??= const CSMLanding();
-
-    child = widget.builder?.call(context, child) ?? child;
-    child = DefaultTextStyle(
-      style: const TextStyle(
-        decoration: TextDecoration.none,
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-      ),
-      child: child,
-    );
-    if (!widget.listenFrame) return child;
 
     return ValueListenableBuilder<CSMThemeBase>(
       valueListenable: listener,
       builder: (BuildContext context, _, __) {
-        return Stack(
-          textDirection: TextDirection.ltr,
-          children: <Widget>[
-            child!,
-            const Padding(
-              padding: EdgeInsets.only(
-                top: 16,
-                left: 16,
-              ),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: _CSMFrameIndicator(),
-              ),
-            ),
-          ],
+
+        Widget fixedChild = child ?? const CSMLanding();
+        fixedChild = widget.builder?.call(context, fixedChild) ?? fixedChild;
+        fixedChild = DefaultTextStyle(
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+          ),
+          child: fixedChild,
         );
+        if (widget.listenFrame) {
+          fixedChild = Stack(
+            textDirection: TextDirection.ltr,
+            children: <Widget>[
+              fixedChild,
+              const Padding(
+                padding: EdgeInsets.only(
+                  top: 16,
+                  left: 16,
+                ),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: _CSMFrameIndicator(),
+                ),
+              ),
+            ],
+          );
+        }
+        return fixedChild;
       },
     );
   }
