@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## CURRENT - [xx.xx-xxxx]
+
+- Notes:
+
+- Dependencies:
+
 ## 5.0.0 - [29.10-2024]
 
 - Notes:
