@@ -184,5 +184,5 @@ final class CSMAdvisor {
   }
 
   /// Wraps a string in a colorized ansii scape to be understandable by the debug console.
-  String _colorize(Color color, String msg) => '\u001b[38;2;${color.red};${color.green};${color.blue}m$msg\u001b[0m';
+  String _colorize(Color color, String msg) => '\u001b[38;2;${color.r};${color.g};${color.b}m$msg\u001b[0m';
 }
