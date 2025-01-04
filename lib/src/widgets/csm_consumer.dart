@@ -36,7 +36,7 @@ final class CSMConsumer<TData> extends StatefulWidget {
   /// Agent to perform actions to the component state instance.
   final CSMConsumerAgent? agent;
 
-  /// Dart doesn't have a way to determine a Future<T> Function is a Future<void>, it has to be
+  /// Dart doesn't have a way to determine a Future<'T> Function is a Future<'void>, it has to be
   /// set manually tho.
   final bool isVoid;
 
