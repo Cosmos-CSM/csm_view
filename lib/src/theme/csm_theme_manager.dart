@@ -77,14 +77,14 @@ Future<TTheme?> getStoredTheme<TTheme extends CSMThemeBase>(
 ///   @override
 ///   void initState() {
 ///     super.initState();
-///     theme = getTheme<ThemeBase>(
+///     theme = getTheme<'ThemeBase>(
 ///       updateEffect: updateThemeEffect
 ///     );
 ///   }
 ///
 ///   @override
 ///   void dispose() {
-///     disposeGetTheme<ThemeBase>(updateThemeEffect);
+///     disposeGetTheme<'ThemeBase>(updateThemeEffect);
 ///     super.dispose();
 ///   }
 ///   void updateThemeEffect(ThemeBase effect) => setState(() {});
@@ -109,14 +109,14 @@ TTheme getTheme<TTheme extends CSMThemeBase>({VoidCallback? updateEfect}) {
 ///   @override
 ///   void initState() {
 ///     super.initState();
-///     theme = getTheme<ThemeBase>(
+///     theme = getTheme<'ThemeBase>(
 ///       updateEffect: updateThemeEffect
 ///     );
 ///   }
 ///
 ///   @override
 ///   void dispose() {
-///     disposeGetTheme<ThemeBase>(updateThemeEffect);
+///     disposeGetTheme<'ThemeBase>(updateThemeEffect);
 ///     super.dispose();
 ///   }
 ///   void updateThemeEffect(ThemeBase effect) => setState(() {});
@@ -145,14 +145,14 @@ void disposeEffect<TTheme extends CSMThemeBase>(VoidCallback updateEffect) {
 ///   @override
 ///   void initState() {
 ///     super.initState();
-///     theme = getTheme<ThemeBase>(
+///     theme = getTheme<'ThemeBase>(
 ///       updateEffect: updateThemeEffect
 ///     );
 ///   }
 ///
 ///   @override
 ///   void dispose() {
-///     disposeGetTheme<ThemeBase>(updateThemeEffect);
+///     disposeGetTheme<'ThemeBase>(updateThemeEffect);
 ///     super.dispose();
 ///   }
 ///   void updateThemeEffect(ThemeBase effect) => setState(() {});

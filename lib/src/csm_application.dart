@@ -1,10 +1,10 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/components/private/csm_landing.dart';
 import 'package:csm_view/src/core/theme/csm_theme.dart';
-import 'package:csm_view/src/widgets/private/csm_landing.dart';
 import 'package:flutter/material.dart' hide Theme;
 import 'package:flutter/material.dart';
 
-part 'widgets/private/csm_frame_indicator.dart';
+part 'components/private/csm_frame_indicator.dart';
 
 /// Core class for [CSMApplication].
 /// Defines a core fuctionallity class for [CSMApplication].

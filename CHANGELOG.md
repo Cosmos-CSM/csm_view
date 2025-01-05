@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## CURRENT - [xx.xx-xxxx]
+
+- Notes:
+
+    1. Changed concept name from [widgets] to [components].
+    2. Added the new [Adaptive] concept, this handles a set of tools to calculate easier the way to display complex views on different platforms.
+        - Added a new base class to build adaptive components [CSMAdaptiveComponentBase].
+        - Added a new method to evaluate the correct property to set [adaptProperty<'T>].
+
+- Dependencies:
+
 ## 5.0.0 - [29.10-2024]
 
 - Notes:

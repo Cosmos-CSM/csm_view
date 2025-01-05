@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 typedef _Terraformer = CSMTerraformer;
 
-/// Widget class for [CSMAdaptativeView].
+/// Widget class for [CSMAdaptiveComponent].
 ///
-/// Defines UI for a [CSMAdaptativeView] implementation.
+/// Defines UI for a [CSMAdaptiveComponent] implementation.
 ///
-/// [CSMAdaptativeView] concept: handle draw decission based on specific running plarform, specifying what to draw when
+/// [CSMAdaptiveComponent] concept: handle draw decission based on specific running plarform, specifying what to draw when
 /// the device is a desktop, mobile, or web application.
-final class CSMAdaptativeView extends StatelessWidget {
+final class CSMAdaptiveComponent extends StatelessWidget {
   /// [Widget] to draw when the running platform is desktop context.
   final Widget? onDesktop;
 
@@ -19,8 +19,8 @@ final class CSMAdaptativeView extends StatelessWidget {
   /// [Widget] to draw when the running platform is web browser context.
   final Widget? onBrowser;
 
-  /// Generates a new [CSMAdaptativeView] context.
-  const CSMAdaptativeView({
+  /// Generates a new [CSMAdaptiveComponent] context.
+  const CSMAdaptiveComponent({
     super.key,
     this.onDesktop,
     this.onMobile,

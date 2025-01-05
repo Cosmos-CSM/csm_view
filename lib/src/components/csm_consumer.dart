@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:csm_view/src/common/common_module.dart';
-import 'package:csm_view/src/widgets/agents/csm_consumer_agent.dart';
+import 'package:csm_view/src/components/agents/csm_consumer_agent.dart';
 import 'package:flutter/material.dart';
 
 part 'private/csm_consumer_error.dart';
@@ -36,7 +36,7 @@ final class CSMConsumer<TData> extends StatefulWidget {
   /// Agent to perform actions to the component state instance.
   final CSMConsumerAgent? agent;
 
-  /// Dart doesn't have a way to determine a Future<T> Function is a Future<void>, it has to be
+  /// Dart doesn't have a way to determine a Future<'T> Function is a Future<'void>, it has to be
   /// set manually tho.
   final bool isVoid;
 
