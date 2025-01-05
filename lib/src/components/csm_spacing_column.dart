@@ -1,14 +1,14 @@
-import 'package:csm_view/src/widgets/bases/widgets_bases_module.dart';
+import 'package:csm_view/src/components/bases/widgets_bases_module.dart';
 import 'package:flutter/material.dart';
 
-/// Widget class for [CSMSpacingRow].
+/// Widget class for [CSMSpacingColumn].
 ///
-/// Defines UI for a [CSMSpacingRow] implementation.
+/// Defines UI for a [CSMSpacingColumn] implementation.
 ///
-/// [CSMSpacingRow] concept: draws a [Row] calculating space between each child and if indicated at the start and end of the [Row].
-class CSMSpacingRow extends CSMSpacingBase<Row> {
-  /// Generates a new [CSMSpacingRow] widget.
-  const CSMSpacingRow({
+/// [CSMSpacingColumn] concept: draws a [Column] calculating space between each child and if indicated at the start and end of the [Column].
+class CSMSpacingColumn extends CSMSpacingBase<Column> {
+  /// Generates a new [CSMSpacingColumn] widget.
+  const CSMSpacingColumn({
     super.key,
     required super.children,
     super.spacing,
@@ -25,7 +25,7 @@ class CSMSpacingRow extends CSMSpacingBase<Row> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       crossAxisAlignment: crossAlignment,
       mainAxisAlignment: mainAlignment,
       mainAxisSize: mainSize,
