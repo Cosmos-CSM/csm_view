@@ -5,9 +5,18 @@
 - Notes:
 
     1. Changed concept name from [widgets] to [components].
+
     2. Added the new [Adaptive] concept, this handles a set of tools to calculate easier the way to display complex views on different platforms.
         - Added a new base class to build adaptive components [CSMAdaptiveComponentBase].
         - Added a new method to evaluate the correct property to set [adaptProperty<'T>].
+
+    3. Added new properties to [CSMPlatforms].
+        - [name] Descriptive name.
+        - [color] Identification color.
+
+    4. Added the new [CSMLanding] concept enhancing the way that package example applications are made.
+        - Now the landing packages have a straightforward component to automatically build a good-look application to browser throughout the component library [CSMPackageLanding].
+        - All the component library can be customized depending on needs to display configurations and handle states through [CSMLandingPackageEntry] class.
 
 - Dependencies:
 
