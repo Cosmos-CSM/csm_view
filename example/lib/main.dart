@@ -10,11 +10,11 @@ void main(List<String> args) {
   );
 }
 
-class ExampleApplication extends StatelessWidget {
+final class ExampleApplication extends StatelessWidget {
   const ExampleApplication({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     return CSMApplication<EXThemeBase>(
       defaultTheme: const EXThemeLigth(),
       themes: const [
@@ -22,7 +22,9 @@ class ExampleApplication extends StatelessWidget {
         EXThemeDark(),
       ],
       builder: (context, app) {
-        EXThemeBase theme = getTheme();
+        ThemeManagerI<EXThemeBase> themeManager = GetIt.I.get<ThemeManagerI<EXThemeBase>>();
+
+        EXThemeBase theme = themeManager.get();
 
         return Scaffold(
           backgroundColor: theme.backgroundColor,
@@ -31,13 +33,59 @@ class ExampleApplication extends StatelessWidget {
               Switch(
                 value: theme is EXThemeDark,
                 onChanged: (value) {
-                  updateTheme(theme is EXThemeDark ? const EXThemeLigth().identifier : const EXThemeDark().identifier);
+                  themeManager.change(value ? const EXThemeDark().identifier : const EXThemeLigth().identifier);
                 },
-              )
+              ),
+              const TestingEffect(),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class TestingEffect extends StatefulWidget {
+  const TestingEffect({super.key});
+
+  @override
+  State<TestingEffect> createState() => _TestingEffectState();
+}
+
+final class _TestingEffectState extends State<TestingEffect> {
+  late final UniqueKey effectKey = UniqueKey();
+  late final ThemeManagerI<EXThemeBase> themeManager;
+
+  late EXThemeBase theme;
+
+  @override
+  void initState() {
+    super.initState();
+    themeManager = GetIt.I.get<ThemeManagerI<EXThemeBase>>();
+
+    theme = themeManager.addEffect(
+      effectKey,
+      (EXThemeBase theme) {
+        setState(() {
+          this.theme = theme;
+        });
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 200,
+      color: Colors.red,
+      child: Center(
+        child: Container(
+          width: 50,
+          height: 50,
+          color: theme.backgroundColor,
+        ),
+      ),
     );
   }
 }

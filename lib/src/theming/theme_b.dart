@@ -1,0 +1,21 @@
+import 'package:csm_view/src/theming/theme_i.dart';
+import 'package:flutter/material.dart';
+
+/// [Abstract] for [theming] implementations.
+///
+/// Defines handlers and common members for all theming implementations.
+abstract class ThemeB implements ThemeI {
+  /// Unique theme identification for the theme manager.
+  @override
+  final String identifier;
+
+  /// Color specified for the frame size display.
+  @override
+  final Color? frame;
+
+  /// Creates a new [ThemeB] instance.
+  const ThemeB(
+    this.identifier, {
+    this.frame,
+  });
+}

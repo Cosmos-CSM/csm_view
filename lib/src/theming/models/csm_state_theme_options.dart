@@ -1,4 +1,4 @@
-import 'package:csm_view/src/theme/theme_module.dart';
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 /// Options class for [CSMStateTheme].

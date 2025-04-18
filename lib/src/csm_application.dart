@@ -1,15 +1,13 @@
 import 'package:csm_view/csm_view.dart';
 import 'package:csm_view/src/components/private/csm_landing.dart';
-import 'package:csm_view/src/core/theme/csm_theme.dart';
 import 'package:flutter/material.dart' hide Theme;
-import 'package:flutter/material.dart';
 
 part 'components/private/csm_frame_indicator.dart';
 
 /// Core class for [CSMApplication].
 /// Defines a core fuctionallity class for [CSMApplication].
 ///
-/// [ThemeBase] - The abstraction base for [CSMThemeBase] management and interface.
+/// [TThemeB] - The abstraction base for [ThemeB] management and interface.
 ///
 /// [CSMApplication] concept: the core of a foundation [COSMOS] project solution, it handles,
 /// builds and manages everything related to the main features and tools provided by the package.
@@ -17,12 +15,12 @@ part 'components/private/csm_frame_indicator.dart';
 /// context.
 ///
 /// (@category Applications)
-final class CSMApplication<ThemeBase extends CSMThemeBase> extends StatefulWidget {
-  /// [CSMThemeBase] base implementation to use when no theme was reached.
-  final ThemeBase? defaultTheme;
+final class CSMApplication<TThemeB extends ThemeB> extends StatefulWidget {
+  /// [ThemeB] base implementation to use when no theme was reached.
+  final TThemeB defaultTheme;
 
-  /// Defines all possible [ThemeBase] implementations possible to the [ThemeManager].
-  final List<ThemeBase> themes;
+  /// Defines all possible [TThemeB] implementations possible to the [ThemeManager].
+  final List<TThemeB> themes;
 
   /// Entry point [Widget] usually drawn when no [Routing] configuration given.
   final Widget? home;
@@ -52,7 +50,6 @@ final class CSMApplication<ThemeBase extends CSMThemeBase> extends StatefulWidge
   /// Generates a new [CSMApplication] application.
   const CSMApplication({
     super.key,
-    this.defaultTheme,
     this.homeBuilder,
     this.home,
     this.builder,
@@ -61,6 +58,7 @@ final class CSMApplication<ThemeBase extends CSMThemeBase> extends StatefulWidge
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
+    required this.defaultTheme,
   }) : assert(((home != null) != (homeBuilder != null)) || (home == null && homeBuilder == null), "The home widget and builder cannot be at the same time, must be just one or no one");
 
   /// Generates a new [CSMApplication] application.
@@ -68,28 +66,29 @@ final class CSMApplication<ThemeBase extends CSMThemeBase> extends StatefulWidge
   /// Based on a required [Routing] configuration or delegation.
   const CSMApplication.router({
     super.key,
-    this.defaultTheme,
     this.builder,
     this.routerConfig,
     this.routerDelegate,
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
+    required this.defaultTheme,
   })  : assert(routerConfig != null || routerDelegate != null, "Router config or Router delegate must be defined to use a router based Cosmos App"),
         homeBuilder = null,
         home = null;
 
   @override
-  State<CSMApplication<CSMThemeBase>> createState() => _CSMApplicationState();
+  State<CSMApplication<ThemeB>> createState() => _CSMApplicationState<TThemeB>();
 }
 
-class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
+/// [CSMApplication] state handler.
+final class _CSMApplicationState<TThemeB extends ThemeB> extends State<CSMApplication<ThemeB>> {
   late Widget? byHome;
 
-  late ValueNotifier<CSMThemeBase> listener;
+  late ThemeManager<TThemeB> themeManager;
 
   @override
-  void didUpdateWidget(covariant CSMApplication<CSMThemeBase> oldWidget) {
+  void didUpdateWidget(covariant CSMApplication<ThemeB> oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     byHome = widget.home ?? widget.homeBuilder?.call(context);
@@ -99,10 +98,11 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
-    initTheme(widget.defaultTheme ?? const CSMTheme(), widget.themes);
-    listener = listenTheme;
-    byHome = widget.home ?? widget.homeBuilder?.call(context);
 
+    themeManager = ThemeManager<TThemeB>(widget.defaultTheme as TThemeB, widget.themes as List<TThemeB>);
+    GetIt.I.registerSingleton<ThemeManagerI<TThemeB>>(themeManager);
+
+    byHome = widget.home ?? widget.homeBuilder?.call(context);
     const CSMAdvisor('COSMOS').message('Starting engines⚙️⚙️⚙️');
   }
 
@@ -132,8 +132,8 @@ class _CSMApplicationState extends State<CSMApplication<CSMThemeBase>> {
 
   Widget _frameListener(BuildContext ctx, Widget? child) {
 
-    return ValueListenableBuilder<CSMThemeBase>(
-      valueListenable: listener,
+    return ValueListenableBuilder<ThemeB>(
+      valueListenable: themeManager.notifier,
       builder: (BuildContext context, _, __) {
 
         Widget fixedChild = child ?? const CSMLanding();

@@ -5,8 +5,9 @@ final class _CSMFrameIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final Size frameSize = MediaQuery.sizeOf(context);
-    final CSMThemeBase theme = getTheme();
+    final ThemeB theme = GetIt.I.get<ThemeManagerI<ThemeB>>().get();
 
     return Text(
       frameSize.toString(),
