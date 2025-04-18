@@ -27,7 +27,41 @@ abstract interface class ThemeManagerI<TThemeB extends ThemeB> {
   /// [identifier] new theme key binding.
   TThemeB change(String identifier);
 
+  /// Adds a callback called as [effect] to invoke everytime the [theme] get changed, useful for [StatefulWidget] implementations
+  /// where don't get rebuild after a [theme] change directly. When called also returns the current [theme].
+  ///
+  /// RECOMMENDED USE (For [StatefulWidget]):
+  /// '''dart
+  ///   "State"
+  ///
+  ///   late final ThemeManagerI<'ThemeB> = GetIt.I.get<'ThemeManagerI<'ThemeB>>();
+  ///   late final UniqueKey effectKey = UniqueKey();
+  ///   late ThemeB theme;
+  ///
+  ///   @override
+  ///   void initState() {
+  ///     super.initState();
+  ///     theme = themeManager.addEffect(
+  ///       effectKey,
+  ///       (ThemeB theme) {
+  ///         setState(() { this.theme = theme; });
+  ///       }
+  ///     );
+  ///   }
+  ///
+  ///   @override
+  ///   void dispose() {
+  ///     themeManager.removeEffect(effectKey);
+  ///     super.dispose();
+  ///   }
+  ///   void updateThemeEffect(ThemeBase effect) => setState(() {});
+  /// '''
   TThemeB addEffect(UniqueKey ref, Effect<TThemeB> effect);
+
+  /// Removes the suscribed [effect] at [addEffect] based on the given [ref].
+  ///
+  /// [ref] unique reference for the stored [effect].
+  void removeEffect(UniqueKey ref);
 }
 
 /// [Manager] implementation for application theming handling, handles operations about change, restore, get theme proeprties
@@ -54,30 +88,30 @@ final class ThemeManager<TThemeB extends ThemeB> implements ThemeManagerI<TTheme
   ///
   /// NOTE: Preferrely avoid use it, use it just in specific complex cases, if you have
   /// a [StatefulWidget] that needs update the theme after a change and after its state is setup.
-  /// you can subscribe an [updateEffect] to the method [get] as the next example:
-  /// ```dart
-  ///   CosmosThemeBase? theme = getTheme(
-  ///     updateEffect: setState(() => {{ `your state update` }}),
-  ///   );
-  /// ```
-  ///
+  /// you can subscribe an [Effect] using [addEffect] as the next example:
   ///
   /// RECOMMENDED USE (For [StatefulWidget]):
   /// '''dart
   ///   "State"
-  ///   late CosmosThemeBase theme;
+  /// 
+  ///   late final ThemeManagerI<'ThemeB> = GetIt.I.get<'ThemeManagerI<'ThemeB>>();
+  ///   late final UniqueKey effectKey = UniqueKey();
+  ///   late ThemeB theme;
   ///
   ///   @override
   ///   void initState() {
   ///     super.initState();
-  ///     theme = getTheme<'ThemeBase>(
-  ///       updateEffect: updateThemeEffect
+  ///     theme = themeManager.addEffect(
+  ///       effectKey,
+  ///       (ThemeB theme) {
+  ///         setState(() { this.theme = theme; });
+  ///       }
   ///     );
   ///   }
   ///
   ///   @override
   ///   void dispose() {
-  ///     disposeGetTheme<'ThemeBase>(updateThemeEffect);
+  ///     themeManager.removeEffect(effectKey);
   ///     super.dispose();
   ///   }
   ///   void updateThemeEffect(ThemeBase effect) => setState(() {});
@@ -118,5 +152,10 @@ final class ThemeManager<TThemeB extends ThemeB> implements ThemeManagerI<TTheme
   TThemeB addEffect(UniqueKey ref, Effect<TThemeB> effect) {
     _effects.putIfAbsent(ref, () => effect);
     return get();
+  }
+  
+  @override
+  void removeEffect(UniqueKey ref) {
+    _effects.remove(ref);
   }
 }
