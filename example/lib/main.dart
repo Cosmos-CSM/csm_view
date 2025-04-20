@@ -1,16 +1,24 @@
+import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
   runApp(
-    const Landing(),
+    CSMPackageLanding(
+      title: 'CSM View',
+      landingEntry: CSMPackageLandingEntry(
+        name: 'Testing Component',
+        description: RichText(
+          text: const TextSpan(
+            text: 'A testing description to show how the description is being displayed in the landing playground',
+          ),
+        ),
+        composeLanding: (ctx) {
+          return Container(
+            color: Colors.orange,
+          );
+        },
+      ),
+      entries: const [],
+    ),
   );
-}
-
-class Landing extends StatelessWidget {
-  const Landing({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox();
-  }
 }
