@@ -14,7 +14,7 @@ void main(List<String> args) {
               text: '',
             ),
           ), 
-          composeLanding: (BuildContext context) => const Theming(),
+          composer: (BuildContext context) => const Theming(),
         ),
       ],
     ),

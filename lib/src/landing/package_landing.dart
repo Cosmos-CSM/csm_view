@@ -6,24 +6,25 @@ import 'package:flutter/material.dart';
 part '_package_landing_device_details.dart';
 part '_package_landing_entry_details.dart';
 
-/// A Package Landing full application manager for View packages based on [CSMView].
-///
-/// Gives a set of tools to easyly display the whle package component library and brief descriptions,
-/// making them interactive and testable visibly.
+/// [Widget] class for [PackageLanding].
+/// 
+/// 
+/// Provides a complex detailed view for a [Package] development example. Allowing to interact in user-time with the objects
+/// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
 final class PackageLanding extends StatefulWidget {
-  /// The title of the package.
+  /// [Package] title.
   final String title;
 
-  /// The default landing view.
-  final PackageLandingEntry? landingEntry;
+  /// Default [PackageLandingEntryI] to be built on start for easier development.
+  final PackageLandingEntry? onDevelopment;
 
-  /// The available package view entries at the drawer.
-  final List<PackageLandingEntry> entries;
+  /// [Package] calculation entries to build playgrounds and details.
+  final List<PackageLandingEntryI> entries;
 
-  /// Creates a new [PackageLanding] instance object.
+  /// Creates a new [PackageLanding] instance.
   const PackageLanding({
     super.key,
-    this.landingEntry,
+    this.onDevelopment,
     this.entries = const <PackageLandingEntry>[],
     required this.title,
   });
@@ -32,7 +33,9 @@ final class PackageLanding extends StatefulWidget {
   State<PackageLanding> createState() => _PackageLandingState();
 }
 
-class _PackageLandingState extends State<PackageLanding> {
+
+/// [State] class for [PackageLanding].
+final class _PackageLandingState extends State<PackageLanding> {
   late ValueNotifier<PackageLandingEntry> currentEntry;
   String systemVersion = '---';
 
@@ -61,13 +64,13 @@ class _PackageLandingState extends State<PackageLanding> {
     );
 
     currentEntry = ValueNotifier<PackageLandingEntry>(
-      widget.landingEntry ??
+      widget.onDevelopment ??
           PackageLandingEntry(
             name: '',
             description: RichText(
               text: TextSpan(),
             ),
-            composeLanding: (BuildContext ctx) {
+            composer: (BuildContext ctx) {
               return SizedBox();
             },
           ),
@@ -160,7 +163,7 @@ class _PackageLandingState extends State<PackageLanding> {
                     title: displayedTitle,
                     child: Expanded(
                       child: SizedBox(
-                        child: value.composeLanding(context),
+                        child: value.composer(context),
                       ),
                     ),
                   );

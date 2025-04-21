@@ -17,6 +17,7 @@ export 'src/common/enums.dart';
 // --> Exporting [landing]
 export 'src/landing/package_landing.dart';
 export 'src/landing/package_landing_entry.dart';
+export 'src/landing/package_landing_entry_i.dart';
 
 // --> Exporting [routing]
 export 'src/routing/router.dart';
