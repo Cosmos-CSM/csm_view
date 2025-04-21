@@ -1,8 +1,11 @@
-import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/widgets/private/csm_landing.dart';
+import 'dart:io';
+
+import 'package:csm_view/csm_view.dart' hide ColoredSizedBox;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart' hide Theme;
 
-part 'widgets/private/csm_frame_indicator.dart';
+part '_view_root_size.dart';
+part './_view_root_welcome.dart';
 
 /// Core class for [ViewRoot].
 /// Defines a core fuctionallity class for [ViewRoot].
@@ -134,7 +137,7 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
     return ValueListenableBuilder<ThemeB>(
       valueListenable: themeManager.notifier,
       builder: (BuildContext context, _, __) {
-        Widget fixedChild = child ?? const CSMLanding();
+        Widget fixedChild = child ?? const _ViewRootWelcome();
         fixedChild = widget.builder?.call(context, fixedChild) ?? fixedChild;
         fixedChild = DefaultTextStyle(
           style: const TextStyle(
@@ -156,7 +159,7 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
                 ),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: _CSMFrameIndicator(),
+                  child: _ViewRootSize(),
                 ),
               ),
             ],

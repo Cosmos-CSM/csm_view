@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/routing/route_b.dart';
 import 'package:flutter/material.dart' hide Router, Route;
 import 'package:go_router/go_router.dart' hide RouteData;
 
@@ -47,9 +46,7 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
   @override
   RouteBase compose({
     bool isSub = false,
-    Route? developmentRoute,
-    bool applicationStart = true,
-    Redirection? injectRedirection,
+    Redirection? redirection,
   }) {
     return GoRoute(
       path: resolvePath(isSub),
@@ -68,7 +65,7 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
 
         RouteData output = RouteData.fromGo(state, route);
         FutureOr<Route?>? resultOptions;
-        resultOptions = injectRedirection?.call(ctx, output) ?? redirection?.call(ctx, output);
+        resultOptions = redirection?.call(ctx, output) ?? redirection?.call(ctx, output);
         Route? calcualtedRedirectionResult = await resultOptions;
         if (calcualtedRedirectionResult == null) return null;
         String? absolutePath = _router.getAbsolutePath(calcualtedRedirectionResult);

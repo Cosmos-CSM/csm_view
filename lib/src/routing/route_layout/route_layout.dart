@@ -1,20 +1,19 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/router/router_module.dart';
 
-/// Class for [CSMRouteLayout]
+/// [class] implementation for [RouteLayoutB].
 ///
-/// Define a final behavior for a [CSMRouteLayout] concept.
-/// That handles a [RouteLayout] at the route tree.
-final class CSMRouteLayout extends RouteLayoutB {
-  /// Generates a [CSMRouteLayout] object.
-  const CSMRouteLayout({
-    required super.layoutBuild,
-    super.parentNavigation,
+///
+/// Defines and holds behavior for a configuralte [RouteLayout] node at the [Router] tree.
+final class RouteLayout extends RouteLayoutB {
+  /// Creates a [RouteLayout] object.
+  const RouteLayout({
+    required super.layoutBuilder,
+    super.parentNavigatorStateKey,
     super.routes,
     super.restoration,
-    super.navigation,
+    super.navigatorStateKey,
     super.observers,
     super.transitionBuild,
-    super.redirect,
+    super.redirection,
   });
 }

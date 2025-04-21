@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/widgets/agents/csm_consumer_agent.dart';
+import 'package:csm_view/src/widgets/async_widget/async_widget_controller.dart';
 import 'package:flutter/material.dart';
 
 part 'async_widget_error.dart';
@@ -33,7 +33,7 @@ final class AsyncWidget<TData> extends StatefulWidget {
   final Widget Function(BuildContext ctx, TData data) successBuilder;
 
   /// Agent to perform actions to the component state instance.
-  final CSMConsumerAgent? agent;
+  final AsyncWidgetController? agent;
 
   /// Dart doesn't have a way to determine a Future<'T> Function is a Future<'void>, it has to be
   /// set manually tho.

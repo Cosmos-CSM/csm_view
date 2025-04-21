@@ -1,18 +1,20 @@
-import 'package:csm_view/src/router/router_module.dart';
 
-/// Class for [CSMRouteNode]
+
+import 'package:csm_view/csm_view.dart';
+
+/// [class] implementation for [RouteNodeB]
 ///
-/// Define a final behavior for a [CSMRouteNode] concept.
-/// That handles a [RouteNode] at the route tree.
-final class CSMRouteNode extends CSMRouteNodeBase {
-  /// Generates a [CSMRouteNode] object.
-  const CSMRouteNode(
+/// 
+/// Defines behavior for a [RouteNodeB] which is a [Router] calculation node tree.
+final class RouteNode extends RouteNodeB {
+  /// Creates a [RouteNode] object.
+  const RouteNode(
     super.routeOptions, {
-    required super.pageBuild,
-    super.parentNavigation,
+    required super.pageBuilder,
+    super.parentNavigatorStateKey,
     super.routes,
-    super.redirect,
-    super.transitionBuild,
-    super.onExit,
+    super.redirection,
+    super.transitionBuilder,
+    super.onDispose,
   });
 }

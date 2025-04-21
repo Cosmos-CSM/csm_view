@@ -1,17 +1,18 @@
+
 import 'package:csm_view/csm_view.dart';
-import 'package:flutter/material.dart' hide Router;
-import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart' hide Router, Route, LayoutBuilder;
+import 'package:go_router/go_router.dart' hide RouteData;
 
 /// [CSMRouter] dependency gather (for application routing purposes).
 final Router _router = Router.i;
 
-/// Base for [CSMRouteLayout].
+/// Base for [RouteLayout].
 ///
 /// Provides specific handlers and properties to indicate the base neccesary functions for a
-/// [CSMRouteLayout] concept behavior.
-/// A [CSMRouteLayout] is as well known at development as a UI wrapper for its children routes,
+/// [RouteLayout] concept behavior.
+/// A [RouteLayout] is as well known at development as a UI wrapper for its children routes,
 /// creating a standarized UI that'll be always consistent routing allong all Layout's children routes.
-class CSMRouteLayoutBase extends RouteB implements CSMRouteLayoutInterface {
+class RouteLayoutB extends RouteB implements RouteLayoutI {
   /// Identifier to the restoration scope along [Router]´s implementation restoration manager.
   @override
   final String? restoration;
@@ -22,57 +23,55 @@ class CSMRouteLayoutBase extends RouteB implements CSMRouteLayoutInterface {
 
   /// Custom [Navigation]. To handle operations along its children routes.
   @override
-  final Navigation? navigation;
+  final NavigationState? navigatorStateKey;
 
   /// Handles the build for a dynamic transition at the routing event.
   @override
-  final Page<dynamic> Function(CSMLayoutBase layout)? transitionBuild;
+  final Page<dynamic> Function(LayoutB layout)? transitionBuild;
 
   /// When the client enters into this route, will be redirected to this resolved redirect function.
   @override
-  final CSMRedirection? redirect;
+  final Redirection? redirection;
 
   /// Build function to create the [Layout] UI and draw it in the screen.
   @override
-  final CSMLayoutBuild layoutBuild;
+  final LayoutBuilder layoutBuilder;
 
   /// A complex Route object to indicate the existance of a route nodes wrapper into the Route manager.
   /// This means that this object only creates the clnfiguration for handle the redirection/direction of
   /// a complex [CSMLayoutBase] with its calculated [CSMPage] routed.
-  const CSMRouteLayoutBase({
-    super.parentNavigation,
+  const RouteLayoutB({
+    super.parentNavigatorStateKey,
     super.routes,
-    required this.layoutBuild,
+    required this.layoutBuilder,
     this.restoration,
-    this.navigation,
+    this.navigatorStateKey,
     this.observers,
     this.transitionBuild,
-    this.redirect,
+    this.redirection,
   });
 
   @override
   RouteBase compose({
     bool isSub = false,
-    bool applicationStart = true,
-    CSMRedirection? injectRedirection,
-    CSMRouteOptions? developmentRoute,
+    Redirection? redirection,
   }) {
     return ShellRoute(
       observers: observers,
-      navigatorKey: navigation,
-      parentNavigatorKey: parentNavigation,
+      navigatorKey: navigatorStateKey,
+      parentNavigatorKey: parentNavigatorStateKey,
       restorationScopeId: restoration ?? GlobalKey().toString(),
       pageBuilder: (BuildContext context, GoRouterState state, Widget child) {
         String path = state.uri.toString();
-        CSMRouteOptions route = _router.getOptions(path);
-        CSMLayoutBase layoutLaid = layoutBuild(context, CSMRouterOutput.fromGo(state, route), child);
+        Route route = _router.getRoute(path);
+        LayoutB layoutLaid = layoutBuilder(context, RouteData.fromGo(state, route), child);
         return transitionBuild?.call(layoutLaid) ?? noTransition(layoutLaid);
       },
       routes: <RouteBase>[
-        for (CSMRouteBase route in routes)
+        for (RouteB route in routes)
           route.compose(
             isSub: isSub,
-            injectRedirection: injectRedirection,
+            redirection: redirection,
           ),
       ],
     );

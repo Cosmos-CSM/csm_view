@@ -3,8 +3,8 @@ import 'package:device_info_plus/device_info_plus.dart' show DeviceInfoPlugin;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-part 'package_landing_device_infor.dart';
-part 'package_landing_entry_details.dart';
+part '_package_landing_device_details.dart';
+part '_package_landing_entry_details.dart';
 
 /// A Package Landing full application manager for View packages based on [CSMView].
 ///
@@ -140,8 +140,8 @@ class _PackageLandingState extends State<PackageLanding> {
                     spacing: 16,
                     verticalDirection: VerticalDirection.up,
                     children: <Widget>[
-                      if (entry.name.isNotEmpty) _CSMPackageLandingEntryDetails(entry),
-                      _PackageLandingDeviceInfo(systemVersion),
+                      if (entry.name.isNotEmpty) _PackageLandingEntryDetails(entry),
+                      _PackageLandingDeviceDetails(systemVersion),
                     ],
                   );
                 },
