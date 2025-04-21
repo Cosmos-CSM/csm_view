@@ -1,4 +1,5 @@
-import 'package:csm_view/src/common/common_module.dart';
+import 'package:csm_view/src/utils/console.dart';
+import 'package:csm_view/src/utils/widget_focus.dart';
 import 'package:flutter/widgets.dart';
 
 /// Options class for [CSMInputHandler].
@@ -8,6 +9,7 @@ import 'package:flutter/widgets.dart';
 /// [CSMInputHandler] concept: specifications for an input handling references, like
 /// focus controller, editing controller and who should it be handled.
 final class CSMInputHandlerOptions {
+  
   /// Input control state identification
   final String name;
 
@@ -17,12 +19,15 @@ final class CSMInputHandlerOptions {
   /// Input control focus handler controller.
   final FocusNode? focusController;
 
+  /// Internal debugger console printer.
+  final Console _console;
+
   /// Generates a new [CSMInputHandlerOptions] options.
-  const CSMInputHandlerOptions(
+  CSMInputHandlerOptions(
     this.name, {
     this.textController,
     this.focusController,
-  });
+  }) : _console = Console('CONTROL-[($name)]');
 
   /// Generates a new [CSMInputHandlerOptions] options.
   ///
@@ -39,14 +44,14 @@ final class CSMInputHandlerOptions {
   /// If the current input doesn`t have a text editing controller, will be returned [''] empty string.
   String get text {
     if (textController != null) return (textController?.text as String);
-    CSMAdvisor('CONTROL-[($name)]').warning('Current controller context doesn\'t have a text editing controller');
+    _console.warning('Current controller context doesn\'t have a text editing controller');
     return '';
   }
 
   /// Request to get the focus to the current input context.
   void focus() {
-    if (focusController != null) return CSMFocuser.focus(focusController as FocusNode);
-    CSMAdvisor('CONTROL-[($name)]').warning('Current controller context doesn\'t have a focus controller');
+    if (focusController != null) return WidgetFocus.focus(focusController as FocusNode);
+    _console.warning('Current controller context doesn\'t have a focus controller');
     return;
   }
 }
