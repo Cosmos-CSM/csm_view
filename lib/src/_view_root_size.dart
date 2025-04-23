@@ -6,7 +6,7 @@ final class _ViewRootSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size frameSize = MediaQuery.sizeOf(context);
-    final ThemeB theme = GetIt.I.get<ThemeManagerI<ThemeB>>().get();
+    final ThemeB theme = Theming.get();
 
     return Text(
       frameSize.toString(),

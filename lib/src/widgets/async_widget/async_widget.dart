@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/widgets/async_widget/async_widget_controller.dart';
 import 'package:flutter/material.dart';
 
 part 'async_widget_error.dart';

@@ -4,7 +4,6 @@ library;
 
 // --> Package proxies
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
-export 'package:get_it/get_it.dart' show GetIt;
 
 // ---> Exporting base package
 export 'src/view_root.dart';
@@ -19,9 +18,9 @@ export 'src/landing/package_landing.dart';
 export 'src/landing/package_landing_entry.dart';
 export 'src/landing/package_landing_entry_i.dart';
 export 'src/landing/package_landing_entry_b.dart';
-export 'src/landing/package_landing_theme_b.dart';
-export 'src/landing/package_landing_theme_dark.dart';
-export 'src/landing/package_landing_theme_light.dart';
+export 'src/landing/package_landing_theme/package_landing_theme_b.dart';
+export 'src/landing/package_landing_theme/package_landing_theme_dark.dart';
+export 'src/landing/package_landing_theme/package_landing_theme_light.dart';
 
 // --> Exporting [routing]
 export 'src/routing/router.dart';
@@ -54,7 +53,7 @@ export 'src/routing/route_whisper/route_whisper.dart';
 // ---> Exporting [theming]
 export 'src/theming/theme_b.dart';
 export 'src/theming/theme_i.dart';
-export 'src/theming/theming_manager.dart';
+export 'src/theming/theme_manager.dart';
 
 // --> Exporting [theming.models]
 export 'src/theming/models/simple_theming.dart';
@@ -79,6 +78,7 @@ export 'src/widgets/colored_sized_box.dart';
 export 'src/widgets/pointer_area.dart';
 export 'src/widgets/responsive_widget.dart';
 export 'src/widgets/data_table.dart';
+export 'src/widgets/theme_switcher.dart';
 
 // --> Exporting [widgets.adaptive_widget]
 export 'src/widgets/adaptive_widget/adaptive_widget.dart';

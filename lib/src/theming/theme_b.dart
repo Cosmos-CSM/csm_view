@@ -5,6 +5,14 @@ import 'package:flutter/material.dart';
 ///
 /// Defines handlers and common members for all theming implementations.
 abstract class ThemeB implements ThemeI {
+  /// Icon to represent visually the theme context.
+  @override
+  final Icon icon;
+
+  /// Contrast background color to highlight [icon].
+  @override
+  final Color iconBackground;
+
   /// Unique theme identification for the theme manager.
   @override
   final String identifier;
@@ -17,5 +25,7 @@ abstract class ThemeB implements ThemeI {
   const ThemeB(
     this.identifier, {
     this.frame,
+    required this.icon,
+    required this.iconBackground,
   });
 }

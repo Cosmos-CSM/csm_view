@@ -1,6 +1,6 @@
 part of 'package_landing.dart';
 
-/// Internal fragment for [PackagePlayground] view composition that displays only the details for the component selected.
+/// Internal fragment for [PackageLanding] view composition that displays only the details for the component selected.
 final class _PackageLandingEntryDetails extends StatelessWidget {
   final PackageLandingEntry entry;
 

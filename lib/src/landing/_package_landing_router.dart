@@ -4,7 +4,7 @@ part of 'package_landing.dart';
 ///
 ///
 /// Defines an implemnentation for a complex [RouterTreeB] configuration and manager privately for
-/// [PackagePlayground] component.
+/// [PackageLanding] component.
 final class _PackageLandingRouter extends RouterTreeB {
   /// Creats a new [_PackageLandingRouter] instance.
   _PackageLandingRouter({

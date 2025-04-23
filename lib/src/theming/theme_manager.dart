@@ -2,7 +2,7 @@ import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 /// Internal alias for [effects] functions that listen at theme changes for statefull widgets.
-typedef Effect<TThemeB extends ThemeB> = void Function(TThemeB theme);
+typedef Effect<TThemeB extends ThemeI> = void Function(TThemeB theme);
 
 /// [Exception] thrown when the [ThemeManager] internal [ValueNotifier] wasn't correctly inited.
 final class _InitException implements Exception {
@@ -18,7 +18,7 @@ final class _InitException implements Exception {
 }
 
 ///
-abstract interface class ThemeManagerI<TThemeB extends ThemeB> {
+abstract interface class ThemeManagerI<TThemeB extends ThemeI> {
   /// Gets the current application [theme] loaded.
   TThemeB get();
 
@@ -93,7 +93,7 @@ final class ThemeManager<TThemeB extends ThemeB> implements ThemeManagerI<TTheme
   /// RECOMMENDED USE (For [StatefulWidget]):
   /// '''dart
   ///   "State"
-  /// 
+  ///
   ///   late final ThemeManagerI<'ThemeB> = GetIt.I.get<'ThemeManagerI<'ThemeB>>();
   ///   late final UniqueKey effectKey = UniqueKey();
   ///   late ThemeB theme;
@@ -153,7 +153,7 @@ final class ThemeManager<TThemeB extends ThemeB> implements ThemeManagerI<TTheme
     _effects.putIfAbsent(ref, () => effect);
     return get();
   }
-  
+
   @override
   void removeEffect(UniqueKey ref) {
     _effects.remove(ref);

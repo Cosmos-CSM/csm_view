@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 /// Stores the configuration of a CSMPackageLanding entry, meaning this will configure how the
 /// button and the component will be displayed in the package landing application.
-final class PackageLandingEntry extends PackageLandingEntryB {
+final class PackageLandingEntry<TThemeB extends PackageLandingThemeB> extends PackageLandingEntryB<TThemeB> {
 
   /// Composition widget function, how will be drawn teh component in the landing application.
   ///
   /// [ctx] the parent build context.
   /// 
   /// [windowSize] computed current window size.
-  final Widget Function(BuildContext ctx, Size windowSize) contentBuilder;
+  final Widget Function(BuildContext buildContext, Size windowSize, TThemeB theme) contentBuilder;
 
   /// Creates a new [PackageLandingEntry] object indicating how to draw and handle a new component entry
   /// at the Package Landing application.
@@ -22,7 +22,7 @@ final class PackageLandingEntry extends PackageLandingEntryB {
   });
   
   @override
-  Widget compose(BuildContext ctx, Size window) {
-    return contentBuilder(ctx, window);
+  Widget composeEntry(BuildContext buildContext, Size windowSize, TThemeB theme) {
+    return contentBuilder(buildContext, windowSize, theme);
   }
 }

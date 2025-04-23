@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:csm_view/csm_view.dart' hide ColoredSizedBox;
+import 'package:csm_view/src/utils/injector.dart';
+import 'package:csm_view/src/utils/theming.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart' hide Theme;
 
@@ -50,6 +52,9 @@ final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
   /// Wheter the application should use legacy debug indicator banner.
   final bool useLegacyDebugBanner;
 
+  /// Callback invokation when [ViewRoot] has initialized it's view, useful for dependency injection and initialization.
+  final void Function()? afterViewInit;
+
   /// Generates a new [ViewRoot] application.
   const ViewRoot({
     super.key,
@@ -57,6 +62,7 @@ final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
     this.home,
     this.builder,
     this.routerConfig,
+    this.afterViewInit,
     this.routerDelegate,
     this.themes = const <Never>[],
     this.listenFrame = false,
@@ -71,6 +77,7 @@ final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
     super.key,
     this.builder,
     this.routerConfig,
+    this.afterViewInit,
     this.routerDelegate,
     this.themes = const <Never>[],
     this.listenFrame = false,
@@ -100,13 +107,16 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
   @override
   void initState() {
     super.initState();
+    const Console('COSMOS').message('Starting engines⚙️⚙️⚙️');
     WidgetsFlutterBinding.ensureInitialized();
 
+    
     themeManager = ThemeManager<TThemeB>(widget.defaultTheme as TThemeB, widget.themes as List<TThemeB>);
-    GetIt.I.registerSingleton<ThemeManagerI<TThemeB>>(themeManager);
+    Injector.addSingleton<ThemeManagerI<TThemeB>>(themeManager);
+    Injector.addSingleton<ThemeManagerI<ThemeI>>(themeManager);
 
     byHome = widget.home ?? widget.homeBuilder?.call(context);
-    const Console('COSMOS').message('Starting engines⚙️⚙️⚙️');
+    widget.afterViewInit?.call();
   }
 
   @override
@@ -136,10 +146,11 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
   Widget _frameListener(BuildContext ctx, Widget? child) {
     return ValueListenableBuilder<ThemeB>(
       valueListenable: themeManager.notifier,
-      builder: (BuildContext context, _, __) {
-        Widget fixedChild = child ?? const _ViewRootWelcome();
+      builder: (BuildContext context, ThemeB theme, Widget? reChild) {
+        Widget fixedChild = reChild ?? child ?? const _ViewRootWelcome();
         fixedChild = widget.builder?.call(context, fixedChild) ?? fixedChild;
         fixedChild = DefaultTextStyle(
+          key: UniqueKey(),
           style: const TextStyle(
             decoration: TextDecoration.none,
             fontSize: 15,

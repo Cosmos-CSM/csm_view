@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/common/enums.dart';
 import 'package:flutter/foundation.dart';
 
 /// [class] for [Domain] implementation.
