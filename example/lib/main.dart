@@ -1,22 +1,27 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:example/entries/theme_manager.dart';
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
   runApp(
-    PackageLanding(
-      title: 'CSM View',
-      entries: [
+    PackagePlayground(
+      name: 'CSM View',
+      landingEntries: <PackageLandingEntryI>[
         PackageLandingEntry(
-          name: 'Theming Management',
+          name: 'Theming Behavior',
           description: RichText(
             text: const TextSpan(
-              text: '',
-            ),
-          ), 
-          composer: (BuildContext context) => const Theming(),
+                text: 'Some descriptive text'),
+          ),
+          contentBuilder: (ctx, windowSize) {
+            return const Center(
+              child: Text(
+                'Welcome to your first entry!',
+              ),
+            );
+          },
         ),
       ],
     ),
   );
 }
+

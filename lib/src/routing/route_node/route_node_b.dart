@@ -76,7 +76,7 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
       ],
       pageBuilder: (BuildContext context, GoRouterState state) {
         RouteData routeOutput = RouteData.fromGo(state, route);
-        CSMPageBase pageLaid = pageBuilder(context, routeOutput);
+        PageI pageLaid = pageBuilder(context, routeOutput);
 
         return transitionBuilder?.call(pageLaid) ?? noTransition(pageLaid);
       },

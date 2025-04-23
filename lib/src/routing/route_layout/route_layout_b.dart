@@ -27,7 +27,7 @@ class RouteLayoutB extends RouteB implements RouteLayoutI {
 
   /// Handles the build for a dynamic transition at the routing event.
   @override
-  final Page<dynamic> Function(LayoutB layout)? transitionBuild;
+  final Page<dynamic> Function(LayoutI layout)? transitionBuild;
 
   /// When the client enters into this route, will be redirected to this resolved redirect function.
   @override
@@ -42,13 +42,13 @@ class RouteLayoutB extends RouteB implements RouteLayoutI {
   /// a complex [CSMLayoutBase] with its calculated [CSMPage] routed.
   const RouteLayoutB({
     super.parentNavigatorStateKey,
-    super.routes,
-    required this.layoutBuilder,
     this.restoration,
     this.navigatorStateKey,
     this.observers,
     this.transitionBuild,
     this.redirection,
+    required super.routes,
+    required this.layoutBuilder,
   });
 
   @override
@@ -64,7 +64,7 @@ class RouteLayoutB extends RouteB implements RouteLayoutI {
       pageBuilder: (BuildContext context, GoRouterState state, Widget child) {
         String path = state.uri.toString();
         Route route = _router.getRoute(path);
-        LayoutB layoutLaid = layoutBuilder(context, RouteData.fromGo(state, route), child);
+        LayoutI layoutLaid = layoutBuilder(context, RouteData.fromGo(state, route), child);
         return transitionBuild?.call(layoutLaid) ?? noTransition(layoutLaid);
       },
       routes: <RouteBase>[

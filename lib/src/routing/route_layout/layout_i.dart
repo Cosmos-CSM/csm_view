@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 ///
 /// A [LayoutI] is a custom view concept that usually nests different routing outputs into intself working as a static / base
 /// view along different routing results, like a pattern around the routing result content.
-abstract interface class LayoutI {
+abstract interface class LayoutI extends Widget {
   /// Content to be wrapped by the [LayoutI].
   final Widget page;
 
   /// Creates a new [LayoutI] object.
-  const LayoutI(this.page);
+  const LayoutI(
+    this.page, {
+    super.key,
+  });
 }

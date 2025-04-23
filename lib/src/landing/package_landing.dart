@@ -1,178 +1,86 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:device_info_plus/device_info_plus.dart' show DeviceInfoPlugin;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route, Router;
 
 part '_package_landing_device_details.dart';
 part '_package_landing_entry_details.dart';
+part '_package_landing_welcome.dart';
+part '_package_landing_router.dart';
+part '_package_landing_layout.dart';
 
-/// [Widget] class for [PackageLanding].
+/// [Widget] class for [PackagePlayground].
 /// 
 /// 
 /// Provides a complex detailed view for a [Package] development example. Allowing to interact in user-time with the objects
 /// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
-final class PackageLanding extends StatefulWidget {
-  /// [Package] title.
-  final String title;
+final class PackagePlayground extends StatelessWidget {
+  
+  /// Package name.
+  final String name;
 
-  /// Default [PackageLandingEntryI] to be built on start for easier development.
-  final PackageLandingEntry? onDevelopment;
+  /// Package playground entry.
+  final List<PackageLandingEntryI> landingEntries;
 
-  /// [Package] calculation entries to build playgrounds and details.
-  final List<PackageLandingEntryI> entries;
-
-  /// Creates a new [PackageLanding] instance.
-  const PackageLanding({
+  /// Createsa a new [PackagePlayground] instance.
+  const PackagePlayground({
     super.key,
-    this.onDevelopment,
-    this.entries = const <PackageLandingEntry>[],
-    required this.title,
+    required this.name,
+    required this.landingEntries,
   });
 
-  @override
-  State<PackageLanding> createState() => _PackageLandingState();
-}
+  /// Calculates a simulated internal Route Tree based on the [landingEntries] configured, to store
+  /// the reference for the [Route] object instances as they're needed for [Router] handling.
+  Map<PackageLandingEntryI, Route> calculateRouteTree() {
+    final Map<PackageLandingEntryI, Route> treeCache = <PackageLandingEntryI, Route>{};
 
+    for (PackageLandingEntryI landingEntry in landingEntries) {
+      final Route entryRoute = Route(landingEntry.name);
+      treeCache[landingEntry] = entryRoute;
+    }
 
-/// [State] class for [PackageLanding].
-final class _PackageLandingState extends State<PackageLanding> {
-  late ValueNotifier<PackageLandingEntry> currentEntry;
-  String systemVersion = '---';
-
-  @override
-  void initState() {
-    super.initState();
-    // --> Getting device info to display system version.
-    DeviceInfoPlugin().deviceInfo.then(
-      (BaseDeviceInfo deviceInfo) {
-        setState(
-          () {
-            if (deviceInfo is WebBrowserInfo) {
-              systemVersion = deviceInfo.appVersion?.split(' ').reversed.elementAt(1) ?? systemVersion;
-            } else if (deviceInfo is LinuxDeviceInfo) {
-              systemVersion = deviceInfo.version ?? systemVersion;
-            } else if (deviceInfo is WindowsDeviceInfo) {
-              systemVersion = deviceInfo.displayVersion;
-            } else if (deviceInfo is AndroidDeviceInfo) {
-              systemVersion = deviceInfo.version.incremental;
-            } else if (deviceInfo is IosDeviceInfo) {
-              systemVersion = deviceInfo.systemVersion;
-            }
-          },
-        );
-      },
-    );
-
-    currentEntry = ValueNotifier<PackageLandingEntry>(
-      widget.onDevelopment ??
-          PackageLandingEntry(
-            name: '',
-            description: RichText(
-              text: TextSpan(),
-            ),
-            composer: (BuildContext ctx) {
-              return SizedBox();
-            },
-          ),
-    );
+    return treeCache;
   }
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+    final Map<PackageLandingEntryI, Route> routingTree = calculateRouteTree();
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          foregroundColor: Colors.white,
-          title: Center(
-            child: Text('${widget.title} Landing'),
+    return ViewRoot<PackageLandingThemeB>(
+      defaultTheme: PackageLandingThemeLight(),
+      listenFrame: false,
+      routerConfig: _PackageLandingRouter(
+        routes: <RouteB>[
+          RouteLayout(
+            routes: <RouteB>[
+              RouteNode(
+                Route(
+                  '',
+                  name: 'home',
+                ),
+                pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome(),
+              ),
+              for (MapEntry<PackageLandingEntryI, Route> routingLeaf in routingTree.entries) ...<RouteB>[
+                RouteNode(
+                  routingLeaf.value,
+                  pageBuilder: (_, __) => routingLeaf.key,
+                ),
+              ],
+            ],
+            layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
+              return _PackageLandingLayout(
+                page: page,
+              );
+            },
           ),
-        ),
-        drawer: ColoredBox(
-          color: Colors.blueGrey,
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 500,
-            ),
-            child: SizedBox(
-              width: MediaQuery.sizeOf(context).width * .65,
-              height: double.maxFinite,
-              child: Column(
-                spacing: 8,
-                children: <Widget>[
-                  for (PackageLandingEntry entry in widget.entries) ...<Widget>[
-                    SizedBox(
-                      width: double.infinity,
-                      child: TextButton(
-                        onPressed: () {
-                          currentEntry.value = entry;
-                          scaffoldKey.currentState?.closeDrawer();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            entry.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ]
-                ],
-              ),
-            ),
-          ),
-        ),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              width: double.maxFinite,
-              child: ValueListenableBuilder<PackageLandingEntry>(
-                valueListenable: currentEntry,
-                builder: (BuildContext context, PackageLandingEntry entry, Widget? child) {
-                  return Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    runSpacing: 16,
-                    spacing: 16,
-                    verticalDirection: VerticalDirection.up,
-                    children: <Widget>[
-                      if (entry.name.isNotEmpty) _PackageLandingEntryDetails(entry),
-                      _PackageLandingDeviceDetails(systemVersion),
-                    ],
-                  );
-                },
-              ),
-            ),
-
-            // --> Displayable component zone
-            Expanded(
-              child: ValueListenableBuilder<PackageLandingEntry>(
-                valueListenable: currentEntry,
-                builder: (BuildContext context, PackageLandingEntry value, Widget? child) {
-                  final String displayedTitle = value.name.isNotEmpty ? value.name : 'CSM View Landing';
-
-                  return Title(
-                    color: Colors.black,
-                    title: displayedTitle,
-                    child: Expanded(
-                      child: SizedBox(
-                        child: value.composer(context),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+        ],
+      ),
+      home: Title(
+        color: Colors.black,
+        title: name,
+        child: Center(
+          child: Text('Welcome to CSM View package landing!'),
         ),
       ),
     );
-  }
+  }  
 }

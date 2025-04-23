@@ -5,11 +5,11 @@ import 'package:flutter/material.dart' hide Route, Router;
 /// Type definition for the navigation state key.
 typedef NavigationState = GlobalKey<NavigatorState>;
 
-/// Type definition for [CSMPageBase] builder method.
-typedef PageBuilder = CSMPageBase Function(BuildContext ctx, RouteData routeData);
+/// Type definition for [PageI] builder method.
+typedef PageBuilder = PageI Function(BuildContext ctx, RouteData routeData);
 
-/// Type definition for [CSMLayoutBase] builder method.
-typedef LayoutBuilder = LayoutB Function(BuildContext ctx, RouteData routeData, Widget page);
+/// Type definition for [LayoutI] builder method.
+typedef LayoutBuilder = LayoutI Function(BuildContext ctx, RouteData routeData, Widget page);
 
 /// Type definition for [Router] redirection calculation.
 typedef Redirection = FutureOr<Route?> Function(BuildContext ctx, RouteData routeData);

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 /// Defines base hebavior for [CSMPage] implementation.
 ///
 /// [CSMPage] concept: is a complex UI that designs a full user display page, wrapping content and displaying custom designs.
-abstract class CSMPageBase extends StatelessWidget implements PageI {
-  const CSMPageBase({
+abstract class PageB extends StatelessWidget implements PageI {
+  const PageB({
     super.key,
   });
 

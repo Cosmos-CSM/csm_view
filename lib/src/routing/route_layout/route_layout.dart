@@ -8,8 +8,8 @@ final class RouteLayout extends RouteLayoutB {
   /// Creates a [RouteLayout] object.
   const RouteLayout({
     required super.layoutBuilder,
+    required super.routes,
     super.parentNavigatorStateKey,
-    super.routes,
     super.restoration,
     super.navigatorStateKey,
     super.observers,

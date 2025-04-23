@@ -5,7 +5,7 @@ import 'package:flutter/material.dart' hide LayoutBuilder, Router;
 ///
 /// Defines a behavior for a routing layout configuration that is a routing node where a shared layout should be
 /// build for several configured routing end nodes to be wrapped from.
-abstract interface class RouteLayoutI {
+abstract interface class RouteLayoutI extends RouteB {
   /// Identifier to the restoration scope along [Router]´s implementation restoration manager.
   final String? restoration;
 
