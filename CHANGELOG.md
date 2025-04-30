@@ -1,24 +1,46 @@
 # CHANGELOG
 
-## CURRENT - [xx.xx-xxxx]
+## 6.0.0 - [29.04-2025]
 
 - Notes:
 
-    1. Changed concept name from [widgets] to [components].
+    1. Changed concept name from [components] to [Widgets].
 
     2. Added the new [Adaptive] concept, this handles a set of tools to calculate easier the way to display complex views on different platforms.
-        - Added a new base class to build adaptive components [CSMAdaptiveComponentBase].
+        - Added a new base class to build adaptive components [AdaptiveWidgetB].
         - Added a new method to evaluate the correct property to set [adaptProperty<'T>].
 
-    3. Added new properties to [CSMPlatforms].
+    3. Added new properties to [Platforms].
         - [name] Descriptive name.
         - [color] Identification color.
 
-    4. Added the new [CSMLanding] concept enhancing the way that package example applications are made.
-        - Now the landing packages have a straightforward component to automatically build a good-look application to browser throughout the component library [CSMPackageLanding].
-        - All the component library can be customized depending on needs to display configurations and handle states through [CSMLandingPackageEntry] class.
+    4. Added the new [PackageLanding] concept enhancing the way that package example applications are made.
+        - Now the landing packages have a straightforward component to automatically build a good-look application to browser throughout the component library [PackageLanding].
+        - All the component library can be customized depending on needs to display configurations and handle states through [PackageLandingEntryI] interface.
+
+    5. Refactorized file organization and concept handling.
+
+    6. Created a new [Injector] with static methods to handle dependencies injection along the application runtime.
+
+    7. Renamed some [Widgets] and injected automatically [Router], [ThemeManager] and [WidgetAdaptiveness] to the application [Injector].
+
+- Fixes:
+
+    1. Fixed an issue where the [PackageLanding] was overflowing render for the collapsible menu.
 
 - Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    | get_it                                  | ---              | 8.0.3           |
+    | go_router                               | 14.3.0           | 15.1.1          |
+    | device_info_plus                        | ---              | 11.4.0          |
+
+- Dev Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    | flutter_lints                           | ---              | 5.0.0           |
 
 ## 5.0.0 - [29.10-2024]
 
