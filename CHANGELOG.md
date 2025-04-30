@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## CURRENT - [XX.XX-XXXX]
+
+- Notes:
+- Fixes:
+- Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    |                                         | ---              | ---             |
+
+- Dev Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    |                                         | ---              | ---             |
+
 ## 6.0.0 - [29.04-2025]
 
 - Notes:
