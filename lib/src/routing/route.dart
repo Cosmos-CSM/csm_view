@@ -24,9 +24,17 @@ final class Route {
   /// [name] is being parsed to a validated [name] handling.
   String get name {
     final String parsedPath = path.substring(1);
-    if ((_name != null && _name.isEmpty) || parsedPath.isEmpty) return 'init-path-parsed';
-    if (_name != null && _name.startsWith('/')) return _name.substring(1);
-    if (_name != null) return _name;
+  
+    if ((_name == null || _name.isEmpty) && parsedPath.isEmpty) return 'Home';
+
+    if (_name != null) {
+      if (_name.startsWith('/')) {
+        return _name.substring(1);
+      }
+
+      return _name;
+    }
+
     return hashCode.toString();
   }
 

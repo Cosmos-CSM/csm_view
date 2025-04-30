@@ -4,7 +4,7 @@ import 'package:csm_view/csm_view.dart' hide ColoredSizedBox;
 import 'package:csm_view/src/utils/injector.dart';
 import 'package:csm_view/src/utils/theming.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
-import 'package:flutter/material.dart' hide Theme;
+import 'package:flutter/material.dart' hide Theme, Router;
 
 part '_view_root_size.dart';
 part './_view_root_welcome.dart';
@@ -114,6 +114,8 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
     themeManager = ThemeManager<TThemeB>(widget.defaultTheme as TThemeB, widget.themes as List<TThemeB>);
     Injector.addSingleton<ThemeManagerI<TThemeB>>(themeManager);
     Injector.addSingleton<ThemeManagerI<ThemeI>>(themeManager);
+    Injector.addSingleton<WidgetResponsiveness>(WidgetResponsiveness.i);
+    Injector.addSingleton<Router>(Router.i);
 
     byHome = widget.home ?? widget.homeBuilder?.call(context);
     widget.afterViewInit?.call();

@@ -13,6 +13,20 @@ class PackageLandingThemeDark extends PackageLandingThemeB {
           themeId ?? 'package-landing-theme-dark',
           icon: Icon(Icons.dark_mode),
           iconBackground: Colors.black54,
-          layoutHeaderColor: Colors.blue,
+          pageTheming: SimpleTheming(
+            back: Colors.black87,
+            fore: Colors.white,
+            accent: Colors.grey.shade600,
+          ),
+          headerTheming: SimpleTheming(
+            back: Colors.grey.shade600,
+            fore: Colors.white,
+            accent: Colors.white,
+          ),
+          welcomeCardTheming: SimpleTheming(
+            back: Colors.grey.shade600,
+            fore: Colors.white,
+            accent: Colors.white,
+          ),
         );
 }

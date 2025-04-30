@@ -7,26 +7,26 @@ import 'package:flutter/material.dart';
 /// [CSMColorTheme] concept: specifications to describe the base theme for a button component.
 final class SimpleTheming {
   /// Base [Color] usually known as [background].
-  final Color main;
+  final Color back;
 
-  /// A secondary [Color] usually contrast when its over [main]-[Color].
+  /// A secondary [Color] usually contrast when its over [back]-[Color].
   final Color fore;
 
   /// An alternative [fore]-[Color].
   final Color? foreAlt;
 
-  /// A [highlight], [Color] that contrast both [main] and [fore]. [Color]'s.
-  final Color highlight;
+  /// A [accent], [Color] that contrast both [back] and [fore]. [Color]'s.
+  final Color accent;
 
-  /// An alternative [highlight], [Color].
-  final Color? hightlightAlt;
+  /// An alternative [accent], [Color].
+  final Color? accentAlt;
 
   /// Generates a new [SimpleTheming] options.
-  const SimpleTheming(
-    this.main,
-    this.fore,
-    this.highlight, {
+  const SimpleTheming({
     this.foreAlt,
-    this.hightlightAlt,
+    this.accentAlt,
+    required this.back,
+    required this.fore,
+    required this.accent,
   });
 }

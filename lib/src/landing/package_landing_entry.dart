@@ -16,6 +16,7 @@ final class PackageLandingEntry<TThemeB extends PackageLandingThemeB> extends Pa
   /// at the Package Landing application.
   const PackageLandingEntry({
     super.key, 
+    super.image,
     required super.name,
     required super.description,
     required this.contentBuilder,

@@ -7,5 +7,5 @@ import 'package:flutter/material.dart' hide Route;
 /// rendered.
 abstract interface class PageI implements StatelessWidget {
   /// Composes a visible view as a [RouteNodeI] interactive page.
-  Widget compose(BuildContext buildContext, Size windowSize);
+  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize);
 }

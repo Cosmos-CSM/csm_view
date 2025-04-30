@@ -19,3 +19,14 @@ typedef DataMap = Map<String, Object?>;
 
 /// Type definition for [DataMapEntry], simplifying low level data structures.
 typedef DataMapEntry = MapEntry<String, Object?>;
+
+/// Type definition for [DescriptionBuilder] simplifying descriptive landing page related widgets.
+///
+///
+/// [T] type of the [ThemeI] implementation that defines application base theme contract.
+///
+///
+/// [theme] the current [T] instance result.
+///
+/// [foreColor] the preferred foreground color for the description.
+typedef DescriptionBuilder<T extends ThemeI> = InlineSpan Function(T theme, Color foreColor);

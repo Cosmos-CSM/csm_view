@@ -19,6 +19,11 @@ final class Injector {
     _injector.registerSingleton<T>(instance);
   }
 
+  ///
+  static T get<T extends Object>() {
+    return _injector.get<T>();
+  }
+
   /// Gets the [ThemeManagerI] instance from the dependency injector.
   static ThemeManagerI<TThemeB> getThemeManager<TThemeB extends ThemeI>() {
     final ThemeManagerI<TThemeB> themeManager = _injector.get<ThemeManagerI<TThemeB>>();
