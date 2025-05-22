@@ -1,9 +1,15 @@
 # CHANGELOG
 
-## CURRENT - [XX.XX-XXXX]
+## 6.1.0 - [21.05-2025]
 
 - Notes:
+
+  - Added a callback for [PackageLanding] at the end of the app init phase to use freely [Injector] operations and another dependencies calculations.
+
 - Fixes:
+
+  - Fixed a bug with the [PackageLanding] builder at the {Menu} about not rendering correctly the Scroll View when there were more buttons than the available height.
+
 - Dependencies:
 
     | Package                                 | Previous Version | Current Version |
