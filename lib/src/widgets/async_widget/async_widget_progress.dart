@@ -16,7 +16,7 @@ class _AsyncWidgetProgress extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         CircularProgressIndicator(
-          color: Theme.of(context).indicatorColor,
+          color: Theme.of(context).tabBarTheme.indicatorColor,
         ),
         Padding(
           padding: const EdgeInsets.all(12),
