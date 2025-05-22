@@ -107,7 +107,7 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
   @override
   void initState() {
     super.initState();
-    const Console('COSMOS').message('Starting engines⚙️⚙️⚙️');
+    const Console('COSMOS').message('⚙️⚙️ Starting engines ⚙️⚙️');
     WidgetsFlutterBinding.ensureInitialized();
 
     

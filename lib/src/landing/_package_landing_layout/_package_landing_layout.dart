@@ -88,7 +88,7 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
                         color: theme.pageTheming.accent,
                         child: SizedBox(
                           width: menuWidth,
-                          height: pageSize.width,
+                          height: pageSize.height,
                           child: _PackageLandingLayoutMenu<T>(
                             menuWidth: menuWidth,
                             routingThree: routingTree,
