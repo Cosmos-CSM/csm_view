@@ -24,14 +24,13 @@ final Route _homeRoute = Route(
 );
 
 /// [Widget] class for [PackageLanding].
-/// 
-/// 
+///
+///
 /// Provides a complex detailed view for a [Package] development example. Allowing to interact in user-time with the objects
 /// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
-/// 
+///
 /// [T] type of your [abstract] class definition for custom theme implementations.
 final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidget {
-  
   /// Package name.
   final String name;
 
@@ -44,12 +43,16 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
   /// Available [ThemeB] implementations to be handled by the [ThemeManagerI] for application theme interactions.
   final List<T> themes;
 
+  /// Callback when the landing application is about to end {Init} phase time.
+  final VoidCallback? onInit;
+
   /// Package playground entry.
   final List<PackageLandingEntryI<T>> landingEntries;
 
   /// Createsa a new [PackageLanding] instance.
   const PackageLanding({
     super.key,
+    this.onInit,
     required this.name,
     required this.description,
     required this.defaultTheme,
@@ -141,7 +144,6 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
               ),
             ],
             layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
-
               return _PackageLandingLayout<T>(
                 page: page,
                 routeData: routeData,
@@ -156,6 +158,9 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
         final ThemeManagerI<T> themeManager = Injector.getThemeManager<T>();
 
         Injector.addSingleton<ThemeManagerI<PackageLandingThemeB>>(themeManager);
+        Injector.addSingleton<ThemeManagerI<T>>(themeManager);
+
+        onInit?.call();
       },
       builder: (BuildContext context, Widget? app) {
         final PackageLandingThemeB theme = Theming.get();
@@ -181,5 +186,5 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
         );
       },
     );
-  }  
+  }
 }
