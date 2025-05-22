@@ -24,9 +24,6 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
         vertical: 16,
       ),
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        primary: false,
-        controller: ScrollController(),
         child: Column(
           spacing: 8,
           children: <Widget>[
@@ -37,7 +34,7 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
                   final bool isSelected = currentRoute == routingLeaf.value;
                   final SimpleTheming buttonTheme =
                       isSelected ? theme.pageTheming : theme.headerTheming;
-
+      
                   return Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: 8,
@@ -85,7 +82,12 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
             ],
             Container(
               color: Colors.red,
-              height: 1000,
+              height: 500,
+              width: 100,
+            ),
+            Container(
+              color: Colors.green,
+              height: 500,
               width: 100,
             ),
           ],

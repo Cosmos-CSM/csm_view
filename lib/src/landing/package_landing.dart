@@ -4,7 +4,6 @@ import 'package:csm_view/src/utils/theming.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Route, Router;
-import 'package:flutter/rendering.dart';
 
 part '_package_landing_entry_layout/_package_landing_device_details.dart';
 part '_package_landing_router.dart';
