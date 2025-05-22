@@ -157,7 +157,6 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
         final ThemeManagerI<T> themeManager = Injector.getThemeManager<T>();
 
         Injector.addSingleton<ThemeManagerI<PackageLandingThemeB>>(themeManager);
-        Injector.addSingleton<ThemeManagerI<T>>(themeManager);
 
         onInit?.call();
       },
