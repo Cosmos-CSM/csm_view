@@ -80,16 +80,6 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
                 },
               )
             ],
-            Container(
-              color: Colors.red,
-              height: 500,
-              width: 100,
-            ),
-            Container(
-              color: Colors.green,
-              height: 500,
-              width: 100,
-            ),
           ],
         ),
       ),
