@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/utils/injector.dart';
 import 'package:flutter/material.dart';
 
 ///
