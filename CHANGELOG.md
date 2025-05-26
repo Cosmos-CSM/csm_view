@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 6.1.1 - [25.05-2025]
+
+- Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    | get_it                                  | 8.0.3            | 8.0.3           |
+    | go_router                               | 15.1.2           | 15.1.2          |
+    | device_info_plus                        | 11.4.0           | 11.4.0          |
+
+- Dev Dependencies:
+
+    | Package                                 | Previous Version | Current Version |
+    |:----------------------------------------|:----------------:|:---------------:|
+    | flutter_lints                           | 5.0.0            | X.X.X           |
+    | flutter_lints                           | ---              | 6.0.0           |
+
 ## 6.1.0 - [21.05-2025]
 
 - Notes:
