@@ -52,7 +52,7 @@ abstract interface class AdaptiveWidgetB extends StatelessWidget {
     DeviceInfoPlugin deviseInfo = DeviceInfoPlugin();
 
     return AsyncWidget<BaseDeviceInfo>(
-      future: () => deviseInfo.deviceInfo,
+      future: deviseInfo.deviceInfo,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
         if (data is WebBrowserInfo) {
           return composeBrowser(data);

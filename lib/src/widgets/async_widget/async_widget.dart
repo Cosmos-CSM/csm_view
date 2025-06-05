@@ -20,7 +20,7 @@ final class AsyncWidget<T> extends StatefulWidget {
   final AsyncWidgetController? agent;
 
   /// Native implementation asynchronouse abtraction of service call.
-  final FutureOr<T> Function() future;
+  final FutureOr<T> future;
 
   /// Wheter consider an empty object as error.
   final bool Function(T data)? emptyCheck;
@@ -128,7 +128,8 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
     if (widget.delay != null) {
       await Future<void>.delayed(widget.delay as Duration);
     }
-    return widget.future();
+    
+    return widget.future;
   }
 
   @override

@@ -9,7 +9,7 @@ final class _PackageLandingDeviceDetails extends StatelessWidget {
     final PackageLandingThemeB theme = Theming.get();
 
     return AsyncWidget<BaseDeviceInfo>(
-      future: () => DeviceInfoPlugin().deviceInfo,
+      future: DeviceInfoPlugin().deviceInfo,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
         String systemVersion = '---';
         String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';
