@@ -101,6 +101,13 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
       widget.agent?.addListener(_refreshFuture);
     }
 
+    if (widget.future != oldWidget.future) {
+      connState = ConnectionState.none;
+      cachWidget = null;
+      cachWidgetBuilder = null;
+      cachFuture = _delayConsume();
+    }
+
     if ((oldWidget.isStatic != widget.isStatic) && widget.isStatic && cachWidgetBuilder != null) {
       cachWidget = cachWidgetBuilder!();
     }
