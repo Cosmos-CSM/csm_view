@@ -7,13 +7,12 @@ part 'async_widget_progress.dart';
 
 /// [Widget] class for [AsyncWidget].
 ///
-/// 
+///
 /// [T] type of the result data object for the [Future] invokation.
-/// 
+///
 /// Defines a complex [Widget] that handles asynchronous calls to wait for a result data object, drawing
 /// different views depending on the [Future] invokation state and custom given building evaluations.
 final class AsyncWidget<T> extends StatefulWidget {
-
   /// Forced time to await before perfoming the consumption.
   final Duration? delay;
 
@@ -22,7 +21,7 @@ final class AsyncWidget<T> extends StatefulWidget {
 
   /// Native implementation asynchronouse abtraction of service call.
   final FutureOr<T> Function() future;
- 
+
   /// Wheter consider an empty object as error.
   final bool Function(T data)? emptyCheck;
 
@@ -39,7 +38,7 @@ final class AsyncWidget<T> extends StatefulWidget {
   /// set manually tho.
   final bool isVoid;
 
-  /// Whether [AsyncWidget] should cache the result [Widget] intself and don't rebuild it even though the 
+  /// Whether [AsyncWidget] should cache the result [Widget] intself and don't rebuild it even though the
   /// state has received updates that doesn't affect the [future] data be re-fetched.
   ///
   ///
@@ -72,7 +71,6 @@ final class AsyncWidget<T> extends StatefulWidget {
 ///
 /// Handles the [State] behavior for [AsyncWidget].
 class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
-
   /// Cached [Widget] when this is static and one has been resulted.
   Widget? cachWidget;
 
@@ -82,19 +80,23 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
   /// Cached [Future] invokation metadata.
   late Future<TData> cachFuture = _delayConsume();
 
+  /// Stores the last Future connection state result.
+  late ConnectionState connState;
+
   @override
   void initState() {
-    super.initState();
-
+    connState = ConnectionState.none;
     widget.agent?.addListener(_refreshFuture);
+    super.initState();
   }
 
   @override
   void didUpdateWidget(covariant AsyncWidget<TData> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    
+
     if (oldWidget.agent != widget.agent) {
       cachWidgetBuilder = null;
+      connState = ConnectionState.none;
       oldWidget.agent?.removeListener(_refreshFuture);
       widget.agent?.addListener(_refreshFuture);
     }
@@ -104,11 +106,12 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
     }
   }
 
-  /// Refreshes the current [cachFuture], re-fetching the data and re-building the resulted [Widget].  
+  /// Refreshes the current [cachFuture], re-fetching the data and re-building the resulted [Widget].
   void _refreshFuture() {
     setState(() {
       cachWidget = null;
       cachWidgetBuilder = null;
+      connState = ConnectionState.none;
       cachFuture = _delayConsume();
     });
   }
@@ -127,7 +130,7 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
       return cachWidget!;
     }
 
-    return cachWidgetBuilder != null
+    return cachWidgetBuilder != null && connState == ConnectionState.done
         ? cachWidgetBuilder!()
         : FutureBuilder<TData>(
             future: cachFuture,
@@ -137,8 +140,11 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
                 cachWidgetBuilder = () => widget.loadingBuilder?.call(context) ?? const _AsyncWidgetProgress();
               } else {
                 // --> The consumer has reached an exception/error.
-                if (snapshot.hasError || ((snapshot.data == null && (!widget.isVoid)) || (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
-                  cachWidgetBuilder = () => widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _AsyncWidgetError();
+                if (snapshot.hasError ||
+                    ((snapshot.data == null && (!widget.isVoid)) ||
+                        (widget.emptyCheck != null && widget.emptyCheck!.call(snapshot.data as TData)))) {
+                  cachWidgetBuilder = () =>
+                      widget.errorBuilder?.call(context, snapshot.error, snapshot.data) ?? const _AsyncWidgetError();
                 } else {
                   cachWidgetBuilder = () => widget.successBuilder(context, snapshot.data as TData);
                 }
@@ -147,6 +153,8 @@ class _AsyncWidgetState<TData> extends State<AsyncWidget<TData>> {
               if (widget.isStatic) {
                 cachWidget = cachWidgetBuilder!();
               }
+
+              connState = snapshot.connectionState;
               return AnimatedSwitcher(
                 duration: 600.miliseconds,
                 switchInCurve: Curves.decelerate,
