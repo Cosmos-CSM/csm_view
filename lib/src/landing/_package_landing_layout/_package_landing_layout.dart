@@ -70,12 +70,9 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
                     // --> Page section
                     Align(
                       alignment: Alignment.centerRight,
-                      child: AnimatedSize(
-                        duration: 200.miliseconds,
-                        child: SizedBox(
-                          width: pageSize.width - currMenuWidth,
-                          child: page,
-                        ),
+                      child: SizedBox(
+                        width: pageSize.width - currMenuWidth,
+                        child: page,
                       ),
                     ),
 
