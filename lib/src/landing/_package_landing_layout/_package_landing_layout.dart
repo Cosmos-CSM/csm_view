@@ -88,7 +88,7 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
                           height: pageSize.height,
                           child: _PackageLandingLayoutMenu<T>(
                             menuWidth: menuWidth,
-                            routingThree: routingTree,
+                            routingTree: routingTree,
                             currentRoute: routeData.route,
                           ),
                         ),

@@ -88,7 +88,6 @@ export 'src/widgets/adaptive_widget/adaptive_widget_b.dart';
 
 // --> Exporting [widgets.async_widget]
 export 'src/widgets/async_widget/async_widget.dart';
-export 'src/widgets/async_widget/async_widget_controller.dart';
 
 // --> Exporting [widgets.form_widget]
 export 'src/widgets/form_widget/form_widget.dart';

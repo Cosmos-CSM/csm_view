@@ -28,7 +28,8 @@ final Route _homeRoute = Route(
 /// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
 ///
 /// [T] type of your [abstract] class definition for custom theme implementations.
-final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidget {
+final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidget {
+
   /// Package name.
   final String name;
 
@@ -58,12 +59,17 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
     required this.landingEntries,
   });
 
-  /// Calculates a simulated internal Route Tree based on the [landingEntries] configured, to store
+  @override
+  State<PackageLanding<T>> createState() => _PackageLandingState<T>();
+}
+
+class _PackageLandingState<T extends PackageLandingThemeB> extends State<PackageLanding<T>> {
+  /// Calculates a simulated internal Route Tree based on the [widget.landingEntries] configured, to store
   /// the reference for the [Route] object instances as they're needed for [Router] handling.
   Map<PackageLandingEntryI<T>, Route> calculateRouteTree() {
     final Map<PackageLandingEntryI<T>, Route> treeCache = <PackageLandingEntryI<T>, Route>{};
 
-    for (PackageLandingEntryI<T> landingEntry in landingEntries) {
+    for (PackageLandingEntryI<T> landingEntry in widget.landingEntries) {
       final Route entryRoute = Route(
         landingEntry.name.toLowerCase().replaceAll(' ', '_'),
         name: landingEntry.name,
@@ -77,8 +83,8 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
   ///
   List<T> calculateApplicationThemes() {
     final List<T> applicationThemes = <T>[
-      defaultTheme,
-      ...themes,
+      widget.defaultTheme,
+      ...widget.themes,
     ];
 
     final List<T> applicationUniqueThemes = <T>[];
@@ -92,15 +98,21 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
 
     return applicationUniqueThemes;
   }
+  
+  ///
+  late final Map<PackageLandingEntryI<T>, Route> routingTree = calculateRouteTree();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final Map<PackageLandingEntryI<T>, Route> routingTree = calculateRouteTree();
-
     final List<T> applicationThemes = calculateApplicationThemes();
 
     return ViewRoot<T>(
-      defaultTheme: defaultTheme,
+      defaultTheme: widget.defaultTheme,
       themes: applicationThemes,
       listenFrame: false,
       routerConfig: _PackageLandingRouter(
@@ -110,9 +122,9 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
               RouteNode(
                 _homeRoute,
                 pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<T>(
-                  packageName: name,
+                  packageName: widget.name,
                   routingTree: routingTree,
-                  packageDescription: description,
+                  packageDescription: widget.description,
                 ),
               ),
               RouteLayout(
@@ -157,7 +169,7 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatelessWidg
 
         Injector.addSingleton<ThemeManagerI<PackageLandingThemeB>>(themeManager);
 
-        onInit?.call();
+        widget.onInit?.call();
       },
       builder: (BuildContext context, Widget? app) {
         final PackageLandingThemeB theme = Theming.get();

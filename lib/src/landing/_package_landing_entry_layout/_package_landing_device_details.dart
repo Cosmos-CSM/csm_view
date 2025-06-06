@@ -1,5 +1,8 @@
 part of '../package_landing.dart';
 
+///
+final Future<BaseDeviceInfo> deviceInfo = DeviceInfoPlugin().deviceInfo;
+
 /// Internal view fragment for [PackageLanding] view composition that only displays the running device information.
 final class _PackageLandingDeviceDetails extends StatelessWidget {
   const _PackageLandingDeviceDetails();
@@ -9,7 +12,8 @@ final class _PackageLandingDeviceDetails extends StatelessWidget {
     final PackageLandingThemeB theme = Theming.get();
 
     return AsyncWidget<BaseDeviceInfo>(
-      future: DeviceInfoPlugin().deviceInfo,
+      future: deviceInfo,
+      isStatic: true,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
         String systemVersion = '---';
         String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';

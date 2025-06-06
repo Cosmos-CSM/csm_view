@@ -64,7 +64,10 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeB> extends L
                       ),
                       SizedBox(
                         width: sectionWidth,
-                        child: _PackageLandingDeviceDetails(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: _PackageLandingDeviceDetails(),
+                        ),
                       ),
                     ],
                   ),

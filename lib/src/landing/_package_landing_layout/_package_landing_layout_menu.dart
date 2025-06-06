@@ -6,11 +6,11 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
 
   final Route currentRoute;
 
-  final Map<PackageLandingEntryI<T>, Route> routingThree;
+  final Map<PackageLandingEntryI<T>, Route> routingTree;
 
   const _PackageLandingLayoutMenu({
     required this.menuWidth,
-    required this.routingThree,
+    required this.routingTree,
     required this.currentRoute,
   });
 
@@ -28,7 +28,7 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
           spacing: 8,
           children: <Widget>[
             for (MapEntry<PackageLandingEntryI<T>, Route> routingLeaf
-                in routingThree.entries) ...<Widget>[
+                in routingTree.entries) ...<Widget>[
               Builder(
                 builder: (BuildContext context) {
                   final bool isSelected = currentRoute == routingLeaf.value;
