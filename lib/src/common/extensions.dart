@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:csm_view/csm_view.dart';
+import 'package:flutter/material.dart';
 
 /// [Extension] for [String] type.
 extension StringExtension on String {
@@ -47,7 +48,8 @@ extension PropertyBreakpointList<T> on List<ResponsivenessBreakpointValue<T>> {
   /// Note: Know as ilogical breakpoints, all repeated breakpoint value after the first one found will be removed.
   List<ResponsivenessBreakpointValue<T>> sortBreakpoints() {
     List<ResponsivenessBreakpointValue<T>> orderedList = this;
-    orderedList.sort((ResponsivenessBreakpointValue<T> a, ResponsivenessBreakpointValue<T> b) => a.breakpoint.compareTo(b.breakpoint));
+    orderedList.sort((ResponsivenessBreakpointValue<T> a, ResponsivenessBreakpointValue<T> b) =>
+        a.breakpoint.compareTo(b.breakpoint));
     int point = 0;
     while (point < (orderedList.length - 1)) {
       final ResponsivenessBreakpointValue<T> currentItem = orderedList[point];
@@ -57,5 +59,29 @@ extension PropertyBreakpointList<T> on List<ResponsivenessBreakpointValue<T>> {
     }
 
     return orderedList;
+  }
+}
+
+/// {extension} class.
+///
+/// Define extension methods for [BoxConstraints] type objects.
+extension BoxConstraintsExtension on BoxConstraints {
+  /// Boxes the constraints to match when unlimited [maxHeight] and(or) [maxWidth] are unbound.
+  BoxConstraints boxed() {
+    BoxConstraints boxedConstraints = this;
+
+    if (!hasBoundedHeight) {
+      boxedConstraints = tighten(
+        height: minHeight,
+      );
+    }
+
+    if (!hasBoundedWidth) {
+      boxedConstraints = boxedConstraints.tighten(
+        width: minWidth,
+      );
+    }
+
+    return boxedConstraints;
   }
 }
