@@ -157,7 +157,7 @@ final class _AsyncWidgetState<T> extends State<AsyncWidget<T>> {
                 child: actualWidget,
                 layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
                   return Stack(
-                    alignment: Alignment.centerLeft, // Adjust alignment as needed
+                    alignment: Alignment.topLeft, // Adjust alignment as needed
                     children: <Widget>[
                       ...previousChildren,
                       if (currentChild != null) currentChild,
