@@ -119,6 +119,8 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
         routes: <RouteB>[
           RouteLayout(
             routes: <RouteB>[
+
+              // --> Home Route
               RouteNode(
                 _homeRoute,
                 pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<T>(
@@ -127,6 +129,8 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
                   packageDescription: widget.description,
                 ),
               ),
+
+
               RouteLayout(
                 layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
                   final PackageLandingEntryI<T> landingEntry = routingTree.entries
@@ -147,6 +151,7 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
                   for (MapEntry<PackageLandingEntryI<T>, Route> routingLeaf in routingTree.entries) ...<RouteB>[
                     RouteNode(
                       routingLeaf.value,
+                      routes: routingLeaf.key.composeRoutes(),
                       pageBuilder: (_, __) => routingLeaf.key,
                     ),
                   ],

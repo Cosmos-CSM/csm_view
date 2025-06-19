@@ -16,8 +16,6 @@ export 'src/common/enums.dart';
 // --> Exporting [landing]
 export 'src/landing/package_landing.dart';
 export 'src/landing/package_landing_entry.dart';
-export 'src/landing/package_landing_entry_i.dart';
-export 'src/landing/package_landing_entry_b.dart';
 export 'src/landing/package_landing_theme/package_landing_theme_b.dart';
 export 'src/landing/package_landing_theme/package_landing_theme_dark.dart';
 export 'src/landing/package_landing_theme/package_landing_theme_light.dart';
