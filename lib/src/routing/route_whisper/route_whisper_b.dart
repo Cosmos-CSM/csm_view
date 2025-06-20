@@ -54,6 +54,8 @@ class _Whisper<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
+
+    debugPrint('Building Dialog Route');
     return DialogRoute<T>(
       context: context,
       settings: this,

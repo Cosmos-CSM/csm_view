@@ -250,9 +250,10 @@ final class Router {
       _console.success(
         'Success drive',
         info: <String, Object?>{
+          'Route': route.hashCode,
           'Route Name': route.name,
+          'Navigation State': navigation.hashCode,
           'Route Extra': extra,
-          'Context Hash': navigation.hashCode,
           'Is Push': push,
         },
       );

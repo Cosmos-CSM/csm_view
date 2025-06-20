@@ -145,6 +145,8 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
       listenFrame: false,
       routerConfig: _PackageLandingRouter(
         routes: <RouteB>[
+
+          /// --> Landing Navigation Layour
           RouteLayout(
             routes: <RouteB>[
               /// --> Home Route
@@ -157,8 +159,16 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
                 ),
               ),
 
-              /// --> Navigation Layout
+              /// --> Entry Layout
               RouteLayout(
+                routes: <RouteB>[
+                  for (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf in navigationTree.entries)
+                    RouteNode(
+                      routingLeaf.key,
+                      routes: routingLeaf.value.composeRoutes(),
+                      pageBuilder: (_, __) => routingLeaf.value,
+                    ),
+                ],
                 layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
                   PackageLandingEntryI<T> landingEntry = entryTree.entries
                       .where(
@@ -174,15 +184,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
                     landingEntry: landingEntry,
                   );
                 },
-                routes: <RouteB>[
-                  for (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf in navigationTree.entries) ...<RouteB>[
-                    RouteNode(
-                      routingLeaf.key,
-                      routes: routingLeaf.value.composeRoutes(),
-                      pageBuilder: (_, __) => routingLeaf.value,
-                    ),
-                  ],
-                ],
+                
               ),
             ],
             layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
