@@ -48,6 +48,8 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
     bool isSub = false,
     Redirection? redirection,
   }) {
+    debugPrint('Composing Route of Type $runtimeType');
+
     return GoRoute(
       path: resolvePath(isSub),
       name: route.name,
