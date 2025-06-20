@@ -48,10 +48,15 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
     bool isSub = false,
     Redirection? redirection,
   }) {
-    debugPrint('Composing Route of Type $runtimeType');
+
+    String resolvedPath = resolvePath(isSub);
+
+    if (this is RouteWhisper) {
+      debugPrint('Building a Route Whisper ${route.name} $resolvedPath');
+    }
 
     return GoRoute(
-      path: resolvePath(isSub),
+      path: resolvedPath,
       name: route.name,
       parentNavigatorKey: parentNavigatorStateKey,
       onExit: onDispose == null
@@ -79,7 +84,6 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
       pageBuilder: (BuildContext context, GoRouterState state) {
         RouteData routeOutput = RouteData.fromGo(state, route);
         PageI pageLaid = pageBuilder(context, routeOutput);
-
         return transitionBuilder?.call(pageLaid) ?? noTransition(pageLaid);
       },
     );
