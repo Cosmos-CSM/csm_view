@@ -48,11 +48,11 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
     bool isSub = false,
     Redirection? redirection,
   }) {
-
+    
     String resolvedPath = resolvePath(isSub);
 
     if (this is RouteWhisper) {
-      debugPrint('Building a Route Whisper ${route.name} $resolvedPath');
+      debugPrint('Building a Route Whisper $isSub ${route.name} $resolvedPath');
     }
 
     return GoRoute(
@@ -66,6 +66,10 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
                 RouteData.fromGo(state, route),
               ),
       redirect: (BuildContext ctx, GoRouterState state) async {
+        if (this is RouteWhisper) {
+          debugPrint('Redirecting to Whisper $isSub ${route.name} $resolvedPath');
+        }
+
         if (_router.devRedirectNode()) {
           return null;
         }
