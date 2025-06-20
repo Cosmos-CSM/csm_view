@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:example/entries/whisper_entry.dart';
 import 'package:example/theme/csm_view_theme_b.dart';
 import 'package:example/theme/csm_view_theme_dark.dart';
 import 'package:example/theme/csm_view_theme_light.dart';
@@ -24,25 +25,7 @@ void main(List<String> args) {
         CSMViewThemeDark(),
       ],
       landingEntries: <PackageLandingEntryI<CSMViewThemeB>>[
-        PackageLandingEntry<CSMViewThemeB>(
-          name: 'Theming Behavior',
-          description: (_, Color foreColor) {
-            return TextSpan(
-              text: 'Some descriptive text about the theming behavior component developed at CSM ccompany to handle interactiveness along applications that implements ViewRoot',
-              style: TextStyle(
-                color: foreColor,
-                overflow: TextOverflow.ellipsis,
-              ),
-            );
-          },
-          contentBuilder: (BuildContext buildContext, Size windowSize, CSMViewThemeB theme) {
-            return const Center(
-              child: Text(
-                'Welcome to your first entry!',
-              ),
-            );
-          },
-        ),
+        WhisperEntry()
       ],
     ),
   );

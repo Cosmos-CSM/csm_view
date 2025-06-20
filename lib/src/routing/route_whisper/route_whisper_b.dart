@@ -21,6 +21,7 @@ abstract class RouteWhisperB<T> extends RouteNodeB implements RouteWhisperI {
     super.parentNavigatorStateKey,
   }) : super(
           transitionBuilder: (PageI page) {
+            debugPrint('transition builder triggering');
             return _Whisper<T>(
               whisperOptions,
               builder: (BuildContext ctx) {
@@ -54,8 +55,6 @@ class _Whisper<T> extends Page<T> {
 
   @override
   Route<T> createRoute(BuildContext context) {
-
-    debugPrint('Building Dialog Route');
     return DialogRoute<T>(
       context: context,
       settings: this,

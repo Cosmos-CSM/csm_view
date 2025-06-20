@@ -48,12 +48,7 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
     bool isSub = false,
     Redirection? redirection,
   }) {
-    
     String resolvedPath = resolvePath(isSub);
-
-    if (this is RouteWhisper) {
-      debugPrint('Building a Route Whisper $isSub ${route.name} $resolvedPath');
-    }
 
     return GoRoute(
       path: resolvedPath,
@@ -66,17 +61,8 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
                 RouteData.fromGo(state, route),
               ),
       redirect: (BuildContext ctx, GoRouterState state) async {
-        if (this is RouteWhisper) {
-          debugPrint('Redirecting to Whisper $isSub ${route.name} $resolvedPath');
-        }
-
-        if (_router.devRedirectNode()) {
-          return null;
-        }
-
         RouteData output = RouteData.fromGo(state, route);
-        FutureOr<Route?>? resultOptions;
-        resultOptions = redirection?.call(ctx, output) ?? redirection?.call(ctx, output);
+        FutureOr<Route?>? resultOptions = redirection?.call(ctx, output) ?? this.redirection?.call(ctx, output);
         Route? calcualtedRedirectionResult = await resultOptions;
         if (calcualtedRedirectionResult == null) return null;
         String? absolutePath = _router.getAbsolutePath(calcualtedRedirectionResult);
@@ -88,6 +74,7 @@ abstract class RouteNodeB extends RouteB implements RouteNodeI {
       pageBuilder: (BuildContext context, GoRouterState state) {
         RouteData routeOutput = RouteData.fromGo(state, route);
         PageI pageLaid = pageBuilder(context, routeOutput);
+
         return transitionBuilder?.call(pageLaid) ?? noTransition(pageLaid);
       },
     );

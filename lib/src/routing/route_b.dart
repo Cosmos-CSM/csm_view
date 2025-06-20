@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:csm_view/csm_view.dart';
 import 'package:flutter/widgets.dart' hide Router, Route;
 import 'package:go_router/go_router.dart' hide RouteData;
@@ -28,7 +27,7 @@ abstract class RouteB implements RouteI {
   @override
   RouteBase compose({
     bool isSub = false,
-    FutureOr<Route?> Function(BuildContext ctx, RouteData output)? redirection,
+    Redirection? redirection,
   });
 
   /// Performs the build for a [Page] for no transition route.

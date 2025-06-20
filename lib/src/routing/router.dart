@@ -242,9 +242,9 @@ final class Router {
     }
 
     if (push) {
-      navigation.pushNamed(route.name, extra: extra);
+      GoRouter.of(navCtx).pushNamed(route.name, extra: extra);
     } else {
-      navigation.goNamed(route.name, extra: extra);
+      GoRouter.of(navCtx).goNamed(route.name, extra: extra);
     }
     if (canLog) {
       _console.success(

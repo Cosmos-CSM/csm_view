@@ -79,7 +79,7 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeB> extends L
                     minHeight: 500,
                   ),
                   child: SizedBox(
-                    child: landingEntry,
+                    child: page,
                   ),
                 ),
               ),

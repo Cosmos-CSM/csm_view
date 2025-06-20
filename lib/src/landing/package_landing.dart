@@ -67,11 +67,17 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidge
 ///
 /// Handles [State] for [PackageLanding] {widget}.
 final class _PackageLandingState<T extends PackageLandingThemeB> extends State<PackageLanding<T>> {
+  final GlobalKey<NavigatorState> _entryLayoutKey = GlobalKey();
+
+  final GlobalKey<NavigatorState> _navigationLayoutKey = GlobalKey();
+
   /// {state} Stores the current [PackageLanding] route tree being handled for navigation.
   late Map<Route, PackageLandingEntryI<T>> navigationTree;
 
   /// {state} Stores the current relation between its [PackageLandingEntryI]<[T]> and
   late Map<Route, PackageLandingEntryI<T>> entryTree;
+
+  late List<RouteB> routes = <RouteB>[];
 
   ///
   List<T> calculateApplicationThemes() {
@@ -113,6 +119,9 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
     navigationTree = <Route, PackageLandingEntryI<T>>{};
     entryTree = <Route, PackageLandingEntryI<T>>{};
 
+
+
+    routes = <RouteB>[];
     for (PackageLandingEntryI<T> landingEntry in widget.landingEntries) {
       String entryRoutePath = landingEntry.name.toLowerCase().replaceAll(' ', '_');
 
@@ -130,9 +139,28 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
           nestedRoutesIterator(nestedRoute.routes);
         }
       }
-
-      nestedRoutesIterator(landingEntry.composeRoutes());
+      
+      List<RouteB> nestdRoutes = landingEntry.composeRoutes(_navigationLayoutKey, _entryLayoutKey);
+      routes.add(
+        RouteNode(
+          entryRoute,
+          routes: nestdRoutes,
+          pageBuilder: (BuildContext ctx, RouteData routeData) => landingEntry,
+        ),
+      );
+      nestedRoutesIterator(
+        landingEntry.composeRoutes(_navigationLayoutKey, _entryLayoutKey),
+      );
     }
+  }
+
+  /// Gets the current [PackageLandingEntryI]<[T]> based on the current navigation [Route].
+  PackageLandingEntryI<T> getEntry(Route currRoute) {
+    return entryTree.entries
+        .firstWhere(
+          (MapEntry<Route, PackageLandingEntryI<T>> element) => element.key == currRoute,
+        )
+        .value;
   }
 
   @override
@@ -145,9 +173,9 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
       listenFrame: false,
       routerConfig: _PackageLandingRouter(
         routes: <RouteB>[
-
           /// --> Landing Navigation Layour
           RouteLayout(
+            navigatorStateKey: _navigationLayoutKey,
             routes: <RouteB>[
               /// --> Home Route
               RouteNode(
@@ -161,30 +189,16 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
 
               /// --> Entry Layout
               RouteLayout(
-                routes: <RouteB>[
-                  for (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf in navigationTree.entries)
-                    RouteNode(
-                      routingLeaf.key,
-                      routes: routingLeaf.value.composeRoutes(),
-                      pageBuilder: (_, __) => routingLeaf.value,
-                    ),
-                ],
+                routes: routes,
+                navigatorStateKey: _entryLayoutKey,
                 layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
-                  PackageLandingEntryI<T> landingEntry = entryTree.entries
-                      .where(
-                        (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf) {
-                          return routingLeaf.key == routeData.route;
-                        },
-                      )
-                      .first
-                      .value;
+                  PackageLandingEntryI<T> landingEntry = getEntry(routeData.route);
 
                   return _PackageLandingEntryLayout<T>(
                     page: page,
                     landingEntry: landingEntry,
                   );
                 },
-                
               ),
             ],
             layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {

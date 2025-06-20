@@ -1,7 +1,6 @@
 import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart' show BuildContext, ImageProvider, Size, Widget;
 
 /// {interface} class.
 ///
@@ -28,7 +27,8 @@ abstract interface class PackageLandingEntryI<T extends PackageLandingThemeB> im
   });
 
   /// Composes nested [RouteB] implementations when the {entry} inner component needs to access a navigation route by its own behavior.
-  List<RouteB> composeRoutes() => <RouteB>[];
+  List<RouteB> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) =>
+      <RouteB>[];
 
   /// Custom composition method for [PackageLandingEntryI] implementations to bypass [PageI], [compose].
   Widget composeEntry(BuildContext buildContext, Size windowSize, T theme);
@@ -63,7 +63,8 @@ abstract class PackageLandingEntryB<T extends PackageLandingThemeB> extends Page
   });
 
   @override
-  List<RouteB> composeRoutes() => <RouteB>[];
+  List<RouteB> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) =>
+      <RouteB>[];
 
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
