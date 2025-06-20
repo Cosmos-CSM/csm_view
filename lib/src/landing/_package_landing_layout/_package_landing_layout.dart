@@ -31,7 +31,7 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
   /// Current [RouteNodeI] data resolved.
   final RouteData routeData;
 
-  final Map<PackageLandingEntryI<T>, Route> routingTree;
+  final Map<Route, PackageLandingEntryI<T>> routingTree;
 
   /// The current configured application themes implementations.
   final List<ThemeI> themes;

@@ -14,7 +14,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeB> extends PageB
   final DescriptionBuilder<T> packageDescription;
 
   /// Landing routing tree.
-  final Map<PackageLandingEntryI<T>, Route> routingTree;
+  final Map<Route, PackageLandingEntryI<T>> routingTree;
 
   /// Creates a new [_PackageLandingWelcome] instance.
   const _PackageLandingWelcome({
@@ -96,11 +96,12 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeB> extends PageB
                                 childAspectRatio: 1.75,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                final MapEntry<PackageLandingEntryI<T>, Route> routingEntry = routingTree.entries.elementAt(index);
+                                MapEntry<Route, PackageLandingEntryI<T>> routingEntry =
+                                    routingTree.entries.elementAt(index);
 
                                 return _PackageLandingWelcomeEntry<T>(
-                                  landingEntry: routingEntry.key,
-                                  route: routingEntry.value,
+                                  landingEntry: routingEntry.value,
+                                  route: routingEntry.key,
                                 );
                               },
                             );

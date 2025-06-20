@@ -15,21 +15,21 @@ part '_page_landing_welcome/_package_landing_welcome_entry.dart';
 
 part '_package_landing_entry_layout/_package_landing_entry_layout.dart';
 
-///
+/// Default [PackageLanding] home [Route] value.
 final Route _homeRoute = Route(
   '',
   name: 'Home',
 );
 
-/// [Widget] class for [PackageLanding].
+/// {widget} class.
+///
+///
+/// [T] type of your [abstract] class definition for custom theme implementations.
 ///
 ///
 /// Provides a complex detailed view for a [Package] development example. Allowing to interact in user-time with the objects
 /// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
-///
-/// [T] type of your [abstract] class definition for custom theme implementations.
 final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidget {
-
   /// Package name.
   final String name;
 
@@ -63,22 +63,15 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidge
   State<PackageLanding<T>> createState() => _PackageLandingState<T>();
 }
 
-class _PackageLandingState<T extends PackageLandingThemeB> extends State<PackageLanding<T>> {
-  /// Calculates a simulated internal Route Tree based on the [widget.landingEntries] configured, to store
-  /// the reference for the [Route] object instances as they're needed for [Router] handling.
-  Map<PackageLandingEntryI<T>, Route> calculateRouteTree() {
-    final Map<PackageLandingEntryI<T>, Route> treeCache = <PackageLandingEntryI<T>, Route>{};
+/// {state} class.
+///
+/// Handles [State] for [PackageLanding] {widget}.
+final class _PackageLandingState<T extends PackageLandingThemeB> extends State<PackageLanding<T>> {
+  /// {state} Stores the current [PackageLanding] route tree being handled for navigation.
+  late Map<Route, PackageLandingEntryI<T>> navigationTree;
 
-    for (PackageLandingEntryI<T> landingEntry in widget.landingEntries) {
-      final Route entryRoute = Route(
-        landingEntry.name.toLowerCase().replaceAll(' ', '_'),
-        name: landingEntry.name,
-      );
-      treeCache[landingEntry] = entryRoute;
-    }
-
-    return treeCache;
-  }
+  /// {state} Stores the current relation between its [PackageLandingEntryI]<[T]> and
+  late Map<Route, PackageLandingEntryI<T>> entryTree;
 
   ///
   List<T> calculateApplicationThemes() {
@@ -98,13 +91,48 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
 
     return applicationUniqueThemes;
   }
-  
-  ///
-  late final Map<PackageLandingEntryI<T>, Route> routingTree = calculateRouteTree();
 
   @override
   void initState() {
     super.initState();
+    calculateTrees();
+  }
+
+  @override
+  void didUpdateWidget(covariant PackageLanding<T> oldWidget) {
+    if (oldWidget.landingEntries != widget.landingEntries) {
+      calculateTrees();
+    }
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  /// Calculates a simulation trees for {navigation} and another one to store {landingEntries}, this ones to detect where
+  /// the navigation is at and what is the correct components to display.
+  void calculateTrees() {
+    navigationTree = <Route, PackageLandingEntryI<T>>{};
+    entryTree = <Route, PackageLandingEntryI<T>>{};
+
+    for (PackageLandingEntryI<T> landingEntry in widget.landingEntries) {
+      String entryRoutePath = landingEntry.name.toLowerCase().replaceAll(' ', '_');
+
+      Route entryRoute = Route(entryRoutePath, name: landingEntry.name);
+
+      navigationTree[entryRoute] = landingEntry;
+      entryTree[entryRoute] = landingEntry;
+
+      void nestedRoutesIterator(List<RouteB> nestedRoutes) {
+        for (RouteB nestedRoute in nestedRoutes) {
+          if (nestedRoute is RouteNodeB) {
+            entryTree[nestedRoute.route] = landingEntry;
+          }
+
+          nestedRoutesIterator(nestedRoute.routes);
+        }
+      }
+
+      nestedRoutesIterator(landingEntry.composeRoutes());
+    }
   }
 
   @override
@@ -119,28 +147,27 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
         routes: <RouteB>[
           RouteLayout(
             routes: <RouteB>[
-
-              // --> Home Route
+              /// --> Home Route
               RouteNode(
                 _homeRoute,
                 pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<T>(
                   packageName: widget.name,
-                  routingTree: routingTree,
+                  routingTree: navigationTree,
                   packageDescription: widget.description,
                 ),
               ),
 
-
+              /// --> Navigation Layout
               RouteLayout(
                 layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
-                  final PackageLandingEntryI<T> landingEntry = routingTree.entries
+                  PackageLandingEntryI<T> landingEntry = entryTree.entries
                       .where(
-                        (MapEntry<PackageLandingEntryI<T>, Route> routingLeaf) {
-                          return routingLeaf.value == routeData.route;
+                        (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf) {
+                          return routingLeaf.key == routeData.route;
                         },
                       )
                       .first
-                      .key;
+                      .value;
 
                   return _PackageLandingEntryLayout<T>(
                     page: page,
@@ -148,11 +175,11 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
                   );
                 },
                 routes: <RouteB>[
-                  for (MapEntry<PackageLandingEntryI<T>, Route> routingLeaf in routingTree.entries) ...<RouteB>[
+                  for (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf in navigationTree.entries) ...<RouteB>[
                     RouteNode(
-                      routingLeaf.value,
-                      routes: routingLeaf.key.composeRoutes(),
-                      pageBuilder: (_, __) => routingLeaf.key,
+                      routingLeaf.key,
+                      routes: routingLeaf.value.composeRoutes(),
+                      pageBuilder: (_, __) => routingLeaf.value,
                     ),
                   ],
                 ],
@@ -163,7 +190,7 @@ class _PackageLandingState<T extends PackageLandingThemeB> extends State<Package
                 page: page,
                 routeData: routeData,
                 themes: applicationThemes,
-                routingTree: routingTree,
+                routingTree: navigationTree,
               );
             },
           ),
