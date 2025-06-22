@@ -56,7 +56,6 @@ final class RouteWhisperOptions {
   const RouteWhisperOptions({
     this.tint,
     this.shape,
-    this.padding,
     this.alignemnt,
     this.anchorPoint,
     this.barrierColor,
@@ -64,6 +63,7 @@ final class RouteWhisperOptions {
     this.elevation = 0,
     this.safeArea = true,
     this.clip = Clip.none,
+    this.padding = EdgeInsets.zero,
     this.curve = Curves.decelerate,
     this.barrierDismissible = true,
     this.shadow = Colors.transparent,

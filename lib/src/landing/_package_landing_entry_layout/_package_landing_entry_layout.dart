@@ -9,6 +9,7 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeB> extends L
   /// Creates a new [_PackageLandingEntryLayout] instance.
   const _PackageLandingEntryLayout({
     required super.page,
+    required super.routeData,
     required this.landingEntry,
   });
 

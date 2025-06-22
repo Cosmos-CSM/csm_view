@@ -196,6 +196,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
 
                   return _PackageLandingEntryLayout<T>(
                     page: page,
+                    routeData: routeData,
                     landingEntry: landingEntry,
                   );
                 },

@@ -28,9 +28,6 @@ final _ApplicationMenuReactor _menuReactor = _ApplicationMenuReactor();
 ///
 /// This layout draws the navigation view through the package configured entries.
 final class _PackageLandingLayout<T extends PackageLandingThemeB> extends LayoutB {
-  /// Current [RouteNodeI] data resolved.
-  final RouteData routeData;
-
   final Map<Route, PackageLandingEntryI<T>> routingTree;
 
   /// The current configured application themes implementations.
@@ -39,8 +36,9 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
   /// Creates a new [_PackageLandingLayout] instance.
   const _PackageLandingLayout({
     required super.page,
+    required super.routeData,
+    
     required this.themes,
-    required this.routeData,
     required this.routingTree,
   });
 
