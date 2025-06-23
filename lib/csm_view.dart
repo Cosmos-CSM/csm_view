@@ -69,6 +69,7 @@ export 'src/tools/widget_responsiveness/responsiveness_breakpoint_value.dart';
 // --> Exporting [utils]
 export 'src/utils/domain.dart';
 export 'src/utils/injector.dart';
+export 'src/utils/theming.dart';
 export 'src/utils/comparer.dart';
 export 'src/utils/widget_focus.dart';
 export 'src/utils/widget_adaption.dart';
