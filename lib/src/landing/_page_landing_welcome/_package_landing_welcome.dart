@@ -6,7 +6,7 @@ part of '../package_landing.dart';
 /// [T] type of the delegated application theme base usage.
 ///
 /// Draws a view for routing entry point ([Home]) for the landing package view.
-final class _PackageLandingWelcome<T extends PackageLandingThemeB> extends PageB {
+final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
   /// Package displayed name.
   final String packageName;
 
@@ -25,7 +25,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeB> extends PageB
 
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get();
+    final T theme = Theming.get(buildContext);
 
     return SizedBox.fromSize(
       size: pageSize,

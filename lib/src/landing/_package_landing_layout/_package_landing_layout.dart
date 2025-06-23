@@ -27,11 +27,11 @@ final _ApplicationMenuReactor _menuReactor = _ApplicationMenuReactor();
 ///
 ///
 /// This layout draws the navigation view through the package configured entries.
-final class _PackageLandingLayout<T extends PackageLandingThemeB> extends LayoutB {
+final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
   final Map<Route, PackageLandingEntryI<T>> routingTree;
 
   /// The current configured application themes implementations.
-  final List<ThemeI> themes;
+  final List<ThemeDataI> themes;
 
   /// Creates a new [_PackageLandingLayout] instance.
   const _PackageLandingLayout({
@@ -44,7 +44,7 @@ final class _PackageLandingLayout<T extends PackageLandingThemeB> extends Layout
 
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final PackageLandingThemeB theme = Theming.get();
+    final LandingThemeB theme = Theming.get(buildContext);
 
     return Title(
       title: routeData.route.name,

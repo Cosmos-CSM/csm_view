@@ -3,7 +3,7 @@ part of '../package_landing.dart';
 /// [LayoutB] implementation for [_PackageLandingEntryLayout].
 ///
 /// Defines the view for a package landing layout when an entry is selected and succesfuly routed at the application.
-final class _PackageLandingEntryLayout<T extends PackageLandingThemeB> extends LayoutB {
+final class _PackageLandingEntryLayout<T extends LandingThemeB> extends LayoutB {
   final PackageLandingEntryI<T> landingEntry;
 
   /// Creates a new [_PackageLandingEntryLayout] instance.
@@ -15,7 +15,7 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeB> extends L
 
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get();
+    final T theme = Theming.get(buildContext);
 
     final double paddedBox = pageSize.width - 32;
     double sectionWidth = (paddedBox) * .5;

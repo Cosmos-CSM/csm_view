@@ -1,7 +1,8 @@
 import 'package:csm_view/csm_view.dart';
 
+
 ///
-abstract class PackageLandingThemeB extends ThemeB {
+abstract class LandingThemeB extends ThemeDataB {
   /// Application pages [SimpleTheming] options.
   final SimpleTheming pageTheming;
 
@@ -11,10 +12,8 @@ abstract class PackageLandingThemeB extends ThemeB {
   /// application [Welcome] page landing entries cards [SimpleTheming] options.
   final SimpleTheming welcomeCardTheming;
 
-  
-
-  /// Creates a new [PackageLandingThemeB] instance.
-  const PackageLandingThemeB(
+  /// Creates a new [LandingThemeB] instance.
+  const LandingThemeB(
     super.identifier, {
     required super.icon,
     required super.iconBackground,

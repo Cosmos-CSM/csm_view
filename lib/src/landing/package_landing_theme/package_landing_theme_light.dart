@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
 ///
-class PackageLandingThemeLight extends PackageLandingThemeB {
+class PackageLandingThemeLight extends LandingThemeB {
   ///
   PackageLandingThemeLight([String? themeId])
       : super(

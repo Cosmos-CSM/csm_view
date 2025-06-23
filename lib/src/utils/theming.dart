@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:flutter/material.dart';
 
 /// [utils] class implementation for [Theming].
 ///
@@ -6,13 +7,8 @@ import 'package:csm_view/csm_view.dart';
 /// Provides interaction and easier functions to interact with the [ThemeManagerI] instance
 /// handling the whole application context, useful when only one interaction is needed with the manager.
 final class Theming {
-  /// Internal refrence to get easely the [ThemeManagerI] implementation.
-  static ThemeManagerI<TThemeB> _themeManager<TThemeB extends ThemeB>() {
-    return Injector.getThemeManager<TThemeB>();
-  }
-
-  /// Gets the current [ThemeManagerI] theme context.
-  static TThemeB get<TThemeB extends ThemeB>() {
-    return _themeManager<TThemeB>().get();
+  /// Gets the current application {theme}.
+  static TBase get<TBase extends ThemeDataB>(BuildContext buildContext) {
+    return ThemeManager.of(buildContext).castData();
   }
 }

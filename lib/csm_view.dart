@@ -47,15 +47,17 @@ export 'src/routing/route_whisper/route_whisper_i.dart';
 export 'src/routing/route_whisper/route_whisper_b.dart';
 export 'src/routing/route_whisper/route_whisper.dart';
 
-// ---> Exporting [theming]
-export 'src/theming/theme_b.dart';
-export 'src/theming/theme_i.dart';
+
+//! --> [Theming]
+
+export 'src/theming/theme_data_b.dart';
 export 'src/theming/theme_manager.dart';
 
-// --> Exporting [theming.models]
 export 'src/theming/models/simple_theming.dart';
 export 'src/theming/models/complex_theming.dart';
 export 'src/theming/models/state_theming.dart';
+
+//! <-- [Theming]
 
 // --> Exporting [tools]
 export 'src/tools/console.dart';
@@ -66,7 +68,6 @@ export 'src/tools/widget_responsiveness/responsiveness_breakpoint_value.dart';
 
 // --> Exporting [utils]
 export 'src/utils/domain.dart';
-export 'src/utils/theming.dart';
 export 'src/utils/injector.dart';
 export 'src/utils/comparer.dart';
 export 'src/utils/widget_focus.dart';

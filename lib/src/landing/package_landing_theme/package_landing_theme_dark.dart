@@ -2,11 +2,11 @@ import 'package:csm_view/csm_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
-/// [implementation] for [PackageLandingThemeB].
+/// [implementation] for [LandingThemeB].
 ///
 ///
 /// Defines a theme configuration implementation when the context is [light] theme.
-class PackageLandingThemeDark extends PackageLandingThemeB {
+class PackageLandingThemeDark extends LandingThemeB {
   /// Creates a new [PackageLandingThemeDark] instance.
   PackageLandingThemeDark([String? themeId])
       : super(

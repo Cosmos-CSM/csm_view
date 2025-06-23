@@ -9,11 +9,10 @@ final class _PackageLandingDeviceDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PackageLandingThemeB theme = Theming.get();
+    LandingThemeB theme = Theming.get(context);
 
     return AsyncWidget<BaseDeviceInfo>(
       future: deviceInfo,
-      isStatic: true,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
         String systemVersion = '---';
         String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';

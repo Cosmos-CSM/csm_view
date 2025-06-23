@@ -1,6 +1,6 @@
 part of '../package_landing.dart';
 
-final class _PackageLandingWelcomeEntry<T extends PackageLandingThemeB> extends StatelessWidget {
+final class _PackageLandingWelcomeEntry<T extends LandingThemeB> extends StatelessWidget {
   final PackageLandingEntryI<T> landingEntry;
 
   final Route route;
@@ -13,7 +13,7 @@ final class _PackageLandingWelcomeEntry<T extends PackageLandingThemeB> extends 
 
   @override
   Widget build(BuildContext context) {
-    final T theme = Theming.get();
+    final T theme = Theming.get(context);
     final Router router = Injector.get();
 
     return PointerArea(

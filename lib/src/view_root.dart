@@ -1,29 +1,32 @@
 import 'dart:io';
 
 import 'package:csm_view/csm_view.dart' hide ColoredSizedBox;
+import 'package:csm_view/src/utils/theming.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart' hide Theme, Router;
 
 part '_view_root_size.dart';
 part './_view_root_welcome.dart';
 
-/// Core class for [ViewRoot].
-/// Defines a core fuctionallity class for [ViewRoot].
+/// {widget} class.
+/// 
 ///
-/// [TThemeB] - The abstraction base for [ThemeB] management and interface.
+/// [TBase] the abstraction base for [ThemeDataB] management and interface.
 ///
 /// [ViewRoot] concept: the core of a foundation [COSMOS] project solution, it handles,
 /// builds and manages everything related to the main features and tools provided by the package.
 /// Replaces the usually used [MaterialApp] with a high level abtraction to generate easiest way projects implementations
 /// context.
 ///
+///
+/// Defines a core fuctionallity class for [ViewRoot].
+///
 /// (@category Applications)
-final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
-  /// [ThemeB] base implementation to use when no theme was reached.
-  final TThemeB defaultTheme;
-
-  /// Defines all possible [TThemeB] implementations possible to the [ThemeManager].
-  final List<TThemeB> themes;
+final class ViewRoot extends StatefulWidget {
+  /// Defines application theme data usage for theme switching management.
+  ///
+  /// The first entry will be used as the default.
+  final List<ThemeDataI> themes;
 
   /// Entry point [Widget] usually drawn when no [Routing] configuration given.
   final Widget? home;
@@ -65,7 +68,6 @@ final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
-    required this.defaultTheme,
   }) : assert(((home != null) != (homeBuilder != null)) || (home == null && homeBuilder == null), "The home widget and builder cannot be at the same time, must be just one or no one");
 
   /// Generates a new [ViewRoot] application.
@@ -80,43 +82,53 @@ final class ViewRoot<TThemeB extends ThemeB> extends StatefulWidget {
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
-    required this.defaultTheme,
   })  : assert(routerConfig != null || routerDelegate != null, "Router config or Router delegate must be defined to use a router based Cosmos App"),
+        assert(themes.length > 0, 'At least one application theme must be provided'),
         homeBuilder = null,
         home = null;
 
   @override
-  State<ViewRoot<ThemeB>> createState() => _ViewRootState<TThemeB>();
+  State<ViewRoot> createState() => _ViewRootState();
 }
 
 /// [ViewRoot] state handler.
-final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB>> {
-  late Widget? byHome;
+final class _ViewRootState extends State<ViewRoot> {
+  /// {state} stores the current way application build {home} page.
+  late Widget? home = widget.home ?? widget.homeBuilder?.call(context);
 
-  late ThemeManager<TThemeB> themeManager;
+  /// {state} stores the current application [ThemeDataI].
+  late ThemeDataI themeData;
 
   @override
-  void didUpdateWidget(covariant ViewRoot<ThemeB> oldWidget) {
+  void didUpdateWidget(covariant ViewRoot oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    byHome = widget.home ?? widget.homeBuilder?.call(context);
+    if (widget.home != oldWidget.home || widget.homeBuilder != oldWidget.homeBuilder) {
+      home = widget.home ?? widget.homeBuilder?.call(context);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    const Console('COSMOS').message('⚙️⚙️ Starting engines ⚙️⚙️');
-    WidgetsFlutterBinding.ensureInitialized();
-
     
-    themeManager = ThemeManager<TThemeB>(widget.defaultTheme as TThemeB, widget.themes as List<TThemeB>);
-    Injector.addSingleton<ThemeManagerI<TThemeB>>(themeManager);
-    Injector.addSingleton<ThemeManagerI<ThemeI>>(themeManager);
+    const Console('COSMOS').message('⚙️⚙️ Starting engines ⚙️⚙️');
+
+    WidgetsFlutterBinding.ensureInitialized();
     Injector.addSingleton<WidgetResponsiveness>(WidgetResponsiveness.i);
     Injector.addSingleton<Router>(Router.i);
 
-    byHome = widget.home ?? widget.homeBuilder?.call(context);
+    themeData = widget.themes.first;
     widget.afterViewInit?.call();
+  }
+
+  ///
+  void changeThemeData(Type themeType) {
+    setState(() {
+      themeData = widget.themes.firstWhere(
+        (ThemeDataI element) => element.runtimeType == themeType,
+      );
+    });
   }
 
   @override
@@ -124,60 +136,68 @@ final class _ViewRootState<TThemeB extends ThemeB> extends State<ViewRoot<ThemeB
     return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
   }
 
+  ///
   Widget _build() {
-    return MaterialApp(
-      home: byHome,
-      builder: _frameListener,
-      restorationScopeId: 'scope-main',
-      debugShowCheckedModeBanner: false,
+    return ThemeManager(
+      themeData: themeData,
+      themes: widget.themes,
+      change: changeThemeData,
+      child: MaterialApp(
+        home: home,
+        builder: _frameListener,
+        restorationScopeId: 'scope-main',
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 
+  ///
   Widget _buildFromRouter() {
-    return MaterialApp.router(
-      builder: _frameListener,
-      routerConfig: widget.routerConfig,
-      routerDelegate: widget.routerDelegate,
-      restorationScopeId: 'scope-main-router',
-      debugShowCheckedModeBanner: widget.useLegacyDebugBanner,
+    return ThemeManager(
+      themeData: themeData,
+      themes: widget.themes,
+      change: changeThemeData,
+      child: MaterialApp.router(
+        builder: _frameListener,
+        routerConfig: widget.routerConfig,
+        routerDelegate: widget.routerDelegate,
+        restorationScopeId: 'scope-main-router',
+        debugShowCheckedModeBanner: widget.useLegacyDebugBanner,
+      ),
     );
   }
 
+  ///
   Widget _frameListener(BuildContext ctx, Widget? child) {
-    return ValueListenableBuilder<ThemeB>(
-      valueListenable: themeManager.notifier,
-      builder: (BuildContext context, ThemeB theme, Widget? reChild) {
-        Widget fixedChild = reChild ?? child ?? const _ViewRootWelcome();
-        fixedChild = widget.builder?.call(context, fixedChild) ?? fixedChild;
-        fixedChild = DefaultTextStyle(
-          key: UniqueKey(),
-          style: const TextStyle(
-            decoration: TextDecoration.none,
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-          ),
-          child: fixedChild,
-        );
-        if (widget.listenFrame) {
-          fixedChild = Stack(
-            textDirection: TextDirection.ltr,
-            children: <Widget>[
-              fixedChild,
-              const Padding(
-                padding: EdgeInsets.only(
-                  top: 16,
-                  left: 16,
-                ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: _ViewRootSize(),
-                ),
-              ),
-            ],
-          );
-        }
-        return fixedChild;
-      },
+    Widget fixedChild = child ?? const _ViewRootWelcome();
+    fixedChild = widget.builder?.call(ctx, fixedChild) ?? fixedChild;
+    fixedChild = DefaultTextStyle(
+      key: UniqueKey(),
+      style: const TextStyle(
+        decoration: TextDecoration.none,
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
+      child: fixedChild,
     );
+    if (widget.listenFrame) {
+      fixedChild = Stack(
+        textDirection: TextDirection.ltr,
+        children: <Widget>[
+          fixedChild,
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 16,
+              left: 16,
+            ),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: _ViewRootSize(),
+            ),
+          ),
+        ],
+      );
+    }
+    return fixedChild;
   }
 }

@@ -5,8 +5,8 @@ final class _ViewRootSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size frameSize = MediaQuery.sizeOf(context);
-    final ThemeB theme = Theming.get();
+    Size frameSize = MediaQuery.sizeOf(context);
+    ThemeDataB themeData = Theming.get(context);
 
     return Text(
       frameSize.toString(),
@@ -14,7 +14,7 @@ final class _ViewRootSize extends StatelessWidget {
         fontSize: 16,
         backgroundColor: Colors.transparent,
         decoration: TextDecoration.none,
-        color: theme.frame,
+        color: themeData.frame,
         fontStyle: FontStyle.italic,
       ),
     );

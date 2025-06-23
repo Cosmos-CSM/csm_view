@@ -10,7 +10,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
   final String entryTitle;
 
   /// The [List] of available subscribed application themes implementations.
-  final List<ThemeI> applicationThemes;
+  final List<ThemeDataI> applicationThemes;
 
   /// [ReactorI] handler for the application menu, this allows to open or close it dinamycally as it's state.
   final _ApplicationMenuReactor menuReactor;
@@ -24,8 +24,8 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeManagerI<PackageLandingThemeB> themeManager = Injector.getThemeManager();
-    final PackageLandingThemeB theme = themeManager.get();
+    final ThemeManager themeManager = ThemeManager.of(context);
+    final LandingThemeB theme = themeManager.castData();
 
     final Router router = Router.i;
 
@@ -84,9 +84,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
                       router.go(_homeRoute);
                     },
                   ),
-                  ThemeSwitcher(
-                    applicationThemes: applicationThemes,
-                  ),
+                  ThemeSwitcher(),
                 ],
               )
             ],

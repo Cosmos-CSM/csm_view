@@ -1,7 +1,7 @@
 part of '../package_landing.dart';
 
 ///
-final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends StatelessWidget {
+final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends StatelessWidget {
   final double menuWidth;
 
   final Route currentRoute;
@@ -16,7 +16,7 @@ final class _PackageLandingLayoutMenu<T extends PackageLandingThemeB> extends St
 
   @override
   Widget build(BuildContext context) {
-    final PackageLandingThemeB theme = Theming.get();
+    final LandingThemeB theme = Theming.get(context);
     final Router router = Injector.get();
 
     return Padding(

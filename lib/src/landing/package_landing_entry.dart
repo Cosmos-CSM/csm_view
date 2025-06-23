@@ -1,15 +1,16 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/utils/theming.dart';
 import 'package:flutter/material.dart';
 
 
 /// {interface} class.
 ///
 ///
-/// [T] type of the [ThemeB] application theme base implementation.
+/// [T] type of the [ThemeDataB] application theme base implementation.
 ///
 /// Defines contract for [PackageLandingEntryI] implementations wich means is a correct entry for the [PackagageLanding]
 /// handler to draw and route correctly it.
-abstract interface class PackageLandingEntryI<T extends PackageLandingThemeB> implements PageI {
+abstract interface class PackageLandingEntryI<T extends LandingThemeB> implements PageI {
   /// The name of the component.
   final String name;
 
@@ -37,11 +38,11 @@ abstract interface class PackageLandingEntryI<T extends PackageLandingThemeB> im
 /// {abstract} class.
 ///
 ///
-/// [T] type of the [ThemeB] application base theming implementation.
+/// [T] type of the [ThemeDataB] application base theming implementation.
 ///
 /// Defines and handles base behavior for [PackageLandingEntryB] implementations, wich are complex [PackageLanding] view entries
 /// to be routed and displayed correctly as a package development helping.
-abstract class PackageLandingEntryB<T extends PackageLandingThemeB> extends PageB implements PackageLandingEntryI<T> {
+abstract class PackageLandingEntryB<T extends LandingThemeB> extends PageB implements PackageLandingEntryI<T> {
   /// The name of the landing entry.
   @override
   final String name;
@@ -68,7 +69,7 @@ abstract class PackageLandingEntryB<T extends PackageLandingThemeB> extends Page
 
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get<T>();
+    final T theme = Theming.get<T>(buildContext);
 
     return composeEntry(buildContext, windowSize, theme);
   }
@@ -76,7 +77,7 @@ abstract class PackageLandingEntryB<T extends PackageLandingThemeB> extends Page
 
 /// Stores the configuration of a CSMPackageLanding entry, meaning this will configure how the
 /// button and the component will be displayed in the package landing application.
-final class PackageLandingEntry<TThemeB extends PackageLandingThemeB> extends PackageLandingEntryB<TThemeB> {
+final class PackageLandingEntry<TThemeB extends LandingThemeB> extends PackageLandingEntryB<TThemeB> {
   /// Composition widget function, how will be drawn teh component in the landing application.
   ///
   /// [ctx] the parent build context.

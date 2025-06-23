@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
+import 'package:csm_view/src/utils/theming.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Route, Router;
@@ -24,29 +25,29 @@ final Route _homeRoute = Route(
 /// {widget} class.
 ///
 ///
-/// [T] type of your [abstract] class definition for custom theme implementations.
+/// [TBase] type of your [abstract] class definition for custom theme implementations.
 ///
 ///
 /// Provides a complex detailed view for a [Package] development example. Allowing to interact in user-time with the objects
 /// created in the package and test them manually, also works to create a documentation portal for developers internally and can be published.
-final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidget {
+final class PackageLanding<TBase extends LandingThemeB> extends StatefulWidget {
   /// Package name.
   final String name;
 
   /// Package description.
-  final DescriptionBuilder<T> description;
+  final DescriptionBuilder<TBase> description;
 
   /// Default initial view theme.
-  final T defaultTheme;
+  final TBase defaultTheme;
 
-  /// Available [ThemeB] implementations to be handled by the [ThemeManagerI] for application theme interactions.
-  final List<T> themes;
+  /// Available [ThemeDataB] implementations to be handled by the [ThemeManagerI] for application theme interactions.
+  final List<TBase> themes;
 
   /// Callback when the landing application is about to end {Init} phase time.
   final VoidCallback? onInit;
 
   /// Package playground entry.
-  final List<PackageLandingEntryI<T>> landingEntries;
+  final List<PackageLandingEntryI<TBase>> landingEntries;
 
   /// Createsa a new [PackageLanding] instance.
   const PackageLanding({
@@ -60,36 +61,36 @@ final class PackageLanding<T extends PackageLandingThemeB> extends StatefulWidge
   });
 
   @override
-  State<PackageLanding<T>> createState() => _PackageLandingState<T>();
+  State<PackageLanding<TBase>> createState() => _PackageLandingState<TBase>();
 }
 
 /// {state} class.
 ///
 /// Handles [State] for [PackageLanding] {widget}.
-final class _PackageLandingState<T extends PackageLandingThemeB> extends State<PackageLanding<T>> {
+final class _PackageLandingState<TBase extends LandingThemeB> extends State<PackageLanding<TBase>> {
   final GlobalKey<NavigatorState> _entryLayoutKey = GlobalKey();
 
   final GlobalKey<NavigatorState> _navigationLayoutKey = GlobalKey();
 
   /// {state} Stores the current [PackageLanding] route tree being handled for navigation.
-  late Map<Route, PackageLandingEntryI<T>> navigationTree;
+  late Map<Route, PackageLandingEntryI<TBase>> navigationTree;
 
-  /// {state} Stores the current relation between its [PackageLandingEntryI]<[T]> and
-  late Map<Route, PackageLandingEntryI<T>> entryTree;
+  /// {state} Stores the current relation between its [PackageLandingEntryI]<[TBase]> and
+  late Map<Route, PackageLandingEntryI<TBase>> entryTree;
 
   late List<RouteB> routes = <RouteB>[];
 
   ///
-  List<T> calculateApplicationThemes() {
-    final List<T> applicationThemes = <T>[
+  List<TBase> calculateApplicationThemes() {
+    final List<TBase> applicationThemes = <TBase>[
       widget.defaultTheme,
       ...widget.themes,
     ];
 
-    final List<T> applicationUniqueThemes = <T>[];
+    final List<TBase> applicationUniqueThemes = <TBase>[];
 
-    for (T theme in applicationThemes) {
-      final bool alreadySet = applicationUniqueThemes.any((T item) => item.identifier == theme.identifier);
+    for (TBase theme in applicationThemes) {
+      final bool alreadySet = applicationUniqueThemes.any((TBase item) => item.identifier == theme.identifier);
       if (!alreadySet) {
         applicationUniqueThemes.add(theme);
       }
@@ -105,7 +106,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
   }
 
   @override
-  void didUpdateWidget(covariant PackageLanding<T> oldWidget) {
+  void didUpdateWidget(covariant PackageLanding<TBase> oldWidget) {
     if (oldWidget.landingEntries != widget.landingEntries) {
       calculateTrees();
     }
@@ -116,13 +117,11 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
   /// Calculates a simulation trees for {navigation} and another one to store {landingEntries}, this ones to detect where
   /// the navigation is at and what is the correct components to display.
   void calculateTrees() {
-    navigationTree = <Route, PackageLandingEntryI<T>>{};
-    entryTree = <Route, PackageLandingEntryI<T>>{};
-
-
+    navigationTree = <Route, PackageLandingEntryI<TBase>>{};
+    entryTree = <Route, PackageLandingEntryI<TBase>>{};
 
     routes = <RouteB>[];
-    for (PackageLandingEntryI<T> landingEntry in widget.landingEntries) {
+    for (PackageLandingEntryI<TBase> landingEntry in widget.landingEntries) {
       String entryRoutePath = landingEntry.name.toLowerCase().replaceAll(' ', '_');
 
       Route entryRoute = Route(entryRoutePath, name: landingEntry.name);
@@ -139,7 +138,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
           nestedRoutesIterator(nestedRoute.routes);
         }
       }
-      
+
       List<RouteB> nestdRoutes = landingEntry.composeRoutes(_navigationLayoutKey, _entryLayoutKey);
       routes.add(
         RouteNode(
@@ -154,21 +153,20 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
     }
   }
 
-  /// Gets the current [PackageLandingEntryI]<[T]> based on the current navigation [Route].
-  PackageLandingEntryI<T> getEntry(Route currRoute) {
+  /// Gets the current [PackageLandingEntryI]<[TBase]> based on the current navigation [Route].
+  PackageLandingEntryI<TBase> getEntry(Route currRoute) {
     return entryTree.entries
         .firstWhere(
-          (MapEntry<Route, PackageLandingEntryI<T>> element) => element.key == currRoute,
+          (MapEntry<Route, PackageLandingEntryI<TBase>> element) => element.key == currRoute,
         )
         .value;
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<T> applicationThemes = calculateApplicationThemes();
+    final List<TBase> applicationThemes = calculateApplicationThemes();
 
-    return ViewRoot<T>(
-      defaultTheme: widget.defaultTheme,
+    return ViewRoot(
       themes: applicationThemes,
       listenFrame: false,
       routerConfig: _PackageLandingRouter(
@@ -180,7 +178,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
               /// --> Home Route
               RouteNode(
                 _homeRoute,
-                pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<T>(
+                pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<TBase>(
                   packageName: widget.name,
                   routingTree: navigationTree,
                   packageDescription: widget.description,
@@ -192,9 +190,9 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
                 routes: routes,
                 navigatorStateKey: _entryLayoutKey,
                 layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
-                  PackageLandingEntryI<T> landingEntry = getEntry(routeData.route);
+                  PackageLandingEntryI<TBase> landingEntry = getEntry(routeData.route);
 
-                  return _PackageLandingEntryLayout<T>(
+                  return _PackageLandingEntryLayout<TBase>(
                     page: page,
                     routeData: routeData,
                     landingEntry: landingEntry,
@@ -203,7 +201,7 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
               ),
             ],
             layoutBuilder: (BuildContext ctx, RouteData routeData, Widget page) {
-              return _PackageLandingLayout<T>(
+              return _PackageLandingLayout<TBase>(
                 page: page,
                 routeData: routeData,
                 themes: applicationThemes,
@@ -214,14 +212,10 @@ final class _PackageLandingState<T extends PackageLandingThemeB> extends State<P
         ],
       ),
       afterViewInit: () {
-        final ThemeManagerI<T> themeManager = Injector.getThemeManager<T>();
-
-        Injector.addSingleton<ThemeManagerI<PackageLandingThemeB>>(themeManager);
-
         widget.onInit?.call();
       },
-      builder: (BuildContext context, Widget? app) {
-        final PackageLandingThemeB theme = Theming.get();
+      builder: (BuildContext buildContext, Widget? app) {
+        LandingThemeB theme = Theming.get(buildContext);
 
         return ColoredBox(
           color: theme.pageTheming.back,
