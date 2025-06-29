@@ -21,7 +21,6 @@ abstract class RouteWhisperB<T> extends RouteNodeB implements RouteWhisperI {
     super.parentNavigatorStateKey,
   }) : super(
           transitionBuilder: (PageI page) {
-            debugPrint('transition builder triggering');
             return _Whisper<T>(
               whisperOptions,
               builder: (BuildContext ctx) {
