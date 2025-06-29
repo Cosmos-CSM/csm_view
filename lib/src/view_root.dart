@@ -95,8 +95,6 @@ final class ViewRoot extends StatefulWidget {
 
 /// [ViewRoot] state handler.
 final class _ViewRootState extends State<ViewRoot> {
-  /// {state} stores the current way application build {home} page.
-  late Widget? home = widget.home ?? widget.homeBuilder?.call(context);
 
   /// {state} stores the current application [ThemeDataI].
   late ThemeDataI themeData;
@@ -109,7 +107,6 @@ final class _ViewRootState extends State<ViewRoot> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.home != oldWidget.home || widget.homeBuilder != oldWidget.homeBuilder) {
-      home = widget.home ?? widget.homeBuilder?.call(context);
       _initInvok = widget.initDependencies?.call();
     }
   }
@@ -157,7 +154,7 @@ final class _ViewRootState extends State<ViewRoot> {
       themes: widget.themes,
       change: changeThemeData,
       child: MaterialApp(
-        home: home,
+        home: widget.home ?? widget.homeBuilder?.call(context),
         builder: _frameListener,
         restorationScopeId: 'scope-main',
         debugShowCheckedModeBanner: false,
