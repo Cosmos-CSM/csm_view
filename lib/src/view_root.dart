@@ -9,7 +9,7 @@ part '_view_root_size.dart';
 part './_view_root_welcome.dart';
 
 /// {widget} class.
-/// 
+///
 ///
 /// [TBase] the abstraction base for [ThemeDataB] management and interface.
 ///
@@ -68,7 +68,8 @@ final class ViewRoot extends StatefulWidget {
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
-  }) : assert(((home != null) != (homeBuilder != null)) || (home == null && homeBuilder == null), "The home widget and builder cannot be at the same time, must be just one or no one");
+  }) : assert(((home != null) != (homeBuilder != null)) || (home == null && homeBuilder == null),
+            "The home widget and builder cannot be at the same time, must be just one or no one");
 
   /// Generates a new [ViewRoot] application.
   ///
@@ -82,7 +83,8 @@ final class ViewRoot extends StatefulWidget {
     this.themes = const <Never>[],
     this.listenFrame = false,
     this.useLegacyDebugBanner = false,
-  })  : assert(routerConfig != null || routerDelegate != null, "Router config or Router delegate must be defined to use a router based Cosmos App"),
+  })  : assert(routerConfig != null || routerDelegate != null,
+            "Router config or Router delegate must be defined to use a router based Cosmos App"),
         assert(themes.length > 0, 'At least one application theme must be provided'),
         homeBuilder = null,
         home = null;
@@ -99,8 +101,7 @@ final class _ViewRootState extends State<ViewRoot> {
   /// {state} stores the current application [ThemeDataI].
   late ThemeDataI themeData;
 
-
-  /// {state} 
+  /// {state}
   late FutureOr<void> _initInvok;
 
   @override
@@ -109,13 +110,14 @@ final class _ViewRootState extends State<ViewRoot> {
 
     if (widget.home != oldWidget.home || widget.homeBuilder != oldWidget.homeBuilder) {
       home = widget.home ?? widget.homeBuilder?.call(context);
+      _initInvok = widget.initDependencies?.call();
     }
   }
 
   @override
   void initState() {
     super.initState();
-    
+
     const Console('COSMOS').message('⚙️⚙️ Starting engines ⚙️⚙️');
 
     WidgetsFlutterBinding.ensureInitialized();
@@ -142,6 +144,7 @@ final class _ViewRootState extends State<ViewRoot> {
       isVoid: true,
       future: _initInvok,
       successBuilder: (BuildContext ctx, void data) {
+        debugPrint('Building successful');
         return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
       },
     );
