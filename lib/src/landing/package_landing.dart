@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
-import 'package:csm_view/src/utils/theming.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Route, Router;
@@ -44,7 +45,7 @@ final class PackageLanding<TBase extends LandingThemeB> extends StatefulWidget {
   final List<TBase> themes;
 
   /// Callback when the landing application is about to end {Init} phase time.
-  final VoidCallback? onInit;
+  final FutureOr<void> Function()? initDependencies;
 
   /// Package playground entry.
   final List<PackageLandingEntryI<TBase>> landingEntries;
@@ -52,7 +53,7 @@ final class PackageLanding<TBase extends LandingThemeB> extends StatefulWidget {
   /// Createsa a new [PackageLanding] instance.
   const PackageLanding({
     super.key,
-    this.onInit,
+    this.initDependencies,
     required this.name,
     required this.description,
     required this.defaultTheme,
@@ -169,6 +170,7 @@ final class _PackageLandingState<TBase extends LandingThemeB> extends State<Pack
     return ViewRoot(
       themes: applicationThemes,
       listenFrame: false,
+      initDependencies: widget.initDependencies,
       routerConfig: _PackageLandingRouter(
         routes: <RouteB>[
           /// --> Landing Navigation Layour
@@ -211,9 +213,6 @@ final class _PackageLandingState<TBase extends LandingThemeB> extends State<Pack
           ),
         ],
       ),
-      afterViewInit: () {
-        widget.onInit?.call();
-      },
       builder: (BuildContext buildContext, Widget? app) {
         LandingThemeB theme = Theming.get(buildContext);
 

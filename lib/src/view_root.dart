@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:csm_view/csm_view.dart' hide ColoredSizedBox;
-import 'package:csm_view/src/utils/theming.dart';
 import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/material.dart' hide Theme, Router;
 
@@ -53,8 +53,8 @@ final class ViewRoot extends StatefulWidget {
   /// Wheter the application should use legacy debug indicator banner.
   final bool useLegacyDebugBanner;
 
-  /// Callback invokation when [ViewRoot] has initialized it's view, useful for dependency injection and initialization.
-  final void Function()? afterViewInit;
+  /// Callback invokation when before [ViewRoot] initializes it's view components, useful for dependency injection and initialization.
+  final FutureOr<void> Function()? initDependencies;
 
   /// Generates a new [ViewRoot] application.
   const ViewRoot({
@@ -63,7 +63,7 @@ final class ViewRoot extends StatefulWidget {
     this.home,
     this.builder,
     this.routerConfig,
-    this.afterViewInit,
+    this.initDependencies,
     this.routerDelegate,
     this.themes = const <Never>[],
     this.listenFrame = false,
@@ -77,7 +77,7 @@ final class ViewRoot extends StatefulWidget {
     super.key,
     this.builder,
     this.routerConfig,
-    this.afterViewInit,
+    this.initDependencies,
     this.routerDelegate,
     this.themes = const <Never>[],
     this.listenFrame = false,
@@ -99,6 +99,10 @@ final class _ViewRootState extends State<ViewRoot> {
   /// {state} stores the current application [ThemeDataI].
   late ThemeDataI themeData;
 
+
+  /// {state} 
+  late FutureOr<void> _initInvok;
+
   @override
   void didUpdateWidget(covariant ViewRoot oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -115,11 +119,12 @@ final class _ViewRootState extends State<ViewRoot> {
     const Console('COSMOS').message('⚙️⚙️ Starting engines ⚙️⚙️');
 
     WidgetsFlutterBinding.ensureInitialized();
+
     Injector.addSingleton<WidgetResponsiveness>(WidgetResponsiveness.i);
     Injector.addSingleton<Router>(Router.i);
 
     themeData = widget.themes.first;
-    widget.afterViewInit?.call();
+    _initInvok = widget.initDependencies?.call();
   }
 
   ///
@@ -133,7 +138,13 @@ final class _ViewRootState extends State<ViewRoot> {
 
   @override
   Widget build(BuildContext context) {
-    return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
+    return AsyncWidget<void>(
+      isVoid: true,
+      future: _initInvok,
+      successBuilder: (BuildContext ctx, void data) {
+        return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
+      },
+    );
   }
 
   ///
