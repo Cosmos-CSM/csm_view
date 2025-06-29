@@ -141,9 +141,7 @@ final class _ViewRootState extends State<ViewRoot> {
       isVoid: true,
       future: _initInvok,
       successBuilder: (BuildContext ctx, void data) {
-        return Center(
-          child: Text('Hello loaded dependencies'),
-        );
+        return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
       },
     );
   }
