@@ -132,10 +132,10 @@ final class _AsyncWidgetState<T> extends State<AsyncWidget<T>> {
                   cachWidgetBuilder = () => widget.loadingBuilder!(context);
                 }
               } else {
-                final bool noVoidErr = (data == null && !widget.isVoid);
-                final bool emptyCheck = widget.emptyCheck?.call(data as T) ?? false;
+                final bool wrongData = (data == null && (!widget.isVoid) && (null is! T));
+                final bool isInvalid = widget.emptyCheck?.call(data as T) ?? false;
 
-                if (snapshot.hasError || noVoidErr || emptyCheck) {
+                if (snapshot.hasError || wrongData || isInvalid) {
                   cachWidgetBuilder = () => const _AsyncWidgetError();
 
                   if (widget.errorBuilder != null) {
@@ -146,15 +146,15 @@ final class _AsyncWidgetState<T> extends State<AsyncWidget<T>> {
                 }
               }
 
-              final Widget actualWidget = cachWidgetBuilder!();
+              final Widget layWidget = cachWidgetBuilder!();
               if (widget.isStatic) {
-                cachWidget = actualWidget;
+                cachWidget = layWidget;
               }
 
               return AnimatedSwitcher(
                 switchInCurve: Curves.decelerate,
                 duration: 600.miliseconds,
-                child: actualWidget,
+                child: layWidget,
                 layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
                   return Stack(
                     alignment: Alignment.topLeft, // Adjust alignment as needed
