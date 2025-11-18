@@ -137,12 +137,15 @@ final class _ViewRootState extends State<ViewRoot> {
 
   @override
   Widget build(BuildContext context) {
-    return AsyncWidget<void>(
-      isVoid: true,
-      future: _initInvok,
-      successBuilder: (BuildContext ctx, void data) {
-        return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
-      },
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: AsyncWidget<void>(
+        isVoid: true,
+        future: _initInvok,
+        successBuilder: (BuildContext ctx, void data) {
+          return (widget.routerDelegate != null || widget.routerConfig != null) ? _buildFromRouter() : _build();
+        },
+      ),
     );
   }
 

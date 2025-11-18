@@ -31,7 +31,7 @@ final class ThemeSwitcher extends StatelessWidget {
           color: Colors.transparent,
           child: Switch(
             value: themeManager.themeData == themes[0],
-            activeColor: Colors.white,
+            activeThumbColor: Colors.white,
             trackColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
               if (states.contains(WidgetState.selected)) {
                   return themes[0].iconBackground;
