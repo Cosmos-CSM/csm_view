@@ -2,42 +2,12 @@ import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 
-/// {interface} class.
-///
-///
-/// [T] type of the [ThemeDataB] application theme base implementation.
-///
-/// Defines contract for [PackageLandingEntryI] implementations wich means is a correct entry for the [PackagageLanding]
-/// handler to draw and route correctly it.
-abstract interface class PackageLandingEntryI<T extends LandingThemeB> implements PageI {
-  /// The name of the component.
-  final String name;
 
-  /// Image to represent the package at the [Welcome] page cards.
-  final ImageProvider? image;
-
-  /// The component description.
-  final DescriptionBuilder<T> description;
-
-  /// Creates a new [PackageLandingEntryI] instance.
-  const PackageLandingEntryI({
-    this.image,
-    required this.name,
-    required this.description,
-  });
-
-  /// Composes nested [RouteB] implementations when the {entry} inner component needs to access a navigation route by its own behavior.
-  List<RouteB> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) =>
-      <RouteB>[];
-
-  /// Custom composition method for [PackageLandingEntryI] implementations to bypass [PageI], [compose].
-  Widget composeEntry(BuildContext buildContext, Size windowSize, T theme);
-}
 
 /// {abstract} class.
 ///
 ///
-/// [T] type of the [ThemeDataB] application base theming implementation.
+/// [T] type of the [IThemeData] application base theming implementation.
 ///
 /// Defines and handles base behavior for [PackageLandingEntryB] implementations, wich are complex [PackageLanding] view entries
 /// to be routed and displayed correctly as a package development helping.
@@ -67,10 +37,10 @@ abstract class PackageLandingEntryB<T extends LandingThemeB> extends PageB imple
       <RouteB>[];
 
   @override
-  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get<T>(buildContext);
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    final T theme = Theming.get<T>(context);
 
-    return composeEntry(buildContext, windowSize, theme);
+    return composeEntry(context, windowSize, theme);
   }
 }
 

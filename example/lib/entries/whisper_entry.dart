@@ -3,7 +3,7 @@ import 'package:example/theme/csm_view_theme_b.dart';
 import 'package:flutter/material.dart' hide Route, Router;
 
 final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
-  static const Route whisperRoute = Route(
+  static const RouteData whisperRoute = RouteData(
     'whisper_example',
     name: 'Whisper Example',
   );
@@ -27,7 +27,7 @@ final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
         whisperRoute,
         parentNavigatorStateKey: entryLayoutKey,
         whisperOptions: RouteWhisperOptions(),
-        pageBuilder: (BuildContext ctx, RouteData routeData) {
+        pageBuilder: (BuildContext ctx, RoutingData routeData) {
           return _WhisperExample();
         },
       )
@@ -39,7 +39,7 @@ final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          Injector.get<Router>().go(whisperRoute, logging: true);
+          InjectorUtils.get<RouterBase>().go(whisperRoute, logging: true);
         },
         child: Text('Click me to open a Whisper!'),
       ),
@@ -49,7 +49,7 @@ final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
 
 final class _WhisperExample extends PageB {
   @override
-  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
     return ColoredBox(
       color: Colors.deepOrange,
       child: Center(

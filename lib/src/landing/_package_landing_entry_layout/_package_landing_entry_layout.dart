@@ -1,4 +1,4 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
 /// [LayoutB] implementation for [_PackageLandingEntryLayout].
 ///
@@ -14,8 +14,8 @@ final class _PackageLandingEntryLayout<T extends LandingThemeB> extends LayoutB 
   });
 
   @override
-  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get(buildContext);
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    final T theme = Theming.get(context);
 
     final double paddedBox = pageSize.width - 32;
     double sectionWidth = (paddedBox) * .5;

@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/theming/abstractions/interfaces/itheme_data.dart';
 import 'package:flutter/material.dart';
 
 /// {widget} class.
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 /// Draws a complex [Widget] that handles switching along configured application themes.
 final class ThemeSwitcher extends StatelessWidget {
   /// Application configured themes.
-  final List<ThemeDataI>? themes;
+  final List<IThemeData>? themes;
 
   /// Creates a new [ThemeSwitcher] instance.
   const ThemeSwitcher({
@@ -17,7 +18,7 @@ final class ThemeSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeManager themeManager = ThemeManager.of(context);
-    List<ThemeDataI> themes = this.themes ?? themeManager.themes;
+    List<IThemeData> themes = this.themes ?? themeManager.themes;
 
     return Visibility(
       visible: themes.length > 1,

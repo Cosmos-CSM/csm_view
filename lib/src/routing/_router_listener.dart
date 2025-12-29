@@ -1,4 +1,4 @@
-part of 'router_tree_b.dart';
+part of 'abstractions/bases/routing_graph_base.dart';
 
 /// Private class for [_RouterListener].
 ///

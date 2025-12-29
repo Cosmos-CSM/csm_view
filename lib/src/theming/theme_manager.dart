@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/theming/abstractions/interfaces/itheme_data.dart';
 import 'package:flutter/material.dart';
 
 /// {inherited} {widget} class.
@@ -6,10 +7,10 @@ import 'package:flutter/material.dart';
 /// Handles the inheritance [BuildContext] dependency for the application tree for {theming} management.
 final class ThemeManager extends InheritedWidget {
   /// Current {ThemeData} data context.
-  final ThemeDataI themeData;
+  final IThemeData themeData;
 
   /// Current application configured themes.
-  final List<ThemeDataI> themes;
+  final List<IThemeData> themes;
 
   /// Changes the application theme.
   final void Function(Type newTheme) change;
@@ -26,7 +27,7 @@ final class ThemeManager extends InheritedWidget {
   /// Cast the current [ThemeDataI] into the given [TBase] type.
   /// 
   /// [TBase] reference type for data.
-  TBase castData<TBase extends ThemeDataB>() {
+  TBase castData<TBase extends IThemeData>() {
     return themeData as TBase;
   }
 

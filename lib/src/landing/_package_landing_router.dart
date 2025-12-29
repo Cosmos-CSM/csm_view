@@ -1,11 +1,11 @@
-part of 'package_landing.dart';
+part of 'package_landing_view.dart';
 
-/// [implementation] for [RouterTreeB].
+/// [implementation] for [RoutingGraphBase].
 ///
 ///
-/// Defines an implemnentation for a complex [RouterTreeB] configuration and manager privately for
-/// [PackageLanding] component.
-final class _PackageLandingRouter extends RouterTreeB {
+/// Defines an implemnentation for a complex [RoutingGraphBase] configuration and manager privately for
+/// [PackageLandingView] component.
+final class _PackageLandingRouter extends RoutingGraphBase {
   /// Creats a new [_PackageLandingRouter] instance.
   _PackageLandingRouter({
     required super.routes,

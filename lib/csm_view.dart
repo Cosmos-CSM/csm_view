@@ -5,96 +5,76 @@ library;
 // --> Package proxies
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
 
-// ---> Exporting base package
-export 'src/view_root.dart';
+//! --> Exporing [src]
+export 'src/abstractions/bases/view_module_base.dart';
 
-// --> Exporting [common]
-export 'src/common/extensions.dart';
-export 'src/common/typedefs.dart';
-export 'src/common/enums.dart';
+export 'src/abstractions/bases/view_page_base.dart';
+export 'src/abstractions/interfaces/iview_page.dart';
 
-// --> Exporting [landing]
-export 'src/landing/package_landing.dart';
-export 'src/landing/package_landing_entry.dart';
-export 'src/landing/package_landing_theme/package_landing_theme_b.dart';
-export 'src/landing/package_landing_theme/package_landing_theme_dark.dart';
-export 'src/landing/package_landing_theme/package_landing_theme_light.dart';
+export 'src/abstractions/bases/view_layout_base.dart';
+export 'src/abstractions/interfaces/iview_layout.dart';
 
-// --> Exporting [routing]
+//! --> Exporting [Routing]
 export 'src/routing/router.dart';
-export 'src/routing/route.dart';
-export 'src/routing/route_i.dart';
-export 'src/routing/route_b.dart';
-export 'src/routing/route_data.dart';
-export 'src/routing/router_tree_b.dart';
+export 'src/routing/abstractions/bases/router_base.dart';
+export 'src/routing/abstractions/interfaces/irouter.dart';
 
-// --> Exporting [routing.route_layout]
-export 'src/routing/route_layout/layout_b.dart';
-export 'src/routing/route_layout/route_layout_i.dart';
-export 'src/routing/route_layout/route_layout_b.dart';
-export 'src/routing/route_layout/route_layout.dart';
+export 'src/routing/abstractions/bases/routing_graph_base.dart';
+export 'src/routing/abstractions/interfaces/irouting_grapth_leaf_data.dart';
 
-// --> Exporting [routing.route_node]
-export 'src/routing/route_node/page_i.dart';
-export 'src/routing/route_node/page_b.dart';
-export 'src/routing/route_node/route_node.dart';
-export 'src/routing/route_node/route_node_i.dart';
-export 'src/routing/route_node/route_node_b.dart';
+export 'src/routing/abstractions/bases/routing_graph_data_base.dart';
+export 'src/routing/abstractions/interfaces/irouting_graph_data.dart';
 
-// --> Exporting [routing.route_whisper]
-export 'src/routing/route_whisper/route_whisper_options.dart';
-export 'src/routing/route_whisper/route_whisper_i.dart';
-export 'src/routing/route_whisper/route_whisper_b.dart';
-export 'src/routing/route_whisper/route_whisper.dart';
+export 'src/routing/routing_graph_layout_data.dart';
+export 'src/routing/abstractions/bases/routing_graph_layout_data_base.dart';
+export 'src/routing/abstractions/interfaces/irouting_graph_layout_data.dart';
+
+export 'src/routing/routing_graph_node_data.dart';
+export 'src/routing/abstractions/bases/routing_graph_node_data_base.dart';
+
+export 'src/routing/routing_graph_whisper_data.dart';
+export 'src/routing/abstractions/bases/routing_graph_whisper_data_base.dart';
+export 'src/routing/abstractions/interfaces/irouting_graph_whisper_data.dart';
+
+export 'src/routing/models/route_data.dart';
+export 'src/routing/models/routing_data.dart';
+export 'src/routing/models/whisper_options.dart';
+
+//! --> Exporting [Core]
+export 'src/core/enums.dart';
+export 'src/core/typedefs.dart';
+export 'src/core/extensions.dart';
+
+export 'src/core/mixins/console_mixin.dart';
+export 'src/core/mixins/comparer_mixin.dart';
+export 'src/core/mixins/platform_mixin.dart';
+
+export 'src/core/utils/injector_utils.dart';
+export 'src/core/utils/theming_utils.dart';
+export 'src/core/utils/comparisson_utils.dart';
+
+export 'src/core/tools/widget_responsiveness/responsiveness_ratio.dart';
+export 'src/core/tools/widget_responsiveness/widget_responsiveness.dart';
+export 'src/core/tools/widget_responsiveness/responsiveness_breakpoint.dart';
+export 'src/core/tools/widget_responsiveness/responsiveness_breakpoint_value.dart';
 
 
-//! --> [Theming]
-
-export 'src/theming/theme_data_b.dart';
+//! --> Exporting [Theming]
 export 'src/theming/theme_manager.dart';
 
+export 'src/theming/models/state_theming.dart';
 export 'src/theming/models/simple_theming.dart';
 export 'src/theming/models/complex_theming.dart';
-export 'src/theming/models/state_theming.dart';
 
-//! <-- [Theming]
+export 'src/theming/abstractions/bases/theme_data_base.dart';
+export 'src/theming/abstractions/interfaces/itheme_data.dart';
 
-// --> Exporting [tools]
-export 'src/tools/console.dart';
-export 'src/tools/widget_responsiveness/widget_responsiveness.dart';
-export 'src/tools/widget_responsiveness/responsiveness_ratio.dart';
-export 'src/tools/widget_responsiveness/responsiveness_breakpoint.dart';
-export 'src/tools/widget_responsiveness/responsiveness_breakpoint_value.dart';
+//! --> Exporting [Widgets]
+export 'src/widgets/abstractions/bases/reactor_base.dart';
+export 'src/widgets/abstractions/interfaces/ireactor.dart';
 
-// --> Exporting [utils]
-export 'src/utils/domain.dart';
-export 'src/utils/injector.dart';
-export 'src/utils/theming.dart';
-export 'src/utils/comparer.dart';
-export 'src/utils/widget_focus.dart';
-export 'src/utils/widget_adaption.dart';
+export 'src/widgets/abstractions/bases/reactive_widget_base.dart';
+export 'src/widgets/abstractions/interfaces/ireactive_widget.dart';
 
-// --> Exporting [widgets]
-export 'src/widgets/colored_sized_box.dart';
-export 'src/widgets/pointer_area.dart';
-export 'src/widgets/responsive_widget.dart';
-export 'src/widgets/data_table.dart';
-export 'src/widgets/theme_switcher.dart';
-
-// --> Exporting [widgets.adaptive_widget]
-export 'src/widgets/adaptive_widget/adaptive_widget.dart';
-export 'src/widgets/adaptive_widget/adaptive_widget_b.dart';
-
-// --> Exporting [widgets.async_widget]
 export 'src/widgets/async_widget/async_widget.dart';
 
-// --> Exporting [widgets.form_widget]
-export 'src/widgets/form_widget/form_widget.dart';
-export 'src/widgets/form_widget/form_widget_controller.dart';
-
-// --> Exporting [widgets.reactive_widget]
-export 'src/widgets/reactive_widget/reactor_i.dart';
-export 'src/widgets/reactive_widget/reactor_b.dart';
-export 'src/widgets/reactive_widget/reactive_widget.dart';
-export 'src/widgets/reactive_widget/reactive_widget_i.dart';
-export 'src/widgets/reactive_widget/reactive_widget_b.dart';

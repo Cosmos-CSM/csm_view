@@ -1,12 +1,12 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
 ///
 final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends StatelessWidget {
   final double menuWidth;
 
-  final Route currentRoute;
+  final RouteData currentRoute;
 
-  final Map<Route, PackageLandingEntryI<T>> routingTree;
+  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
 
   const _PackageLandingLayoutMenu({
     required this.menuWidth,
@@ -17,7 +17,7 @@ final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends Stateless
   @override
   Widget build(BuildContext context) {
     final LandingThemeB theme = Theming.get(context);
-    final Router router = Injector.get();
+    final RouterBase router = InjectorUtils.get();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -27,7 +27,7 @@ final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends Stateless
         child: Column(
           spacing: 8,
           children: <Widget>[
-            for (MapEntry<Route, PackageLandingEntryI<T>> routingLeaf
+            for (MapEntry<RouteData, PackageLandingEntryI<T>> routingLeaf
                 in routingTree.entries) ...<Widget>[
               Builder(
                 builder: (BuildContext context) {

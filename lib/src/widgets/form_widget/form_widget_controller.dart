@@ -8,12 +8,9 @@ import 'package:flutter/widgets.dart';
 ///
 /// Defines options for the [FormWidget] behaviors and provides communication and direct interaction with the [FormWidget]
 /// this [FormWidgetController] is linked to.
-final class FormWidgetController {
+final class FormWidgetController with ConsoleMixin {
   /// latest calculated [key] to handle the [Form].
   static GlobalKey<FormState>? _key;
-
-  /// [Console] debugger printer.
-  late final Console _console;
 
   /// the key given by the construction, can be null and
   /// cannot be set directly to [_key] 'cause [static] properties cannot be set by
@@ -60,9 +57,7 @@ final class FormWidgetController {
     this.onChange,
     this.onPop,
   })  : _givenKey = key,
-        _name = name {
-    _console = Console(this.name);
-  }
+        _name = name;
 
   //* --> Public methods
   /// Requests to the [FormWidget] to start a validation process.
@@ -99,7 +94,7 @@ final class FormWidgetController {
   FormState? _internalCheck() {
     FormState? formState = key.currentState;
     if (formState == null) {
-      _console.exception(
+      exceptionLog(
         'Wrong state management',
         Exception('Form ($name) has faced unhandled state management reaction, maybe it\'s defunc'),
         StackTrace.current,

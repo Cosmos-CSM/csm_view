@@ -1,4 +1,4 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
 
 
@@ -23,15 +23,15 @@ final class _ApplicationMenuReactor extends ReactorB {
 
 final _ApplicationMenuReactor _menuReactor = _ApplicationMenuReactor();
 
-/// [LayoutB] implementation for a [PackageLanding].
+/// [LayoutB] implementation for a [PackageLandingView].
 ///
 ///
 /// This layout draws the navigation view through the package configured entries.
 final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
-  final Map<Route, PackageLandingEntryI<T>> routingTree;
+  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
 
   /// The current configured application themes implementations.
-  final List<ThemeDataI> themes;
+  final List<IThemeData> themes;
 
   /// Creates a new [_PackageLandingLayout] instance.
   const _PackageLandingLayout({
@@ -43,16 +43,16 @@ final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
   });
 
   @override
-  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final LandingThemeB theme = Theming.get(buildContext);
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    final LandingThemeB theme = Theming.get(context);
 
     return Title(
-      title: routeData.route.name,
+      title: routeData.targetRoute.name,
       color: Colors.black,
       child: Column(
         children: <Widget>[
           _PackageLandingLayouHeader(
-            entryTitle: routeData.route.name,
+            entryTitle: routeData.targetRoute.name,
             applicationThemes: themes,
             menuReactor: _menuReactor,
           ),
@@ -87,7 +87,7 @@ final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
                           child: _PackageLandingLayoutMenu<T>(
                             menuWidth: menuWidth,
                             routingTree: routingTree,
-                            currentRoute: routeData.route,
+                            currentRoute: routeData.targetRoute,
                           ),
                         ),
                       ),

@@ -1,6 +1,6 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
-/// [Widget] for [PackageLanding].
+/// [Widget] for [PackageLandingView].
 ///
 ///
 /// [T] type of the delegated application theme base usage.
@@ -14,7 +14,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
   final DescriptionBuilder<T> packageDescription;
 
   /// Landing routing tree.
-  final Map<Route, PackageLandingEntryI<T>> routingTree;
+  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
 
   /// Creates a new [_PackageLandingWelcome] instance.
   const _PackageLandingWelcome({
@@ -24,8 +24,8 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
   });
 
   @override
-  Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
-    final T theme = Theming.get(buildContext);
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    final T theme = Theming.get(context);
 
     return SizedBox.fromSize(
       size: pageSize,
@@ -36,7 +36,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
             padding: EdgeInsets.all(16),
             child: Text(
               'Welcome to $packageName playground!',
-              style: Theme.of(buildContext).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
 
@@ -74,7 +74,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
                             .normalize(),
                         child: LayoutBuilder(
                           builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
-                            final WidgetResponsiveness widgetResponsiveness = Injector.get();
+                            final WidgetResponsiveness widgetResponsiveness = InjectorUtils.get();
                             final double gridWidth = boxConstraints.constrainWidth();
                             double minExtent = WidgetAdaption.adaptProperty<double>(
                               mobileValue: gridWidth / 2,
@@ -96,7 +96,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
                                 childAspectRatio: 1.75,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                MapEntry<Route, PackageLandingEntryI<T>> routingEntry =
+                                MapEntry<RouteData, PackageLandingEntryI<T>> routingEntry =
                                     routingTree.entries.elementAt(index);
 
                                 return _PackageLandingWelcomeEntry<T>(

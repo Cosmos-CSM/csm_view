@@ -1,9 +1,9 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
 final class _PackageLandingWelcomeEntry<T extends LandingThemeB> extends StatelessWidget {
   final PackageLandingEntryI<T> landingEntry;
 
-  final Route route;
+  final RouteData route;
 
   const _PackageLandingWelcomeEntry({
     super.key,
@@ -14,7 +14,7 @@ final class _PackageLandingWelcomeEntry<T extends LandingThemeB> extends Statele
   @override
   Widget build(BuildContext context) {
     final T theme = Theming.get(context);
-    final Router router = Injector.get();
+    final RouterBase router = InjectorUtils.get();
 
     return PointerArea(
       cursor: SystemMouseCursors.click,

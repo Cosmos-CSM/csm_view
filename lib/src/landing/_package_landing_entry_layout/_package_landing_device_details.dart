@@ -1,9 +1,9 @@
-part of '../package_landing.dart';
+part of '../package_landing_view.dart';
 
 ///
 final Future<BaseDeviceInfo> deviceInfo = DeviceInfoPlugin().deviceInfo;
 
-/// Internal view fragment for [PackageLanding] view composition that only displays the running device information.
+/// Internal view fragment for [PackageLandingView] view composition that only displays the running device information.
 final class _PackageLandingDeviceDetails extends StatelessWidget {
   const _PackageLandingDeviceDetails();
 
