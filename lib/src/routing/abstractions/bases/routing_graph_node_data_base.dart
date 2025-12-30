@@ -31,7 +31,7 @@ abstract class RoutingGraphNodeDataBase extends RoutingGraphDataBase implements 
     this.route, {
     required this.pageBuilder,
     super.parentNavigationState,
-    super.nestedRoutes,
+    super.routes,
     this.redirection,
     this.transitionBuilder,
     this.onDispose,
@@ -65,7 +65,7 @@ abstract class RoutingGraphNodeDataBase extends RoutingGraphDataBase implements 
         return absolutePath;
       },
       routes: <RouteBase>[
-        for (IRoutingGraphData cr in nestedRoutes) cr.compose(isSub: true),
+        for (IRoutingGraphData cr in routes) cr.compose(isSub: true),
       ],
       pageBuilder: (BuildContext context, GoRouterState state) {
         RoutingData routeOutput = RoutingData.fromGo(state, route);

@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/routing/abstractions/interfaces/irouter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart' hide RouteData;

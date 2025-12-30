@@ -8,12 +8,12 @@ abstract class RoutingGraphDataBase implements IRoutingGraphData {
   final NavigationState? parentNavigationState;
 
   @override
-  final List<IRoutingGraphData> nestedRoutes;
+  final List<IRoutingGraphData> routes;
 
   /// Creates a new instance.
   const RoutingGraphDataBase({
     this.parentNavigationState,
-    this.nestedRoutes = const <RoutingGraphDataBase>[],
+    this.routes = const <RoutingGraphDataBase>[],
   });
 
   @override

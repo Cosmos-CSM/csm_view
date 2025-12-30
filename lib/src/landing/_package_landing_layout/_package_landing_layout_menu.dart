@@ -1,23 +1,23 @@
-part of '../package_landing_view.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
 ///
-final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends StatelessWidget {
+final class _PackageLandingLayoutMenu<TLandingThemeBase extends PackageLandingThemeBase> extends StatelessWidget {
   final double menuWidth;
 
-  final RouteData currentRoute;
+  final RouteData routeData;
 
-  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
+  final _Graph<TLandingThemeBase> routingGraph;
 
   const _PackageLandingLayoutMenu({
     required this.menuWidth,
-    required this.routingTree,
-    required this.currentRoute,
+    required this.routingGraph,
+    required this.routeData,
   });
 
   @override
   Widget build(BuildContext context) {
-    final LandingThemeB theme = Theming.get(context);
-    final RouterBase router = InjectorUtils.get();
+    final TLandingThemeBase theme = ThemingUtils.get(context);
+    final IRouter router = InjectorUtils.get();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -27,11 +27,10 @@ final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends Stateless
         child: Column(
           spacing: 8,
           children: <Widget>[
-            for (MapEntry<RouteData, PackageLandingEntryI<T>> routingLeaf
-                in routingTree.entries) ...<Widget>[
+            for (MapEntry<RouteData, IPackageLandingEntry<TLandingThemeBase>> routingLeaf in routingGraph.entries) ...<Widget>[
               Builder(
                 builder: (BuildContext context) {
-                  final bool isSelected = currentRoute == routingLeaf.key;
+                  final bool isSelected = routeData == routingLeaf.key;
                   final SimpleTheming buttonTheme =
                       isSelected ? theme.pageTheming : theme.headerTheming;
       
@@ -59,7 +58,7 @@ final class _PackageLandingLayoutMenu<T extends LandingThemeB> extends Stateless
                           onPressed: isSelected
                               ? null
                               : () {
-                                  router.go(routingLeaf.key);
+                                  router.go(context, routingLeaf.key);
                                 },
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),

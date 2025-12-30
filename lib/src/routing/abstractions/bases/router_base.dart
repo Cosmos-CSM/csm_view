@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/routing/abstractions/bases/routing_graph_node_data_base.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart' hide RouteData;
 
@@ -117,38 +116,27 @@ abstract class RouterBase with ConsoleMixin implements IRouter {
     return (_devResolverOn = true);
   }
 
-  /// Indicates the [RouterBase] to perform a [RouteData] resolution, pointing the given [route].
-  ///
-  ///
-  /// [route] target desired [RouteData] information.
-  ///
-  /// [ignoreRedirection] whether the [RouterBase] should avoid any [Redirection] trigger.
-  ///
-  /// [push] whether the [RouterBase] should push into the history the target [route] or just go directly to it removing all the previous [RouterBase] history.
-  ///
-  /// [extra] extra data shared along [RouteData] resolutions.
-  ///
-  /// [logging] whether the nethod can print logs.
+  @override
   void go(
     BuildContext context,
     RouteData route, {
     bool ignoreRedirection = false,
-    bool logging = false,
-    bool push = false,
-    DataMap? extra,
+    bool allowLogs = false,
+    bool pushHistory = false,
+    DataMap? extraData,
   }) {
-    extra ??= <String, dynamic>{};
+    extraData ??= <String, dynamic>{};
 
     if (ignoreRedirection) {
-      extra[_kIgnoreRedirectionKey] = true;
+      extraData[_kIgnoreRedirectionKey] = true;
     }
 
-    final bool canLog = _canLog(logging);
+    final bool canLog = _canLog(allowLogs);
 
-    if (push) {
-      GoRouter.of(context).pushNamed(route.name, extra: extra);
+    if (pushHistory) {
+      GoRouter.of(context).pushNamed(route.name, extra: extraData);
     } else {
-      GoRouter.of(context).goNamed(route.name, extra: extra);
+      GoRouter.of(context).goNamed(route.name, extra: extraData);
     }
     if (canLog) {
       successLog(
@@ -156,8 +144,8 @@ abstract class RouterBase with ConsoleMixin implements IRouter {
         info: <String, Object?>{
           'Route': route.hashCode,
           'Route Name': route.name,
-          'Route Extra': extra,
-          'Is Push': push,
+          'Route Extra': extraData,
+          'Is Push': pushHistory,
         },
       );
     }
@@ -188,7 +176,7 @@ abstract class RouterBase with ConsoleMixin implements IRouter {
       _absoluteContextDetails[route.toString()] = absolutePath;
       parentAbsolute = absolutePath;
     }
-    for (IRoutingGraphData routeLeef in routeNode.nestedRoutes) {
+    for (IRoutingGraphData routeLeef in routeNode.routes) {
       _resolveAbsolutePath(routeLeef, parentAbsolute);
     }
   }

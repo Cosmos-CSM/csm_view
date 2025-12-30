@@ -1,4 +1,4 @@
-part of '../package_landing_view.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
 /// [Widget] for [PackageLandingView].
 ///
@@ -6,7 +6,7 @@ part of '../package_landing_view.dart';
 /// [T] type of the delegated application theme base usage.
 ///
 /// Draws a view for routing entry point ([Home]) for the landing package view.
-final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
+final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends ViewPageBase {
   /// Package displayed name.
   final String packageName;
 
@@ -14,18 +14,18 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
   final DescriptionBuilder<T> packageDescription;
 
   /// Landing routing tree.
-  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
+  final Map<RouteData, IPackageLandingEntry<T>> routingGraph;
 
   /// Creates a new [_PackageLandingWelcome] instance.
   const _PackageLandingWelcome({
     required this.packageName,
-    required this.routingTree,
+    required this.routingGraph,
     required this.packageDescription,
   });
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
-    final T theme = Theming.get(context);
+    final T theme = ThemingUtils.get(context);
 
     return SizedBox.fromSize(
       size: pageSize,
@@ -76,7 +76,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
                           builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
                             final WidgetResponsiveness widgetResponsiveness = InjectorUtils.get();
                             final double gridWidth = boxConstraints.constrainWidth();
-                            double minExtent = WidgetAdaption.adaptProperty<double>(
+                            double minExtent = WidgetAdaptionUtils.adaptProperty<double>(
                               mobileValue: gridWidth / 2,
                               defaultValue: widgetResponsiveness.breakProperty(
                                 ResponsivenessBreakpoint<double>(
@@ -88,7 +88,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
                             );
 
                             return GridView.builder(
-                              itemCount: routingTree.entries.length,
+                              itemCount: routingGraph.entries.length,
                               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: minExtent,
                                 mainAxisSpacing: 8,
@@ -96,8 +96,7 @@ final class _PackageLandingWelcome<T extends LandingThemeB> extends PageB {
                                 childAspectRatio: 1.75,
                               ),
                               itemBuilder: (BuildContext context, int index) {
-                                MapEntry<RouteData, PackageLandingEntryI<T>> routingEntry =
-                                    routingTree.entries.elementAt(index);
+                                MapEntry<RouteData, IPackageLandingEntry<T>> routingEntry = routingGraph.entries.elementAt(index);
 
                                 return _PackageLandingWelcomeEntry<T>(
                                   landingEntry: routingEntry.value,

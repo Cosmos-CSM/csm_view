@@ -1,8 +1,5 @@
-import 'package:csm_view/csm_view.dart';
-import 'package:example/theme/csm_view_theme_b.dart';
-import 'package:flutter/material.dart' hide Route, Router;
 
-final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
+/* final class WhisperEntry extends PackageLandingEntryB<CSMViewThemeB> {
   static const RouteData whisperRoute = RouteData(
     'whisper_example',
     name: 'Whisper Example',
@@ -57,4 +54,4 @@ final class _WhisperExample extends PageB {
       ),
     );
   }
-}
+} */

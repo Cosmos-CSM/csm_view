@@ -1,25 +1,25 @@
-part of '../package_landing_view.dart';
+part of './../abstractions/bases/package_landing_view_base.dart';
 
 ///
 final Future<BaseDeviceInfo> deviceInfo = DeviceInfoPlugin().deviceInfo;
 
 /// Internal view fragment for [PackageLandingView] view composition that only displays the running device information.
-final class _PackageLandingDeviceDetails extends StatelessWidget {
+final class _PackageLandingDeviceDetails extends StatelessWidget with PlatformMixin {
   const _PackageLandingDeviceDetails();
 
   @override
   Widget build(BuildContext context) {
-    LandingThemeB theme = Theming.get(context);
+    PackageLandingThemeBase theme = ThemingUtils.get(context);
 
     return AsyncWidget<BaseDeviceInfo>(
       future: deviceInfo,
       successBuilder: (BuildContext ctx, BaseDeviceInfo data) {
         String systemVersion = '---';
         String system = ' ${defaultTargetPlatform.name.toStartUpperCase()}';
-        String platform = ' ${Domain.context}';
+        String platformValue = ' $platform';
         if (data is WebBrowserInfo) {
           systemVersion = data.appVersion?.split(' ').reversed.elementAt(0) ?? systemVersion;
-          platform += ' ($systemVersion)';
+          platformValue += ' ($systemVersion)';
         } else if (data is LinuxDeviceInfo) {
           systemVersion = data.version ?? systemVersion;
         } else if (data is WindowsDeviceInfo) {
@@ -30,7 +30,7 @@ final class _PackageLandingDeviceDetails extends StatelessWidget {
           systemVersion = data.systemVersion;
         }
 
-        platform += '\n';
+        platformValue += '\n';
         if (data is! WebBrowserInfo) {
           system += ' ($systemVersion)';
         }
@@ -53,9 +53,9 @@ final class _PackageLandingDeviceDetails extends StatelessWidget {
                 text: 'Platform:',
               ),
               TextSpan(
-                text: platform,
+                text: platformValue,
                 style: TextStyle(
-                  color: Domain.context.color,
+                  color: platform.color,
                 ),
               ),
 

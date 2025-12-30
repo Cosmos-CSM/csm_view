@@ -9,7 +9,7 @@ final class RoutingGraphWhisperData<T> extends RoutingGraphWhisperDataBase<T> {
     required super.whisperOptions,
     super.onDispose,
     super.redirection,
-    super.nestedRoutes,
+    super.routes,
     super.parentNavigationState,
   });
 }

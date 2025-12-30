@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/landing/abstractions/bases/package_landing_theme_base.dart';
 import 'package:flutter/material.dart';
 
 /// Represents a package [PackageLandingViewBase] showcase entry.

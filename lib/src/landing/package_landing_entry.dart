@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 ///
 /// Defines and handles base behavior for [PackageLandingEntryB] implementations, wich are complex [PackageLanding] view entries
 /// to be routed and displayed correctly as a package development helping.
-abstract class PackageLandingEntryB<T extends LandingThemeB> extends PageB implements PackageLandingEntryI<T> {
+abstract class PackageLandingEntryB<T extends PackageLandingThemeBase> extends ViewPageBase implements IPackageLandingEntry<T> {
   /// The name of the landing entry.
   @override
   final String name;
@@ -33,12 +33,11 @@ abstract class PackageLandingEntryB<T extends LandingThemeB> extends PageB imple
   });
 
   @override
-  List<RouteB> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) =>
-      <RouteB>[];
+  List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) => <IRoutingGraphData>[];
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
-    final T theme = Theming.get<T>(context);
+    final T theme = ThemingUtils.get<T>(context);
 
     return composeEntry(context, windowSize, theme);
   }
@@ -46,7 +45,7 @@ abstract class PackageLandingEntryB<T extends LandingThemeB> extends PageB imple
 
 /// Stores the configuration of a CSMPackageLanding entry, meaning this will configure how the
 /// button and the component will be displayed in the package landing application.
-final class PackageLandingEntry<TThemeB extends LandingThemeB> extends PackageLandingEntryB<TThemeB> {
+final class PackageLandingEntry<TThemeB extends PackageLandingThemeBase> extends PackageLandingEntryB<TThemeB> {
   /// Composition widget function, how will be drawn teh component in the landing application.
   ///
   /// [ctx] the parent build context.

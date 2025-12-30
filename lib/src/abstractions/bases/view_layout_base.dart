@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/abstractions/interfaces/iview_layout.dart';
 import 'package:flutter/material.dart';
 
 /// Represents a { View } application layout.

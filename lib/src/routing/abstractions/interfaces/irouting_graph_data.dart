@@ -8,12 +8,12 @@ abstract interface class IRoutingGraphData {
   final NavigationState? parentNavigationState;
 
   /// Nested graph leafs.
-  final List<IRoutingGraphData> nestedRoutes;
+  final List<IRoutingGraphData> routes;
 
   /// Creates a new instance.
   const IRoutingGraphData({
     this.parentNavigationState,
-    this.nestedRoutes = const <IRoutingGraphData>[],
+    this.routes = const <IRoutingGraphData>[],
   });
 
   /// Performs the build for a [Page] for no transition route.

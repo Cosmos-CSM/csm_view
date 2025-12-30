@@ -14,7 +14,7 @@ abstract class RoutingGraphBase extends GoRouter {
   static String _currentPath = "";
 
   /// Routing graph routes.
-  final List<RoutingGraphDataBase> routes;
+  final List<IRoutingGraphData> routes;
 
   /// Creates a new [RoutingGraphBase] instance.
   RoutingGraphBase({
@@ -27,7 +27,7 @@ abstract class RoutingGraphBase extends GoRouter {
           routingConfig: _RouterListener(
             RoutingConfig(
               routes: <RouteBase>[
-                for (RoutingGraphDataBase routeBase in routes) routeBase.compose(),
+                for (IRoutingGraphData routeBase in routes) routeBase.compose(),
               ],
               redirect: (BuildContext context, GoRouterState state) async {
                 final IRouter router = InjectorUtils.get();

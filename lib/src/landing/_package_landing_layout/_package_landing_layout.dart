@@ -1,8 +1,8 @@
-part of '../package_landing_view.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
 
-
-final class _ApplicationMenuReactor extends ReactorB {
+///
+final class _ApplicationMenuReactor extends ReactorBase {
   /// Reactor context reference for the context;
   bool _isOpen = true;
 
@@ -27,32 +27,32 @@ final _ApplicationMenuReactor _menuReactor = _ApplicationMenuReactor();
 ///
 ///
 /// This layout draws the navigation view through the package configured entries.
-final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
-  final Map<RouteData, PackageLandingEntryI<T>> routingTree;
+final class _PackageLandingViewLayout<T extends PackageLandingThemeBase> extends ViewLayoutBase {
+  final _Graph<T> routingGraph;
 
   /// The current configured application themes implementations.
   final List<IThemeData> themes;
 
-  /// Creates a new [_PackageLandingLayout] instance.
-  const _PackageLandingLayout({
+  /// Creates a new [_PackageLandingViewLayout] instance.
+  const _PackageLandingViewLayout({
     required super.page,
-    required super.routeData,
+    required super.routingData,
     
     required this.themes,
-    required this.routingTree,
+    required this.routingGraph,
   });
 
   @override
   Widget compose(BuildContext context, Size windowSize, Size pageSize) {
-    final LandingThemeB theme = Theming.get(context);
+    final PackageLandingThemeBase theme = ThemingUtils.get(context);
 
     return Title(
-      title: routeData.targetRoute.name,
+      title: routingData.targetRoute.name,
       color: Colors.black,
       child: Column(
         children: <Widget>[
           _PackageLandingLayouHeader(
-            entryTitle: routeData.targetRoute.name,
+            entryTitle: routingData.targetRoute.name,
             applicationThemes: themes,
             menuReactor: _menuReactor,
           ),
@@ -86,8 +86,8 @@ final class _PackageLandingLayout<T extends LandingThemeB> extends LayoutB {
                           height: pageSize.height,
                           child: _PackageLandingLayoutMenu<T>(
                             menuWidth: menuWidth,
-                            routingTree: routingTree,
-                            currentRoute: routeData.targetRoute,
+                            routingGraph: routingGraph,
+                            routeData: routingData.targetRoute,
                           ),
                         ),
                       ),

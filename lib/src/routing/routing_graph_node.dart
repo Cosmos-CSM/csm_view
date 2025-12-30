@@ -1,13 +1,13 @@
 import 'package:csm_view/csm_view.dart';
 
 /// Represents a [RoutingGraphBase] node data.
-final class RoutingGraphNodeData extends RoutingGraphNodeDataBase {
+final class RoutingGraphNode extends RoutingGraphNodeDataBase {
   /// Creates a new instance.
-  const RoutingGraphNodeData(
+  const RoutingGraphNode(
     super.routeOptions, {
     required super.pageBuilder,
     super.parentNavigationState,
-    super.nestedRoutes,
+    super.routes,
     super.redirection,
     super.transitionBuilder,
     super.onDispose,

@@ -1,13 +1,10 @@
-part of 'package_landing_view.dart';
+part of 'abstractions/bases/package_landing_view_base.dart';
 
-/// [implementation] for [RoutingGraphBase].
-///
-///
-/// Defines an implemnentation for a complex [RoutingGraphBase] configuration and manager privately for
-/// [PackageLandingView] component.
-final class _PackageLandingRouter extends RoutingGraphBase {
-  /// Creats a new [_PackageLandingRouter] instance.
-  _PackageLandingRouter({
+
+/// Represents a { View } complex routing graph configuration for package landing.
+final class _PackageLandingRoutingGraph extends RoutingGraphBase {
+  /// Creats a new [_PackageLandingRoutingGraph] instance.
+  _PackageLandingRoutingGraph({
     required super.routes,
   });
 }

@@ -1,7 +1,7 @@
-part of '../package_landing_view.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
-final class _PackageLandingWelcomeEntry<T extends LandingThemeB> extends StatelessWidget {
-  final PackageLandingEntryI<T> landingEntry;
+final class _PackageLandingWelcomeEntry<T extends PackageLandingThemeBase> extends StatelessWidget {
+  final IPackageLandingEntry<T> landingEntry;
 
   final RouteData route;
 
@@ -13,13 +13,13 @@ final class _PackageLandingWelcomeEntry<T extends LandingThemeB> extends Statele
 
   @override
   Widget build(BuildContext context) {
-    final T theme = Theming.get(context);
+    final T theme = ThemingUtils.get(context);
     final RouterBase router = InjectorUtils.get();
 
     return PointerArea(
       cursor: SystemMouseCursors.click,
       onClick: () {
-        router.go(route);
+        router.go(context, route);
       },
       child: Card.filled(
         elevation: 8,

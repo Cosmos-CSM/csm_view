@@ -2,7 +2,7 @@ import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart' hide LayoutBuilder, Router;
 
 /// Represents a [RoutingGraphBase] layout route data.
-abstract interface class IRoutingGraphLayoutData implements IRoutingGraphData {
+abstract interface class IRoutingGraphLayout implements IRoutingGraphData {
   /// Identifier to the restoration scope along [RouterBase]´s implementation restoration manager.
   final String? restoration;
 
@@ -21,7 +21,7 @@ abstract interface class IRoutingGraphLayoutData implements IRoutingGraphData {
   /// Build function to create the [Layout] UI and draw it in the screen.
   final LayoutBuilder layoutBuilder;
 
-  const IRoutingGraphLayoutData(
+  const IRoutingGraphLayout(
     this.transitionBuild,
     this.layoutBuilder,
     this.restoration,

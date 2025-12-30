@@ -1,10 +1,9 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/routing/abstractions/interfaces/irouting_graph_layout_data.dart';
 import 'package:flutter/material.dart' hide Router, Route, LayoutBuilder;
 import 'package:go_router/go_router.dart' hide RouteData;
 
 /// Represents a [RoutingGraphBase] layout route data.
-abstract class RoutingGraphLayoutDataBase extends RoutingGraphDataBase implements IRoutingGraphLayoutData {
+abstract class RoutingGraphLayoutBase extends RoutingGraphDataBase implements IRoutingGraphLayout {
   /// Identifier to the restoration scope along [RouterBase]´s implementation restoration manager.
   @override
   final String? restoration;
@@ -32,14 +31,14 @@ abstract class RoutingGraphLayoutDataBase extends RoutingGraphDataBase implement
   /// A complex Route object to indicate the existance of a route nodes wrapper into the Route manager.
   /// This means that this object only creates the clnfiguration for handle the redirection/direction of
   /// a complex [CSMLayoutBase] with its calculated [CSMPage] routed.
-  const RoutingGraphLayoutDataBase({
+  const RoutingGraphLayoutBase({
     super.parentNavigationState,
     this.restoration,
     this.navigatorStateKey,
     this.observers,
     this.transitionBuild,
     this.redirection,
-    required super.nestedRoutes,
+    required super.routes,
     required this.layoutBuilder,
   });
 
@@ -62,7 +61,7 @@ abstract class RoutingGraphLayoutDataBase extends RoutingGraphDataBase implement
         return transitionBuild?.call(layoutLaid) ?? noTransition(layoutLaid);
       },
       routes: <RouteBase>[
-        for (IRoutingGraphData route in nestedRoutes)
+        for (IRoutingGraphData route in routes)
           route.compose(
             isSub: isSub,
             redirection: redirection,

@@ -12,7 +12,7 @@ abstract class RoutingGraphWhisperDataBase<T> extends RoutingGraphNodeDataBase i
     super.route, {
     required this.whisperOptions,
     required super.pageBuilder,
-    super.nestedRoutes,
+    super.routes,
     super.onDispose,
     super.redirection,
     super.parentNavigationState,

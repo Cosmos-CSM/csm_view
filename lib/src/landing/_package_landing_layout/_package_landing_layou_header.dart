@@ -1,9 +1,9 @@
-part of '../package_landing_view.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
-/// [Widget] implementation for [_PackageLandingLayout].
+/// [Widget] implementation for [_PackageLandingViewLayout].
 /// 
 /// 
-/// Draws a view for the [_PackageLandingLayout] header.
+/// Draws a view for the [_PackageLandingViewLayout] header.
 final class _PackageLandingLayouHeader extends StatelessWidget {
 
   /// The current routed [PackageLandingEntry] displayed.
@@ -25,9 +25,9 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeManager themeManager = ThemeManager.of(context);
-    final LandingThemeB theme = themeManager.castData();
+    final PackageLandingThemeBase theme = themeManager.castData();
 
-    final RouterBase router = RouterBase.i;
+    final IRouter router = InjectorUtils.get();
 
     return ColoredBox(
       color: theme.headerTheming.back,
@@ -81,7 +81,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
                       color: theme.headerTheming.accent,
                     ),
                     onPressed: () {
-                      router.go(_homeRoute);
+                      router.go(context, _homeRouteData);
                     },
                   ),
                   ThemeSwitcher(),
