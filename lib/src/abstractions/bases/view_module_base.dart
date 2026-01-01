@@ -44,16 +44,19 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
   late FutureOr<void> initDepsCall;
 
   /// All { View } theme datas avilable.
-  late final List<IThemeData> themeDatas = widget.bootstrapTheming();
+  late final List<IThemeData> themeDatas;
 
   /// { View } routing graph.
-  late final RoutingGraphBase routingGraph = widget.bootstrapRouting();
+  late final RoutingGraphBase routingGraph;
 
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
     InjectorUtils.addSingleton<IRouter>(Router(routingGraph.routes));
+
+    themeDatas = widget.bootstrapTheming();
+    routingGraph = widget.bootstrapRouting();
 
     currentTheme = themeDatas.first;
     initDepsCall = widget.initView();
