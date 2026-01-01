@@ -94,7 +94,7 @@ final class _ButtonFlatState extends State<ButtonFlat> {
   }
 
   Color olStateColorize(StatesSet currentStates) {
-    final Color hlightColor = theming.fore;
+    final Color hlightColor = theming.accent;
     if (widget.disabled) {
       return Colors.transparent;
     }
