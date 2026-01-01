@@ -57,12 +57,12 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
 
+    routes = widget.bootstrapRouting();
+    themeDatas = widget.bootstrapTheming();
+
     InjectorUtils.addSingleton<IRouter>(
       Router(routes),
     );
-
-    routes = widget.bootstrapRouting();
-    themeDatas = widget.bootstrapTheming();
 
     currentTheme = themeDatas.first;
     initDepsCall = widget.initView();
