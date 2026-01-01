@@ -7,17 +7,29 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final Icon icon;
 
-  /// Contrast background color to highlight [icon].
+  /// Color specified for the frame size display.
   @override
-  final Color iconBackground;
+  final Color? frame;
 
   /// Unique theme identification for the theme manager.
   @override
   final String identifier;
 
-  /// Color specified for the frame size display.
+  /// Contrast background color to highlight [icon].
   @override
-  final Color? frame;
+  final Color iconBackground;
+
+  /// Theming data for all application primary controls.
+  @override
+  final ThemingData controlTheming;
+
+  /// Theming data for all application primary controls when they are at { error } state.
+  @override
+  final ThemingData controlErrorTheming;
+
+  /// Theming data for all application primary controls when they are at { success } state.
+  @override
+  final ThemingData controlSuccessTheming;
 
   /// Creates a new instance.
   const ThemeDataBase(
@@ -25,5 +37,8 @@ abstract class ThemeDataBase implements IThemeData {
     this.frame,
     required this.icon,
     required this.iconBackground,
+    required this.controlTheming,
+    required this.controlErrorTheming,
+    required this.controlSuccessTheming,
   });
 }

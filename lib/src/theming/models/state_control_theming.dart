@@ -7,18 +7,18 @@ import 'package:flutter/material.dart';
 ///
 /// [CSMStateTheme] concept: specifications to describe the base theme for a state component.
 /// this means there will be a base theme per state to be resolved by the current component state.
-final class StateTheming {
+final class StateControlTheming {
   /// The button default state theme to use.
   ///
   /// If there's not another state defined, but the control is in one of the other
   /// states, will use this[main] as default values.
-  final ComplexTheming main;
+  final InputControlTheming main;
 
   /// Defines a theme struct for the control when it is hovered.
-  final ComplexTheming? _hovered;
+  final InputControlTheming? _hovered;
 
   /// Defines a theme struct for the control when it is hovered.
-  ComplexTheming? get hovered {
+  InputControlTheming? get hovered {
     if (_hovered == null) return null;
 
     Color? background = _hovered.background;
@@ -33,10 +33,10 @@ final class StateTheming {
   }
 
   /// Defines a theme struct for the control when it is selected.
-  final ComplexTheming? _selected;
+  final InputControlTheming? _selected;
 
   /// Defines a theme struct for the control when it is selected.
-  ComplexTheming? get selected {
+  InputControlTheming? get selected {
     if (_selected == null) return null;
 
     Color? background = _selected.background;
@@ -50,11 +50,11 @@ final class StateTheming {
     );
   }
 
-  /// Generates a new [StateTheming] options.
-  const StateTheming({
+  /// Generates a new [StateControlTheming] options.
+  const StateControlTheming({
     required this.main,
-    ComplexTheming? hoverStruct,
-    ComplexTheming? selectStruct,
+    InputControlTheming? hoverStruct,
+    InputControlTheming? selectStruct,
   })  : _selected = selectStruct,
         _hovered = hoverStruct;
 }

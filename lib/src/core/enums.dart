@@ -66,7 +66,7 @@ enum CSMStates {
   }
 
   /// Evaluates the given [options] to calculate a resolved [CSMGenericThemeOptions] by the current state.
-  ComplexTheming evaluateTheme(StateTheming options) {
+  InputControlTheming evaluateTheme(StateControlTheming options) {
     switch (this) {
       case CSMStates.hovered:
         return options.hovered ?? options.main;

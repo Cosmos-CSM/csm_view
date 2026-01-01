@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Defines specifications for a [CSMColorTheme].
 ///
 /// [CSMColorTheme] concept: specifications to describe the base theme for a button component.
-final class SimpleTheming {
+final class ThemingData {
   /// Base [Color] usually known as [background].
   final Color back;
 
@@ -21,8 +21,8 @@ final class SimpleTheming {
   /// An alternative [accent], [Color].
   final Color? accentAlt;
 
-  /// Generates a new [SimpleTheming] options.
-  const SimpleTheming({
+  /// Generates a new [ThemingData] options.
+  const ThemingData({
     this.foreAlt,
     this.accentAlt,
     required this.back,

@@ -2,14 +2,14 @@ import 'package:csm_view/csm_view.dart';
 
 /// Represents a [PackageLandingView] theme data.
 abstract class PackageLandingThemeBase extends ThemeDataBase {
-  /// Application pages [SimpleTheming] options.
-  final SimpleTheming pageTheming;
+  /// Application pages [ThemingData] options.
+  final ThemingData pageTheming;
 
-  /// Application header [SimpleTheming] options.
-  final SimpleTheming headerTheming;
+  /// Application header [ThemingData] options.
+  final ThemingData headerTheming;
 
-  /// application [Welcome] page landing entries cards [SimpleTheming] options.
-  final SimpleTheming welcomeCardTheming;
+  /// application [Welcome] page landing entries cards [ThemingData] options.
+  final ThemingData welcomeCardTheming;
 
   /// Creates a new [PackageLandingThemeBase] instance.
   const PackageLandingThemeBase(
@@ -19,5 +19,8 @@ abstract class PackageLandingThemeBase extends ThemeDataBase {
     required this.pageTheming,
     required this.headerTheming,
     required this.welcomeCardTheming,
+    required super.controlTheming,
+    required super.controlErrorTheming,
+    required super.controlSuccessTheming,
   });
 }
