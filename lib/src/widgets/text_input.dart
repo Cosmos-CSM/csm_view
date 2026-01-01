@@ -206,15 +206,15 @@ final class _TextInputState extends State<TextInput> {
     /// --> Theming state update.
     IThemeData currentThemeData = ThemingUtils.get(context);
     if (widget.controlTheming != oldWidget.controlTheming) {
-      theme = widget.controlTheming ?? currentThemeData.controlTheming;
+      theme = widget.controlTheming ?? currentThemeData.control;
     }
 
     if (widget.controlErrorTheming != oldWidget.controlErrorTheming) {
-      errorTheme = widget.controlErrorTheming ?? currentThemeData.controlErrorTheming;
+      errorTheme = widget.controlErrorTheming ?? currentThemeData.controlError;
     }
 
     if (widget.controlsSuccessTheming != oldWidget.controlsSuccessTheming) {
-      successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccessTheming;
+      successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccess;
     }
   }
 
@@ -224,9 +224,9 @@ final class _TextInputState extends State<TextInput> {
 
     IThemeData currentThemeData = ThemingUtils.get(context);
 
-    theme = widget.controlTheming ?? currentThemeData.controlTheming;
-    errorTheme = widget.controlErrorTheming ?? currentThemeData.controlErrorTheming;
-    successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccessTheming;
+    theme = widget.controlTheming ?? currentThemeData.control;
+    errorTheme = widget.controlErrorTheming ?? currentThemeData.controlError;
+    successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccess;
   }
 
   @override

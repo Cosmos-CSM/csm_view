@@ -15,12 +15,13 @@ abstract class PackageLandingThemeBase extends ThemeDataBase {
   const PackageLandingThemeBase(
     super.identifier, {
     required super.icon,
-    required super.iconBackground,
+    required super.page,
+    required super.control,
     required this.pageTheming,
     required this.headerTheming,
+    required super.controlError,
+    required super.iconBackground,
+    required super.controlSuccess,
     required this.welcomeCardTheming,
-    required super.controlTheming,
-    required super.controlErrorTheming,
-    required super.controlSuccessTheming,
   });
 }

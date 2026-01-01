@@ -42,7 +42,7 @@ final class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemingData themeData = this.themeData ?? ThemingUtils.get<IThemeData>(context).controlTheming;
+    ThemingData themeData = this.themeData ?? ThemingUtils.get<IThemeData>(context).control;
 
     EdgeInsets padding = this.padding;
     if (width != null) {

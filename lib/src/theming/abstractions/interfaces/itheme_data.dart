@@ -15,23 +15,27 @@ abstract interface class IThemeData {
   /// Contrast background color to highlight [icon].
   final Color iconBackground;
 
+  /// Theming data for all the application pages.
+  final ThemingData page;
+
   /// Theming data for all application primary controls.
-  final ThemingData controlTheming;
+  final ThemingData control;
 
   /// Theming data for all application primary controls when they are at { error } state.
-  final ThemingData controlErrorTheming;
+  final ThemingData controlError;
 
   /// Theming data for all application primary controls when they are at { success } state.
-  final ThemingData controlSuccessTheming;
+  final ThemingData controlSuccess;
 
   /// Creates a new [IThemeData] instance.
   const IThemeData(
     this.icon,
+    this.page,
     this.frame,
     this.identifier,
     this.iconBackground,
-    this.controlTheming,
-    this.controlErrorTheming,
-    this.controlSuccessTheming,
+    this.control,
+    this.controlError,
+    this.controlSuccess,
   );
 }

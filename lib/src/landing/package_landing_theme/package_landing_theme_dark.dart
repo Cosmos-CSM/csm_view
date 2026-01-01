@@ -28,20 +28,25 @@ class PackageLandingThemeDark extends PackageLandingThemeBase {
             fore: Colors.white,
             accent: Colors.white,
           ),
-          controlTheming: ThemingData(
+          control: ThemingData(
             back: Colors.black,
             fore: Colors.white,
             accent: Colors.grey,
           ),
-          controlErrorTheming: ThemingData(
+          controlError: ThemingData(
             back: Colors.transparent,
             fore: Colors.red,
             accent: Colors.redAccent,
           ),
-          controlSuccessTheming: ThemingData(
+          controlSuccess: ThemingData(
             back: Colors.transparent,
             fore: Colors.green,
             accent: Colors.greenAccent,
+          ),
+          page: ThemingData(
+            back: Colors.black,
+            fore: Colors.white,
+            accent: Colors.black87,
           ),
         );
 }

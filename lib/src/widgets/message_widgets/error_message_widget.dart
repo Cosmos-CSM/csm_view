@@ -22,7 +22,7 @@ final class ErrorMessageWidget extends StatelessWidget {
           vertical: 12,
           horizontal: 20,
         ),
-        themeData: ThemingUtils.get<IThemeData>(context).controlErrorTheming,
+        themeData: ThemingUtils.get<IThemeData>(context).controlError,
       ),
     );
   }

@@ -11,6 +11,11 @@ class PackageLandingThemeLight extends PackageLandingThemeBase {
           themeId ?? 'package-landing-theme-light',
           icon: Icon(Icons.light_mode),
           iconBackground: Colors.white60,
+          page: ThemingData(
+            back: Color(0xfff2f2f2),
+            fore: Colors.black,
+            accent: Colors.blue.shade900,
+          ),
           pageTheming: ThemingData(
             back: Color(0xfff2f2f2),
             fore: Colors.black,
@@ -26,17 +31,17 @@ class PackageLandingThemeLight extends PackageLandingThemeBase {
             fore: Colors.white,
             accent: Colors.white70,
           ),
-          controlTheming: ThemingData(
+          control: ThemingData(
             back: Colors.black,
             fore: Colors.white,
             accent: Colors.grey,
           ),
-          controlErrorTheming: ThemingData(
+          controlError: ThemingData(
             back: Colors.transparent,
             fore: Colors.red,
             accent: Colors.redAccent,
           ),
-          controlSuccessTheming: ThemingData(
+          controlSuccess: ThemingData(
             back: Colors.transparent,
             fore: Colors.green,
             accent: Colors.greenAccent,

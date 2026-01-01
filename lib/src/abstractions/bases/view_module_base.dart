@@ -70,61 +70,67 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: AsyncWidget<void>(
-        isVoid: true,
-        future: initDepsCall,
-        successBuilder: (BuildContext context, void _) {
-          return ThemeManager(
-            themes: themeDatas,
-            themeData: currentTheme,
-            change: (Type newTheme) {
-              setState(() {
-                currentTheme = themeDatas.firstWhere(
-                  (IThemeData themeData) => themeData.runtimeType == newTheme,
-                );
-              });
-            },
-            child: MaterialApp.router(
-              routerConfig: RoutingGraph(
-                routes: routes,
-                redirect: widget.boostrapRedirection,
-              ),
-              restorationScopeId: 'view',
-              builder: (BuildContext context, Widget? child) {
-                final Widget viewBuild = DefaultTextStyle(
-                  style: const TextStyle(
-                    decoration: TextDecoration.none,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  child: widget.bootstrapBuild(context, child),
-                );
+    ThemingData pageTheme = ThemingUtils.get(context).page;
 
-                if (!kDebugMode || !widget.useSizingFrame) {
-                  return viewBuild;
-                }
-
-                return Stack(
-                  children: <Widget>[
-                    viewBuild,
-                    const Padding(
-                      padding: EdgeInsets.only(
-                        top: 16,
-                        left: 16,
-                      ),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: _ViewModuleSize(),
-                      ),
-                    ),
-                  ],
-                );
+    return ColoredBox(
+      color: pageTheme.back,
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: AsyncWidget<void>(
+          isVoid: true,
+          future: initDepsCall,
+          successBuilder: (BuildContext context, void _) {
+            return ThemeManager(
+              themes: themeDatas,
+              themeData: currentTheme,
+              change: (Type newTheme) {
+                setState(() {
+                  currentTheme = themeDatas.firstWhere(
+                    (IThemeData themeData) => themeData.runtimeType == newTheme,
+                  );
+                });
               },
-            ),
-          );
-        },
+              child: MaterialApp.router(
+                routerConfig: RoutingGraph(
+                  routes: routes,
+                  redirect: widget.boostrapRedirection,
+                ),
+                restorationScopeId: 'view',
+                builder: (BuildContext context, Widget? child) {
+                  final Widget viewBuild = DefaultTextStyle(
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: ThemingUtils.get<IThemeData>(context).page.fore,
+                    ),
+                    child: widget.bootstrapBuild(context, child),
+                  );
+
+                  if (!kDebugMode || !widget.useSizingFrame) {
+                    return viewBuild;
+                  }
+
+                  return Stack(
+                    children: <Widget>[
+                      viewBuild,
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          top: 16,
+                          left: 16,
+                        ),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: _ViewModuleSize(),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

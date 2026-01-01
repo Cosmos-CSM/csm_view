@@ -19,17 +19,21 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final Color iconBackground;
 
+  /// Theming data for all the application pages.
+  @override
+  final ThemingData page;
+
   /// Theming data for all application primary controls.
   @override
-  final ThemingData controlTheming;
+  final ThemingData control;
 
   /// Theming data for all application primary controls when they are at { error } state.
   @override
-  final ThemingData controlErrorTheming;
+  final ThemingData controlError;
 
   /// Theming data for all application primary controls when they are at { success } state.
   @override
-  final ThemingData controlSuccessTheming;
+  final ThemingData controlSuccess;
 
   /// Creates a new instance.
   const ThemeDataBase(
@@ -37,8 +41,9 @@ abstract class ThemeDataBase implements IThemeData {
     this.frame,
     required this.icon,
     required this.iconBackground,
-    required this.controlTheming,
-    required this.controlErrorTheming,
-    required this.controlSuccessTheming,
+    required this.page,
+    required this.control,
+    required this.controlError,
+    required this.controlSuccess,
   });
 }
