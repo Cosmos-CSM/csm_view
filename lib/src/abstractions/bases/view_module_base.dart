@@ -26,13 +26,16 @@ abstract class ViewModuleBase extends StatefulWidget {
   Widget bootstrapBuild(BuildContext context, Widget? app) => app ?? _ViewModuleWelcome();
 
   @protected
-  RoutingGraphBase bootstrapRouting();
+  FutureOr<void> initView() {}
 
   @protected
   List<IThemeData> bootstrapTheming();
 
   @protected
-  FutureOr<void> initView() {}
+  List<IRoutingGraphData> bootstrapRouting();
+
+  @protected
+  FutureOr<RouteData>? boostrapRedirection(BuildContext context, RoutingData routingData) => null;
 }
 
 /// State class for [ViewModuleBase].
@@ -47,16 +50,20 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
   late final List<IThemeData> themeDatas;
 
   /// { View } routing graph.
-  late final RoutingGraphBase routingGraph;
+  late final List<IRoutingGraphData> routes;
 
   @override
   void initState() {
     super.initState();
     WidgetsFlutterBinding.ensureInitialized();
 
+    InjectorUtils.addSingleton<IRouter>(
+      Router(routes),
+    );
+
+    routes = widget.bootstrapRouting();
     themeDatas = widget.bootstrapTheming();
-    routingGraph = widget.bootstrapRouting();
-    
+
     currentTheme = themeDatas.first;
     initDepsCall = widget.initView();
   }
@@ -80,7 +87,10 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
               });
             },
             child: MaterialApp.router(
-              routerConfig: routingGraph,
+              routerConfig: RoutingGraph(
+                routes: routes,
+                redirect: widget.boostrapRedirection,
+              ),
               restorationScopeId: 'view',
               builder: (BuildContext context, Widget? child) {
                 final Widget viewBuild = DefaultTextStyle(
