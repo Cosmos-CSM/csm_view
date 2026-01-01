@@ -50,6 +50,7 @@ export 'src/core/extensions.dart';
 export 'src/core/mixins/console_mixin.dart';
 export 'src/core/mixins/comparer_mixin.dart';
 export 'src/core/mixins/platform_mixin.dart';
+export 'src/core/mixins/theming_mixin.dart';
 
 export 'src/core/utils/injector_utils.dart';
 export 'src/core/utils/theming_utils.dart';
