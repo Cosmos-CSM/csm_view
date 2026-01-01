@@ -19,7 +19,9 @@ export 'src/routing/router.dart';
 export 'src/routing/abstractions/bases/router_base.dart';
 export 'src/routing/abstractions/interfaces/irouter.dart';
 
+export 'src/routing/routing_graph.dart';
 export 'src/routing/abstractions/bases/routing_graph_base.dart';
+
 export 'src/routing/abstractions/interfaces/irouting_grapth_leaf_data.dart';
 
 export 'src/routing/abstractions/bases/routing_graph_data_base.dart';
