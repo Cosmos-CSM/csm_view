@@ -57,5 +57,10 @@ abstract class RoutingGraphBase extends GoRouter implements IRoutingGraph {
               },
             ),
           ),
-        );
+        ) {
+    /// --> Here we have the routes context so we initialize the dependecy.
+    InjectorUtils.addSingleton<IRouter>(
+      Router(routes),
+    );
+  }
 }

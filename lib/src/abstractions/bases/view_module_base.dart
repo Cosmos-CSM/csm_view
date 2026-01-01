@@ -57,8 +57,6 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
     themeDatas = widget.bootstrapTheming();
     routingGraph = widget.bootstrapRouting();
     
-    InjectorUtils.addSingleton<IRouter>(Router(routingGraph.routes));
-
     currentTheme = themeDatas.first;
     initDepsCall = widget.initView();
   }
