@@ -177,12 +177,6 @@ final class _TextInputState extends State<TextInput> {
 
   @override
   void initState() {
-    IThemeData currentThemeData = ThemingUtils.get(context);
-
-    theme = widget.controlTheming ?? currentThemeData.controlTheming;
-    errorTheme = widget.controlErrorTheming ?? currentThemeData.controlErrorTheming;
-    successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccessTheming;
-
     if (widget.focusEvents) setFocus();
 
     showSuffix = !widget.isOptional || widget.suffixLabel == null;
@@ -222,6 +216,17 @@ final class _TextInputState extends State<TextInput> {
     if (widget.controlsSuccessTheming != oldWidget.controlsSuccessTheming) {
       successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccessTheming;
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    IThemeData currentThemeData = ThemingUtils.get(context);
+
+    theme = widget.controlTheming ?? currentThemeData.controlTheming;
+    errorTheme = widget.controlErrorTheming ?? currentThemeData.controlErrorTheming;
+    successTheme = widget.controlsSuccessTheming ?? currentThemeData.controlSuccessTheming;
   }
 
   @override
