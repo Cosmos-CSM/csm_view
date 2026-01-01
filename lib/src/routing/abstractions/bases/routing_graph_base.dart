@@ -1,4 +1,5 @@
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/routing/abstractions/interfaces/irouting_graph.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Router, Route;
 import 'package:go_router/go_router.dart' hide RouteData;
@@ -6,7 +7,7 @@ import 'package:go_router/go_router.dart' hide RouteData;
 part '../../_router_listener.dart';
 
 /// Represents a { View } complex routing graph configuration.
-abstract class RoutingGraphBase extends GoRouter {
+abstract class RoutingGraphBase extends GoRouter implements IRoutingGraph {
   /// Default [NavigationState] instance to use if the main application doesn't provide one.
   static final NavigationState _kNavigation = NavigationState();
 
@@ -14,9 +15,10 @@ abstract class RoutingGraphBase extends GoRouter {
   static String _currentPath = "";
 
   /// Routing graph routes.
+  @override
   final List<IRoutingGraphData> routes;
 
-  /// Creates a new [RoutingGraphBase] instance.
+  /// Creates a new instance.
   RoutingGraphBase({
     RouteData? devRoute,
     required this.routes,
