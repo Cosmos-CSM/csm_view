@@ -128,6 +128,7 @@ final class _ButtonFlatState extends State<ButtonFlat> {
           child: Visibility(
             visible: !isLoading,
             replacement: LoadingIndicator(
+              hideTextHint: true,
               foreColor: theming.foreAlt ?? theming.fore,
             ),
             child: Text(
