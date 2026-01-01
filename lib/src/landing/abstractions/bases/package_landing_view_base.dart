@@ -7,8 +7,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-part '../../_package_landing_router.dart';
-
 part '../../_package_landing_layout/_package_landing_layout.dart';
 part '../../_package_landing_layout/_package_landing_layout_menu.dart';
 part '../../_package_landing_layout/_package_landing_layou_header.dart';
@@ -48,58 +46,56 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
   List<TLandingThemeBase> bootstrapTheming();
 
   @override
-  RoutingGraphBase bootstrapRouting() {
+  List<IRoutingGraphData> bootstrapRouting() {
     final NavigationState entriesLayoutKey = GlobalKey();
     final NavigationState navigationLayoutKey = GlobalKey();
 
     final (_Graph<TLandingThemeBase> navigationGraph, _Graph<TLandingThemeBase> packageEntriesGraph, List<IRoutingGraphData> routes) contextGraphs = composeContextGraphs(entriesLayoutKey, navigationLayoutKey);
 
-    return _PackageLandingRoutingGraph(
-      routes: <IRoutingGraphData>[
-        /// --> Landing Navigation Layour
-        RoutingGraphLayout(
-          navigatorStateKey: navigationLayoutKey,
-          routes: <IRoutingGraphData>[
-            /// --> Home Route
-            RoutingGraphNode(
-              _homeRouteData,
-              pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<TLandingThemeBase>(
-                packageName: name,
-                routingGraph: contextGraphs.$1,
-                packageDescription: description,
-              ),
-            ),
-
-            /// --> Entry Layout
-            RoutingGraphLayout(
-              routes: contextGraphs.$3,
-              navigatorStateKey: entriesLayoutKey,
-              layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-                IPackageLandingEntry<TLandingThemeBase> landingEntry = contextGraphs.$2.entries
-                    .firstWhere(
-                      (MapEntry<RouteData, IPackageLandingEntry<TLandingThemeBase>> element) => element.key == routingData.targetRoute,
-                    )
-                    .value;
-
-                return _PackageLandingEntryLayout<TLandingThemeBase>(
-                  page: page,
-                  routingData: routingData,
-                  landingEntry: landingEntry,
-                );
-              },
-            ),
-          ],
-          layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
-            return _PackageLandingViewLayout<TLandingThemeBase>(
-              page: page,
-              routingData: routingData,
-              themes: bootstrapTheming(),
+    return <IRoutingGraphData>[
+      /// --> Landing Navigation Layour
+      RoutingGraphLayout(
+        navigatorStateKey: navigationLayoutKey,
+        routes: <IRoutingGraphData>[
+          /// --> Home Route
+          RoutingGraphNode(
+            _homeRouteData,
+            pageBuilder: (BuildContext ctx, _) => _PackageLandingWelcome<TLandingThemeBase>(
+              packageName: name,
               routingGraph: contextGraphs.$1,
-            );
-          },
-        ),
-      ],
-    );
+              packageDescription: description,
+            ),
+          ),
+
+          /// --> Entry Layout
+          RoutingGraphLayout(
+            routes: contextGraphs.$3,
+            navigatorStateKey: entriesLayoutKey,
+            layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
+              IPackageLandingEntry<TLandingThemeBase> landingEntry = contextGraphs.$2.entries
+                  .firstWhere(
+                    (MapEntry<RouteData, IPackageLandingEntry<TLandingThemeBase>> element) => element.key == routingData.targetRoute,
+                  )
+                  .value;
+
+              return _PackageLandingEntryLayout<TLandingThemeBase>(
+                page: page,
+                routingData: routingData,
+                landingEntry: landingEntry,
+              );
+            },
+          ),
+        ],
+        layoutBuilder: (BuildContext ctx, RoutingData routingData, Widget page) {
+          return _PackageLandingViewLayout<TLandingThemeBase>(
+            page: page,
+            routingData: routingData,
+            themes: bootstrapTheming(),
+            routingGraph: contextGraphs.$1,
+          );
+        },
+      ),
+    ];
   }
 
   @override
