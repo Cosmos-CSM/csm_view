@@ -83,6 +83,8 @@ export 'src/widgets/text_input.dart';
 export 'src/widgets/button_flat.dart';
 export 'src/widgets/loading_indicator.dart';
 export 'src/widgets/async_widget/async_widget.dart';
+export 'src/widgets/message_widgets/message_widget.dart';
+export 'src/widgets/message_widgets/error_message_widget.dart';
 
 //! --> Exporting [Landing]
 export 'src/landing/abstractions/bases/package_landing_theme_base.dart';
