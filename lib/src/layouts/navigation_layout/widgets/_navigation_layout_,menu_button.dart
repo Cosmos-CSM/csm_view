@@ -1,27 +1,50 @@
 part of '../navigation_layout.dart';
 
 /// Draws a [NavigationLayout] menu button for application navigation.
-final class _NavigationLayoutMenuButton extends StatelessWidget {
+final class _NavigationLayoutMenuButton extends StatefulWidget {
+  /// Whether the current button must be selected.
+  final bool isSelected;
+
   /// Navigation layout node data.
   final INavigationLayoutNode navigationNode;
 
   /// Creates a new instance.
   const _NavigationLayoutMenuButton({
+    required this.isSelected,
     required this.navigationNode,
   });
 
   @override
+  State<_NavigationLayoutMenuButton> createState() => _NavigationLayoutMenuButtonState();
+}
+
+/// State class for [_NavigationLayoutMenuButton].
+final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenuButton> with ThemingStateMixin<_NavigationLayoutMenuButton> {
+  /// Wheter the button is currently hovered.
+  bool isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
+    ThemingData themeData = getTheme<INavigationLayoutThemeData>().navigationLayout;
+
     return PointerArea(
       cursor: SystemMouseCursors.click,
       onClick: () {
+        if (widget.isSelected) return;
+
         IRouter router = InjectorUtils.get();
 
-        router.go(context, navigationNode.routeData);
+        router.go(context, widget.navigationNode.routeData);
       },
-      onHover: (bool hover) {},
+      onHover: (bool hover) {
+        if (widget.isSelected) return;
+
+        setState(() {
+          isHovered = hover;
+        });
+      },
       child: ColoredBox(
-        color: Colors.blueAccent,
+        color: widget.isSelected ? themeData.back.withAlpha(225) : themeData.back,
         child: SizedBox(
           height: 35,
           width: double.maxFinite,
@@ -30,26 +53,26 @@ final class _NavigationLayoutMenuButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               /// Selected Entry mark.
-              if (true)
+              if (widget.isSelected)
                 ColoredBox(
-                  color: Colors.green,
+                  color: themeData.accent,
                   child: SizedBox(
                     width: 4,
                     height: double.maxFinite,
                   ),
                 ),
 
-              if (navigationNode.icon != null)
+              if (widget.navigationNode.icon != null)
                 Icon(
-                  navigationNode.icon,
+                  widget.navigationNode.icon,
                   size: 20,
                   color: Colors.white,
                 ),
               Text(
-                navigationNode.title,
+                widget.navigationNode.title,
                 style: TextStyle(
                   height: 1.0,
-                  color: Colors.white,
+                  color: themeData.fore,
                 ),
               )
             ],
