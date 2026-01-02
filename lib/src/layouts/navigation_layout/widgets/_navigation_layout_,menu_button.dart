@@ -44,38 +44,47 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
         });
       },
       child: ColoredBox(
-        color: widget.isSelected ? themeData.back.withAlpha(225) : themeData.back,
-        child: SizedBox(
-          height: 35,
-          width: double.maxFinite,
-          child: Row(
-            spacing: 10,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              /// Selected Entry mark.
-              if (widget.isSelected)
-                ColoredBox(
-                  color: themeData.accent,
-                  child: SizedBox(
-                    width: 4,
-                    height: double.maxFinite,
+        color: widget.isSelected
+            ? themeData.back.withAlpha(205)
+            : isHovered
+                ? themeData.back.withAlpha(127)
+                : themeData.back,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 12,
+          ),
+          child: SizedBox(
+            height: 35,
+            width: double.maxFinite,
+            child: Row(
+              spacing: 10,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                /// Selected Entry mark.
+                if (widget.isSelected)
+                  ColoredBox(
+                    color: themeData.accent,
+                    child: SizedBox(
+                      width: 4,
+                      height: double.maxFinite,
+                    ),
                   ),
-                ),
 
-              if (widget.navigationNode.icon != null)
-                Icon(
-                  widget.navigationNode.icon,
-                  size: 20,
-                  color: Colors.white,
-                ),
-              Text(
-                widget.navigationNode.title,
-                style: TextStyle(
-                  height: 1.0,
-                  color: themeData.fore,
-                ),
-              )
-            ],
+                if (widget.navigationNode.icon != null)
+                  Icon(
+                    widget.navigationNode.icon,
+                    size: 20,
+                    color: Colors.white,
+                  ),
+                Text(
+                  widget.navigationNode.title,
+                  style: TextStyle(
+                    height: 1.0,
+                    color: themeData.fore,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
