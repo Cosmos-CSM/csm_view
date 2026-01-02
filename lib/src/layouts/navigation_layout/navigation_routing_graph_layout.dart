@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// {LayoutNode} class.
 ///
 /// Implements a [RouteLayout] node to simplify the routing tree subscription for [NavigationLayout] configurations.
-final class NavigationGraphLayout extends RoutingGraphLayoutBase {
+final class NavigationRoutingGraphLayout extends RoutingGraphLayoutBase {
   /// Home [Route] used to draw a direction header button to access it easier.
   final RouteData? rootRoute;
 
@@ -14,8 +14,8 @@ final class NavigationGraphLayout extends RoutingGraphLayoutBase {
   /// The navigation entries to be handled, drawing navigation buttons and the routing behavior.
   final List<INavigationLayoutNode> navigationEntries;
 
-  /// Creates a new [NavigationGraphLayout] instance.
-  NavigationGraphLayout({
+  /// Creates a new [NavigationRoutingGraphLayout] instance.
+  NavigationRoutingGraphLayout({
     this.rootRoute,
     this.userBuilder,
     required super.routes,
