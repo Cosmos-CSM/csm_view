@@ -22,6 +22,8 @@ final class _NavigationLayoutMenu extends StatefulWidget {
 final class _NavigationLayoutMenuState extends State<_NavigationLayoutMenu> {
   @override
   Widget build(BuildContext context) {
+    IRouter router = InjectorUtils.get();
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 16,
@@ -33,6 +35,7 @@ final class _NavigationLayoutMenuState extends State<_NavigationLayoutMenu> {
             for (int i = 0; i < widget.navigationNodes.length; i++)
               _NavigationLayoutMenuButton(
                 navigationNode: widget.navigationNodes[i],
+                isSelected: router.getAbsolutePath(widget.routeData).contains(router.getAbsolutePath(widget.navigationNodes[i].routeData)),
               ),
           ],
         ),
