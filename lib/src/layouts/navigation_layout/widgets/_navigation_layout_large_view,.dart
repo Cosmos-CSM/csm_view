@@ -1,21 +1,22 @@
-part of 'navigation_layout.dart';
+part of '../navigation_layout.dart';
 
-/// {widget} class.
-///
-/// Draws the [NavigationLayout] when the device is large.
-final class _NavigationLayoutLarge extends _NavigationLayoutBase with ThemingMixin {
-  const _NavigationLayoutLarge({
-    super.rootRoute,
+/// Draws the [NavigationLayout] on large devices view.
+final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with ThemingMixin {
+  /// Creates a new instance.
+  _NavigationLayoutLargeView({
+    super.appLogo,
+    super.userData,
+    super.homeRouteData,
+    super.userDataBuilder,
     required super.page,
-    required super.user,
     required super.pageSize,
-    required super.routeData,
-    required super.navigationEntries,
+    required super.routingData,
+    required super.navigationNodes,
   });
 
   @override
   Widget build(BuildContext context) {
-    final _NavigationLayourNavigationReactor navReactor = _NavigationLayourNavigationReactor();
+    final _NavigationLayoutMenuReactor navReactor = _NavigationLayoutMenuReactor();
 
     return Row(
       children: <Widget>[
@@ -23,14 +24,15 @@ final class _NavigationLayoutLarge extends _NavigationLayoutBase with ThemingMix
           child: Column(
             children: <Widget>[
               _NavigationLayoutHeader(
-                user: user,
-                rootRoute: rootRoute,
+                logo: appLogo,
+                user: userData,
                 navReactor: navReactor,
+                routeData: homeRouteData,
               ),
               Expanded(
-                child: ReactiveWidget<_NavigationLayourNavigationReactor>(
+                child: ReactiveWidget<_NavigationLayoutMenuReactor>(
                   reactor: navReactor,
-                  builder: (BuildContext buildContext, _NavigationLayourNavigationReactor reactor) {
+                  builder: (BuildContext buildContext, _NavigationLayoutMenuReactor reactor) {
                     const double menuWidth = 250;
                     final double currMenuWidth = reactor._isOpen ? menuWidth : 0;
                     final ThemingData pageTheme = getTheme<IThemeData>(context).page;
@@ -59,9 +61,9 @@ final class _NavigationLayoutLarge extends _NavigationLayoutBase with ThemingMix
                             child: SizedBox(
                               width: menuWidth,
                               height: pageSize.height,
-                              child: _NavigationLayoutNavigation(
-                                currentRoute: routeData,
-                                navigationEntries: navigationEntries,
+                              child: _NavigationLayoutMenu(
+                                navigationNodes: navigationNodes,
+                                routeData: routingData.targetRoute,
                               ),
                             ),
                           ),

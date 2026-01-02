@@ -2,52 +2,76 @@ import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:csm_view/src/theming/abstractions/interfaces/inavigation_layout_theme_data.dart';
 import 'package:flutter/material.dart' hide Router, Route;
 
-part 'abstractions/bases/_navigation_layout_base.dart';
-part '_navigation_layout_header/_navigation_layout_header.dart';
-part '_navigation_layout_header/_navigation_layout_header_user_button.dart';
-part '_navigation_layout_header/_navigation_layout_header_user_button_menu.dart';
-part '_navigation_layout_large,.dart';
-part '_navigation_layout_navigation/_navigation_layout_navigation.dart';
-part '_navigation_layout_navigation/_navigation_layout_navigation_reactor.dart';
-part '_navigation_layout_small.dart';
+export './abstractions/bases/navigation_layout_node_base.dart';
+export './abstractions/interfaces/inavigation_layout.dart';
+export './abstractions/interfaces/inavigation_layout_header_user_data.dart';
+export './abstractions/interfaces/inavigation_layout_node.dart';
 
-///
-final class NavigationLayout extends ViewLayoutBase {
-  ///
-  final RouteData? rootRoute;
+part 'abstractions/bases/_navigation_layout_view_base.dart';
+part 'widgets/_navigation_layout_header.dart';
+part 'widgets/_navigation_layout_header_user_button.dart';
+part 'widgets/_navigation_layout_header_user_button_menu.dart';
+part 'widgets/_navigation_layout_large_view,.dart';
+part 'widgets/_navigation_layout_,menu_button.dart';
+part 'widgets/_navigation_layout_menu.dart';
+part '_navigation_layout_menu_reactor.dart';
+part 'widgets/_navigation_layout_small_view.dart';
 
-  ///
+/// Draws a complex { View } navigation layout that handles main application sections navigation, theming management and user data / management access.
+final class NavigationLayout extends ViewLayoutBase implements INavigationLayout {
+  /// Header application logo.
+  @override
+  final ImageProvider? appLogo;
+
+  /// Layout home route.
+  @override
+  final RouteData? homeRouteData;
+
+  /// Layout displayed user data.
+  @override
   final INavigationLayoutHeaderUserData? userData;
 
-  final List<INavigationLayoutNode> navigationEntries;
+  /// Layout nodes.
+  @override
+  final List<INavigationLayoutNode> navigationNodes;
 
-  ///
+  /// Solution specific user information builder to get and calculate user information to display at header user button.
+  @override
+  final INavigationLayoutHeaderUserData? Function()? userDataBuilder;
+
+  /// Creates a new instance.
   const NavigationLayout({
+    this.appLogo,
     this.userData,
-    this.rootRoute,
+    this.homeRouteData,
+    this.userDataBuilder,
     required super.page,
     required super.routingData,
-    this.navigationEntries = const <INavigationLayoutNode>[],
+    this.navigationNodes = const <INavigationLayoutNode>[],
   });
 
   ///
   @override
   Widget compose(BuildContext buildContext, Size windowSize, Size pageSize) {
+    final INavigationLayoutHeaderUserData? userData = this.userData ?? userDataBuilder?.call();
+
     return ResponsiveWidget(
-      onLarge: _NavigationLayoutLarge(
+      onLarge: _NavigationLayoutLargeView(
         page: page,
-        user: userData,
+        appLogo: appLogo,
+        userData: userData,
         pageSize: pageSize,
-        rootRoute: rootRoute,
-        routeData: routingData.targetRoute,
-        navigationEntries: navigationEntries,
+        routingData: routingData,
+        homeRouteData: homeRouteData,
+        navigationNodes: navigationNodes,
+        userDataBuilder: userDataBuilder,
       ),
-      onSmall: _MasterLayoutSmall(
-        user: userData,
+      onSmall: _NavigationLayoutSmallView(
         page: page,
         pageSize: pageSize,
-        routeData: routingData.targetRoute,
-        navigationEntries: navigationEntries,
+        userData: userData,
+        routingData: routingData,
+        navigationNodes: navigationNodes,
       ),
     );
   }

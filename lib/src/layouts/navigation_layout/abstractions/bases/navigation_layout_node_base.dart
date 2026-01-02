@@ -1,7 +1,7 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
-/// Represents a { CSM } framework base navigation layout node.
+/// Represents a navigation layout node, drawing a button to access the page at the menu.
 abstract class NavigationLayoutNodeBase implements INavigationLayoutNode {
   /// Navigation button title.
   @override
@@ -11,14 +11,19 @@ abstract class NavigationLayoutNodeBase implements INavigationLayoutNode {
   @override
   final RouteData routeData;
 
+  /// Button image builder.
+  @override
+  final ImageProvider Function(BuildContext context)? imageBuilder;
+
   /// Button icon builder.
   @override
-  final ImageProvider Function(BuildContext context) iconBuilder;
+  final IconData? icon;
 
-  /// Creates a new instance.
+  /// Creates a new instance
   const NavigationLayoutNodeBase({
+    this.icon,
+    this.imageBuilder,
     required this.title,
     required this.routeData,
-    required this.iconBuilder,
   });
 }

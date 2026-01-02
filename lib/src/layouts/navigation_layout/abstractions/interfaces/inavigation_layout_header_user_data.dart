@@ -1,6 +1,6 @@
-/// Model contract to define information needed to correctly build [NavigationLayout] header user button.
+/// Represents solution user displayable data.
 abstract interface class INavigationLayoutHeaderUserData {
-  /// User pile name.
+  /// User name.
   final String name;
 
   /// User last name.
@@ -15,6 +15,6 @@ abstract interface class INavigationLayoutHeaderUserData {
   /// User full name monogram.
   String get monogram;
 
-  /// Creates a new [INavigationLayoutHeaderUserData] instance.
+  /// Creates a new instance.
   const INavigationLayoutHeaderUserData(this.name, this.lastName, this.email);
 }

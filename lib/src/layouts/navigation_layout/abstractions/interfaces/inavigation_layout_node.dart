@@ -1,7 +1,7 @@
 import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
-/// Represents a { CSM } framework base navigation layout node.
+/// Represents a navigation layout node, drawing a button to access the page at the menu.
 abstract interface class INavigationLayoutNode {
   /// Navigation button title.
   final String title;
@@ -9,13 +9,18 @@ abstract interface class INavigationLayoutNode {
   /// Navigation button target route.
   final RouteData routeData;
 
-  /// Button icon builder.
-  final ImageProvider Function(BuildContext context) iconBuilder;
+  /// Button image builder.
+  final ImageProvider Function(BuildContext context)? imageBuilder;
 
-  /// Creates a new [INavigationLayoutNode] instance.
+  /// Button icon builder.
+  final IconData? icon;
+  
+
+  /// Creates a new instance.
   const INavigationLayoutNode({
     required this.title,
     required this.routeData,
-    required this.iconBuilder,
-  });
+    this.icon,
+    this.imageBuilder,
+  }) : assert(icon != null || imageBuilder != null);
 }

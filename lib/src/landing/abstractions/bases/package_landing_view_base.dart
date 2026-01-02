@@ -1,8 +1,5 @@
 import 'package:csm_view/csm_view.dart' hide LayoutBuilder;
 import 'package:csm_view/src/core/utils/widget_adaption_utils.dart';
-import 'package:csm_view/src/widgets/pointer_area.dart';
-import 'package:csm_view/src/widgets/reactive_widget.dart';
-import 'package:csm_view/src/widgets/theme_switcher.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

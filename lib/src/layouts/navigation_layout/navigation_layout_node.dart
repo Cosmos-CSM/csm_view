@@ -1,13 +1,12 @@
 import 'package:csm_view/csm_view.dart';
 
-/// {model} class.
-///
-/// Implements a data {model} that stores information to correctly build a Navigation Menu button and its routing behavior.
+/// Represents a navigation layout node, drawing a button to access the page at the menu.
 final class NavigationLayoutNode extends NavigationLayoutNodeBase {
-  /// Creates a new [NavigationLayoutNode] instance.
+  /// Creates a new instance.
   const NavigationLayoutNode({
+    super.icon,
+    super.imageBuilder,
     required super.title,
     required super.routeData,
-    required super.iconBuilder,
   });
 }

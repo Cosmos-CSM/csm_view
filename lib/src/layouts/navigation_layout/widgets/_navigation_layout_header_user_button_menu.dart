@@ -5,17 +5,17 @@ part of '../navigation_layout.dart';
 /// Draws the [_NavigationLayoutHeader] user button to interact with the user information and options.
 final class _NavigationLayoutHeaderUserButtonMenu extends StatelessWidget with ThemingMixin {
   /// User information.
-  final INavigationLayoutHeaderUserData userData;
+  final INavigationLayoutHeaderUserData user;
 
   /// Creates a new [_NavigationLayoutHeaderUserButtonMenu] instance.
-  const _NavigationLayoutHeaderUserButtonMenu(this.userData);
+  const _NavigationLayoutHeaderUserButtonMenu(this.user);
 
   @override
   Widget build(BuildContext context) {
-    final ThemingData pageTheme = getTheme<IThemeData>(context).page;
+    final ThemingData pageTheming = getTheme<IThemeData>(context).page;
 
     return ColoredBox(
-      color: pageTheme.back,
+      color: pageTheming.back,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(5),
         child: Padding(
@@ -38,7 +38,7 @@ final class _NavigationLayoutHeaderUserButtonMenu extends StatelessWidget with T
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Icon(
-                          color: pageTheme.fore,
+                          color: pageTheming.fore,
                           Icons.person_outline,
                         ),
                       ),
@@ -55,7 +55,7 @@ final class _NavigationLayoutHeaderUserButtonMenu extends StatelessWidget with T
                       children: <Widget>[
                         // Name
                         Text(
-                          userData.fullName,
+                          user.fullName,
                           maxLines: 3,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
@@ -64,9 +64,9 @@ final class _NavigationLayoutHeaderUserButtonMenu extends StatelessWidget with T
 
                         /// E-Mail information
                         Tooltip(
-                          message: userData.email,
+                          message: user.email,
                           child: Text(
-                            userData.email,
+                            user.email,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

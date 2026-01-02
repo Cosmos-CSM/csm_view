@@ -1,8 +1,8 @@
 import 'package:csm_view/csm_view.dart';
 
 /// Data {model} implementation to store user information required for [NavigationLayout] header user button.
-final class NavigatonLayoutHeaderUserData implements INavigationLayoutHeaderUserData {
-  /// User pile name.
+final class NavigationLayoutHeaderUserData implements INavigationLayoutHeaderUserData {
+  /// User name.
   @override
   final String name;
 
@@ -21,8 +21,8 @@ final class NavigatonLayoutHeaderUserData implements INavigationLayoutHeaderUser
   @override
   String get monogram => '${name[0].toUpperCase()}${lastName[0].toUpperCase()}';
 
-  /// Creates a new [NavigatonLayoutHeaderUserData] instance.
-  const NavigatonLayoutHeaderUserData({
+  /// Creates a new [NavigationLayoutHeaderUserData] instance.
+  const NavigationLayoutHeaderUserData({
     required this.name,
     required this.email,
     required this.lastName,
