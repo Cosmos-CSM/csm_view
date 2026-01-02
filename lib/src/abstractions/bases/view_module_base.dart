@@ -10,12 +10,18 @@ part '../../widgets/_view_module_size.dart';
 
 /// Represents a solution { View } module.
 abstract class ViewModuleBase extends StatefulWidget {
+
+  /// Whether the view displays context sizing frame.
   final bool useSizingFrame;
 
-  ///
+  /// Whether the view displays legacy debug check banner.
+  final bool showLegacyDebugBanner;
+
+  /// Creates a new instance.
   const ViewModuleBase({
     super.key,
-    this.useSizingFrame = true,
+    this.useSizingFrame = false,
+    this.showLegacyDebugBanner = false,
   });
 
   @override
@@ -70,7 +76,6 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
   @override
   Widget build(BuildContext context) {
-
     return ThemeManager(
       themes: themeDatas,
       themeData: currentTheme,
@@ -92,6 +97,7 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
               future: initDepsCall,
               successBuilder: (BuildContext context, void _) {
                 return MaterialApp.router(
+                  debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
                   routerConfig: RoutingGraph(
                     routes: routes,
                     redirect: widget.boostrapRedirection,
@@ -133,8 +139,7 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
             ),
           ),
         );
-      }
-      ),
+      }),
     );
   }
 }
