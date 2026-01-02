@@ -106,7 +106,7 @@ export 'src/layouts/navigation_layout/navigation_layout_header_user_data.dart';
 export 'src/layouts/navigation_layout/abstractions/interfaces/inavigation_layout_header_user_data.dart';
 
 export 'src/layouts/navigation_layout/navigation_layout.dart';
-export 'src/layouts/navigation_layout/navigation_graph_layout.dart';
+export 'src/layouts/navigation_layout/navigation_routing_graph_layout.dart';
 
 export 'src/layouts/navigation_layout/navigation_layout_node.dart';
 export 'src/layouts/navigation_layout/abstractions/bases/navigation_layout_node_base.dart';
