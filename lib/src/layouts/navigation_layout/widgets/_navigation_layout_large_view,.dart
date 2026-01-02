@@ -27,7 +27,7 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                 logo: appLogo,
                 user: userData,
                 navReactor: navReactor,
-                routeData: homeRouteData,
+                homeRouteData: homeRouteData,
               ),
               Expanded(
                 child: ReactiveWidget<_NavigationLayoutMenuReactor>(

@@ -3,7 +3,7 @@ part of '../navigation_layout.dart';
 /// Draws for [NavigationLayout] a header view that displays titles, handles theming and user data access.
 final class _NavigationLayoutHeader extends StatelessWidget with ThemingMixin {
   /// Default root [Route], used to draw and handle a Home button that directs to this [Route].
-  final RouteData? routeData;
+  final RouteData? homeRouteData;
 
   /// User information, used to draw an User Button to access information and options.
   final INavigationLayoutHeaderUserData? user;
@@ -18,7 +18,7 @@ final class _NavigationLayoutHeader extends StatelessWidget with ThemingMixin {
   const _NavigationLayoutHeader({
     this.logo,
     this.user,
-    this.routeData,
+    this.homeRouteData,
     required this.navReactor,
   });
 
@@ -73,14 +73,14 @@ final class _NavigationLayoutHeader extends StatelessWidget with ThemingMixin {
               /// --> Navigation Header Theme Selection
               Row(
                 children: <Widget>[
-                  if (routeData != null)
+                  if (homeRouteData != null)
                     IconButton(
                       icon: Icon(
                         Icons.home,
                         color: themeData.fore,
                       ),
                       onPressed: () {
-                        router.go(context, routeData!);
+                        router.go(context, homeRouteData!);
                       },
                     ),
                   Padding(
