@@ -35,7 +35,7 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                   builder: (BuildContext buildContext, _NavigationLayoutMenuReactor reactor) {
                     const double menuWidth = 250;
                     final double currMenuWidth = reactor._isOpen ? menuWidth : 0;
-                    final ThemingData pageTheme = getTheme<IThemeData>(context).page;
+                    final ThemingData themingData = getTheme<INavigationLayoutThemeData>(context).navigationLayout;
 
                     return Stack(
                       children: <Widget>[
@@ -57,7 +57,7 @@ final class _NavigationLayoutLargeView extends _NavigationLayoutViewBase with Th
                           left: reactor._isOpen ? 0 : -menuWidth,
                           width: menuWidth,
                           child: ColoredBox(
-                            color: pageTheme.accent,
+                            color: themingData.back,
                             child: SizedBox(
                               width: menuWidth,
                               height: pageSize.height,

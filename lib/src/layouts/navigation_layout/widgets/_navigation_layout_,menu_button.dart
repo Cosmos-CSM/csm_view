@@ -45,13 +45,13 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
       },
       child: ColoredBox(
         color: widget.isSelected
-            ? themeData.back.withAlpha(205)
+            ? themeData.back.withAlpha(100)
             : isHovered
                 ? themeData.back.withAlpha(127)
                 : themeData.back,
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 12,
+            left: 4,
           ),
           child: SizedBox(
             height: 35,
