@@ -27,6 +27,9 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
   Widget build(BuildContext context) {
     ThemingData themeData = getTheme<INavigationLayoutThemeData>().navigationLayout;
 
+    Color fgColor = isHovered ? themeData.back : themeData.fore;
+    Color bgColor = isHovered ? themeData.fore.withAlpha(25) : themeData.back;
+
     return PointerArea(
       cursor: SystemMouseCursors.click,
       onClick: () {
@@ -44,47 +47,41 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
         });
       },
       child: ColoredBox(
-        color: widget.isSelected
-            ? themeData.back.withAlpha(100)
-            : isHovered
-                ? themeData.back.withAlpha(127)
-                : themeData.back,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 4,
-          ),
-          child: SizedBox(
-            height: 35,
-            width: double.maxFinite,
-            child: Row(
-              spacing: 10,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                /// Selected Entry mark.
-                if (widget.isSelected)
-                  ColoredBox(
-                    color: themeData.accent,
-                    child: SizedBox(
-                      width: 4,
-                      height: double.maxFinite,
-                    ),
+        color: bgColor,
+        child: SizedBox(
+          height: 35,
+          width: double.maxFinite,
+          child: Row(
+            spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              /// Selected Entry mark.
+              if (widget.isSelected)
+                ColoredBox(
+                  color: themeData.accent,
+                  child: SizedBox(
+                    width: 4,
+                    height: double.maxFinite,
                   ),
+                ),
 
-                if (widget.navigationNode.icon != null)
-                  Icon(
-                    widget.navigationNode.icon,
-                    size: 20,
-                    color: Colors.white,
-                  ),
-                Text(
-                  widget.navigationNode.title,
-                  style: TextStyle(
-                    height: 1.0,
-                    color: themeData.fore,
-                  ),
-                )
-              ],
-            ),
+              /// Adding padding from spacing row property.
+              if (!widget.isSelected) SizedBox.shrink(),
+
+              if (widget.navigationNode.icon != null)
+                Icon(
+                  widget.navigationNode.icon,
+                  size: 20,
+                  color: fgColor,
+                ),
+              Text(
+                widget.navigationNode.title,
+                style: TextStyle(
+                  height: 1.0,
+                  color: fgColor,
+                ),
+              )
+            ],
           ),
         ),
       ),
