@@ -6,16 +6,17 @@ export './abstractions/bases/navigation_layout_node_base.dart';
 export './abstractions/interfaces/inavigation_layout.dart';
 export './abstractions/interfaces/inavigation_layout_header_user_data.dart';
 export './abstractions/interfaces/inavigation_layout_node.dart';
+export './navigation_layout_node.dart';
 export './navigation_layout_routing_graph_data.dart';
 
+part '_navigation_layout_menu_reactor.dart';
 part 'abstractions/bases/_navigation_layout_view_base.dart';
+part 'widgets/_navigation_layout_,menu_button.dart';
 part 'widgets/_navigation_layout_header.dart';
 part 'widgets/_navigation_layout_header_user_button.dart';
 part 'widgets/_navigation_layout_header_user_button_menu.dart';
 part 'widgets/_navigation_layout_large_view,.dart';
-part 'widgets/_navigation_layout_,menu_button.dart';
 part 'widgets/_navigation_layout_menu.dart';
-part '_navigation_layout_menu_reactor.dart';
 part 'widgets/_navigation_layout_small_view.dart';
 
 /// Draws a complex { View } navigation layout that handles main application sections navigation, theming management and user data / management access.
