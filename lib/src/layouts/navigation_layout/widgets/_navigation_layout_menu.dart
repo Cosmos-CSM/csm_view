@@ -35,7 +35,7 @@ final class _NavigationLayoutMenuState extends State<_NavigationLayoutMenu> {
             for (int i = 0; i < widget.navigationNodes.length; i++)
               _NavigationLayoutMenuButton(
                 navigationNode: widget.navigationNodes[i],
-                isSelected: router.getAbsolutePath(widget.routeData).contains(router.getAbsolutePath(widget.navigationNodes[i].routeData)),
+                isSelected: router.getAbsolutePath(widget.routeData).contains('${widget.navigationNodes[i].routeData.path}/'),
               ),
           ],
         ),
