@@ -14,7 +14,7 @@ final class _PackageLandingWelcomeEntry<T extends PackageLandingThemeBase> exten
   @override
   Widget build(BuildContext context) {
     final T theme = ThemingUtils.get(context);
-    final RouterBase router = InjectorUtils.get();
+    final IRouter router = InjectorUtils.get();
 
     return PointerArea(
       cursor: SystemMouseCursors.click,

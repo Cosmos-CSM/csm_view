@@ -10,7 +10,6 @@ part '../../widgets/_view_module_size.dart';
 
 /// Represents a solution { View } module.
 abstract class ViewModuleBase extends StatefulWidget {
-
   /// Whether the view displays context sizing frame.
   final bool useSizingFrame;
 
@@ -24,15 +23,12 @@ abstract class ViewModuleBase extends StatefulWidget {
     this.showLegacyDebugBanner = false,
   });
 
-  @override
-  State<ViewModuleBase> createState() => _ViewModuleBaseState();
-
   ///
   @protected
   Widget bootstrapBuild(BuildContext context, Widget? app) => app ?? _ViewModuleWelcome();
 
   @protected
-  FutureOr<void> initView() {}
+  FutureOr<void> initView(BuildContext context) {}
 
   @protected
   List<IThemeData> bootstrapTheming();
@@ -42,21 +38,16 @@ abstract class ViewModuleBase extends StatefulWidget {
 
   @protected
   FutureOr<RouteData>? boostrapRedirection(BuildContext context, RoutingData routingData) => null;
+
+  @override
+  State<ViewModuleBase> createState() => _ViewModuleBaseState();
 }
 
-/// State class for [ViewModuleBase].
 final class _ViewModuleBaseState extends State<ViewModuleBase> {
-  /// Current { View } theme data.
-  late IThemeData currentTheme;
+  late List<IThemeData> themes;
 
-  /// Invokation object for init dependencies future resolution.
-  late FutureOr<void> initDepsCall;
+  late List<IRoutingGraphData> routes;
 
-  /// All { View } theme datas avilable.
-  late final List<IThemeData> themeDatas;
-
-  /// { View } routing graph.
-  late final List<IRoutingGraphData> routes;
 
   @override
   void initState() {
@@ -64,47 +55,34 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
     WidgetsFlutterBinding.ensureInitialized();
 
     routes = widget.bootstrapRouting();
-    themeDatas = widget.bootstrapTheming();
+    themes = widget.bootstrapTheming();
 
     InjectorUtils.addSingleton<IRouter>(
       Router(routes),
     );
-
-    currentTheme = themeDatas.first;
-    initDepsCall = widget.initView();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ThemeManager(
-      themes: themeDatas,
-      themeData: currentTheme,
-      change: (Type newTheme) {
-        setState(() {
-          currentTheme = themeDatas.firstWhere(
-            (IThemeData themeData) => themeData.runtimeType == newTheme,
-          );
-        });
-      },
-      child: Builder(builder: (BuildContext context) {
-        ThemingData pageTheme = ThemingUtils.get(context).page;
-        return ColoredBox(
-          color: pageTheme.back,
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: AsyncWidget<void>(
-              isVoid: true,
-              future: initDepsCall,
-              successBuilder: (BuildContext context, void _) {
-                return MaterialApp.router(
-                  debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
-                  routerConfig: RoutingGraph(
-                    routes: routes,
-                    redirect: widget.boostrapRedirection,
-                  ),
-                  restorationScopeId: 'view',
-                  builder: (BuildContext context, Widget? child) {
-                    final Widget viewBuild = DefaultTextStyle(
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: AsyncWidget<void>(
+        isVoid: true,
+        future: widget.initView(context),
+        successBuilder: (BuildContext context, void _) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
+            routerConfig: RoutingGraph(
+              routes: routes,
+              redirect: widget.boostrapRedirection,
+            ),
+            restorationScopeId: 'view',
+            builder: (BuildContext context, Widget? child) {
+              final Widget viewBuild = _ThemeManagerUpdater(
+                themes: themes,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return DefaultTextStyle(
                       style: TextStyle(
                         decoration: TextDecoration.none,
                         fontSize: 15,
@@ -113,33 +91,70 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
                       ),
                       child: widget.bootstrapBuild(context, child),
                     );
-
-                    if (!kDebugMode || !widget.useSizingFrame) {
-                      return viewBuild;
-                    }
-
-                    return Stack(
-                      children: <Widget>[
-                        viewBuild,
-                        const Padding(
-                          padding: EdgeInsets.only(
-                            top: 16,
-                            left: 16,
-                          ),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: _ViewModuleSize(),
-                          ),
-                        ),
-                      ],
-                    );
                   },
-                );
-              },
-            ),
-          ),
-        );
-      }),
+                ),
+              );
+
+              if (!kDebugMode || !widget.useSizingFrame) {
+                return viewBuild;
+              }
+
+              return Stack(
+                children: <Widget>[
+                  viewBuild,
+                  const Padding(
+                    padding: EdgeInsets.only(
+                      top: 16,
+                      left: 16,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: _ViewModuleSize(),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}
+
+///
+final class _ThemeManagerUpdater extends StatefulWidget {
+  ///
+  final Widget child;
+
+  final List<IThemeData> themes;
+
+  /// Creates a new instance.
+  const _ThemeManagerUpdater({
+    required this.child,
+    required this.themes,
+  });
+
+  @override
+  State<_ThemeManagerUpdater> createState() => _ThemeManagerUpdaterState();
+}
+
+final class _ThemeManagerUpdaterState extends State<_ThemeManagerUpdater> {
+  late IThemeData currentTheme = widget.themes.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return ThemeManager(
+      themes: widget.themes,
+      themeData: currentTheme,
+      change: (Type newTheme) {
+        setState(() {
+          currentTheme = widget.themes.firstWhere(
+            (IThemeData themeData) => themeData.runtimeType == newTheme,
+          );
+        });
+      },
+      child: widget.child,
     );
   }
 }

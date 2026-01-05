@@ -74,7 +74,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends Vi
                             .normalize(),
                         child: LayoutBuilder(
                           builder: (BuildContext buildContext, BoxConstraints boxConstraints) {
-                            final WidgetResponsiveness widgetResponsiveness = InjectorUtils.get();
+                            final WidgetResponsiveness widgetResponsiveness = WidgetResponsiveness.i;
                             final double gridWidth = boxConstraints.constrainWidth();
                             double minExtent = WidgetAdaptionUtils.adaptProperty<double>(
                               mobileValue: gridWidth / 2,

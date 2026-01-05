@@ -75,6 +75,7 @@ final class _NavigationLayoutHeader extends StatelessWidget with ThemingMixin {
                 children: <Widget>[
                   if (homeRouteData != null)
                     IconButton(
+                      hoverColor: themeData.fore.withAlpha(26),
                       icon: Icon(
                         Icons.home,
                         color: themeData.fore,

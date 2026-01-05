@@ -28,10 +28,10 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
     ThemingData themeData = getTheme<INavigationLayoutThemeData>().navigationLayout;
 
     Color fgColor = isHovered ? themeData.back : themeData.fore;
-    Color bgColor = isHovered ? themeData.fore.withAlpha(25) : themeData.back;
+    Color bgColor = isHovered ? themeData.fore.withAlpha(178) : themeData.back;
 
     return PointerArea(
-      cursor: SystemMouseCursors.click,
+      cursor: widget.isSelected ? MouseCursor.defer : SystemMouseCursors.click,
       onClick: () {
         if (widget.isSelected) return;
 
@@ -49,7 +49,7 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
       child: ColoredBox(
         color: bgColor,
         child: SizedBox(
-          height: 35,
+          height: 50,
           width: double.maxFinite,
           child: Row(
             spacing: 10,
@@ -60,7 +60,7 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
                 ColoredBox(
                   color: themeData.accent,
                   child: SizedBox(
-                    width: 4,
+                    width: 3,
                     height: double.maxFinite,
                   ),
                 ),
@@ -78,6 +78,7 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
                 widget.navigationNode.title,
                 style: TextStyle(
                   height: 1.0,
+                  fontWeight: FontWeight.w500,
                   color: fgColor,
                 ),
               )

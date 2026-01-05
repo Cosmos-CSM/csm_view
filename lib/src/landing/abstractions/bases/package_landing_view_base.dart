@@ -17,7 +17,7 @@ part '../../_page_landing_welcome/_package_landing_welcome_entry.dart';
 typedef _Graph<TThemeB extends PackageLandingThemeBase> = Map<RouteData, IPackageLandingEntry<TThemeB>>;
 
 final RouteData _homeRouteData = RouteData(
-  'home',
+  '',
   name: 'home',
 );
 

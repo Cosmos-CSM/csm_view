@@ -1,0 +1,78 @@
+import 'package:csm_view/csm_view.dart';
+import 'package:example/theme/view_package_theme_base.dart';
+import 'package:flutter/material.dart' hide Route;
+
+final RouteData securityRouteData = RouteData('security');
+
+final RouteData businessRouteData = RouteData('business');
+
+final RouteData homeRouteData = RouteData('showcase_root');
+
+///
+final class NavigationLayoutEntry extends PackageLandingEntryBase<ViewPackageThemeBase> with ThemingMixin {
+  ///
+  final List<IThemeData> themes;
+
+  @override
+  List<IRoutingGraphData> composeRoutes(GlobalKey<NavigatorState> navigationLayoutKey, GlobalKey<NavigatorState> entryLayoutKey) {
+    return <IRoutingGraphData>[
+      RoutingGraphNode(
+        businessRouteData,
+        pageBuilder: (BuildContext ctx, RoutingData routeData) => EXPage(),
+      ),
+      RoutingGraphNode(
+        securityRouteData,
+        pageBuilder: (BuildContext ctx, RoutingData routeData) => EXPage(),
+      ),
+    ];
+  }
+
+  /// Creates a new [NavigationLayoutEntry] instance.
+  NavigationLayoutEntry({
+    super.key,
+    required this.themes,
+  }) : super(
+          name: 'Navigation Layout',
+          description: (ViewPackageThemeBase themeData, Color foreColor) {
+            return TextSpan();
+          },
+        );
+
+  @override
+  Widget composeEntry(BuildContext buildContext, Size windowSize, ViewPackageThemeBase theme) {
+    return NavigationLayout(
+      userData: NavigationLayoutHeaderUserData(
+        name: 'Package',
+        email: 'package_landing@csm.com',
+        lastName: 'Landing',
+      ),
+      routingData: RoutingData(
+        targetRoute: businessRouteData,
+        absolutePath: '',
+      ),
+      homeRouteData: homeRouteData,
+      page: SizedBox(),
+      navigationNodes: <INavigationLayoutNode>[
+        NavigationLayoutNode(
+          title: 'Business',
+          routeData: businessRouteData,
+          icon: Icons.business,
+        ),
+        NavigationLayoutNode(
+          title: 'Security',
+          routeData: securityRouteData,
+          icon: Icons.security,
+        )
+      ],
+    );
+  }
+}
+
+final class EXPage extends ViewPageBase {
+  @override
+  Widget compose(BuildContext context, Size windowSize, Size pageSize) {
+    return Container(
+      color: Colors.orange,
+    );
+  }
+}

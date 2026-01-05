@@ -30,7 +30,6 @@ final class _NavigationLayoutMenuState extends State<_NavigationLayoutMenu> {
       ),
       child: SingleChildScrollView(
         child: Column(
-          spacing: 8,
           children: <Widget>[
             for (int i = 0; i < widget.navigationNodes.length; i++)
               _NavigationLayoutMenuButton(

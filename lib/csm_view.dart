@@ -95,6 +95,7 @@ export 'src/widgets/message_widgets/error_message_widget.dart';
 //! --> Exporting [Landing]
 export 'src/landing/abstractions/bases/package_landing_theme_base.dart';
 
+export 'src/landing/abstractions/bases/package_landing_entry.dart';
 export 'src/landing/abstractions/interfaces/ipackage_landing_entry.dart';
 
 export 'src/landing/abstractions/bases/package_landing_view_base.dart';

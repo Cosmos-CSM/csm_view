@@ -1,6 +1,6 @@
 part of '../abstractions/bases/view_module_base.dart';
 
-/// Private [Widget] for [ViewModuleBase] used to display the frame size indicator when [ViewModuleBase.useSizingFrame] and [kDebugMode] are true.
+/// Private [Widget] for [_ThemeManagerUpdater] used to display the frame size indicator when [_ThemeManagerUpdater.useSizingFrame] and [kDebugMode] are true.
 final class _ViewModuleSize extends StatelessWidget {
   /// Creates a new instance.
   const _ViewModuleSize();

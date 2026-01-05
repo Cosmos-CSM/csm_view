@@ -1,9 +1,8 @@
-import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart' hide Route;
 
 /// Represents a { View Module } page.
 abstract interface class IViewPage implements StatelessWidget {
-  /// Composes a complex page into the [ViewModuleBase].
+  /// Composes a complex page into the [_ThemeManagerUpdater].
   ///
   /// [context] - Framework view building context.
   ///
