@@ -37,7 +37,7 @@ abstract class ViewModuleBase extends StatefulWidget {
   List<IRoutingGraphData> bootstrapRouting();
 
   @protected
-  FutureOr<RouteData>? boostrapRedirection(BuildContext context, RoutingData routingData) => null;
+  FutureOr<RouteData?>? boostrapRedirection(BuildContext context, RoutingData routingData) => null;
 
   @override
   State<ViewModuleBase> createState() => _ViewModuleBaseState();
