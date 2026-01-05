@@ -48,7 +48,6 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
   late List<IRoutingGraphData> routes;
 
-
   @override
   void initState() {
     super.initState();
@@ -69,6 +68,16 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
       child: AsyncWidget<void>(
         isVoid: true,
         future: widget.initView(context),
+        loadingBuilder: (BuildContext ctx) {
+          return LoadingIndicator(
+            foreColor: Colors.blue[900]!,
+          );
+        },
+        errorBuilder: (BuildContext ctx, Object? error, void data) {
+          return ErrorWidget(
+            error ?? 'Unknown Error',
+          );
+        },
         successBuilder: (BuildContext context, void _) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
