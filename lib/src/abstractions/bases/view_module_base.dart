@@ -82,14 +82,19 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
                 themes: themes,
                 child: Builder(
                   builder: (BuildContext context) {
-                    return DefaultTextStyle(
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        color: ThemingUtils.get<IThemeData>(context).page.fore,
+                    ThemingData pageTheming = ThemingUtils.get<IThemeData>(context).page;
+
+                    return ColoredBox(
+                      color: pageTheming.back,
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: pageTheming.fore,
+                        ),
+                        child: widget.bootstrapBuild(context, child),
                       ),
-                      child: widget.bootstrapBuild(context, child),
                     );
                   },
                 ),
