@@ -56,6 +56,7 @@ export 'src/core/mixins/themin_state_mixin.dart';
 export 'src/core/utils/injector_utils.dart';
 export 'src/core/utils/theming_utils.dart';
 export 'src/core/utils/comparisson_utils.dart';
+export 'src/core/utils/console_utils.dart';
 
 export 'src/core/tools/widget_responsiveness/responsiveness_ratio.dart';
 export 'src/core/tools/widget_responsiveness/widget_responsiveness.dart';
