@@ -27,11 +27,15 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
   Widget build(BuildContext context) {
     ThemingData themeData = getTheme<INavigationLayoutThemeData>().navigationLayout;
 
-    Color fgColor = isHovered ? themeData.back : themeData.fore;
-    Color bgColor = widget.isSelected
-        ? themeData.fore.withAlpha(126)
+    Color fgColor = widget.isSelected
+        ? themeData.back
         : isHovered
-            ? themeData.fore.withAlpha(178)
+            ? themeData.back
+            : themeData.fore;
+    Color bgColor = widget.isSelected
+        ? themeData.fore.withAlpha(178)
+        : isHovered
+            ? themeData.fore.withAlpha(64)
             : themeData.back;
 
     return PointerArea(
