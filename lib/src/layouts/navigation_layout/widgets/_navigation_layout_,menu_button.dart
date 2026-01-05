@@ -30,7 +30,7 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
     Color fgColor = widget.isSelected
         ? themeData.back
         : isHovered
-            ? themeData.back
+            ? themeData.accent
             : themeData.fore;
     Color bgColor = widget.isSelected
         ? themeData.fore.withAlpha(178)
