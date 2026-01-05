@@ -28,7 +28,11 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
     ThemingData themeData = getTheme<INavigationLayoutThemeData>().navigationLayout;
 
     Color fgColor = isHovered ? themeData.back : themeData.fore;
-    Color bgColor = isHovered ? themeData.fore.withAlpha(178) : themeData.back;
+    Color bgColor = widget.isSelected
+        ? themeData.fore.withAlpha(126)
+        : isHovered
+            ? themeData.fore.withAlpha(178)
+            : themeData.back;
 
     return PointerArea(
       cursor: widget.isSelected ? MouseCursor.defer : SystemMouseCursors.click,
@@ -40,8 +44,6 @@ final class _NavigationLayoutMenuButtonState extends State<_NavigationLayoutMenu
         router.go(context, widget.navigationNode.routeData);
       },
       onHover: (bool hover) {
-        if (widget.isSelected) return;
-
         setState(() {
           isHovered = hover;
         });
