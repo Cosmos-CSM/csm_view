@@ -48,6 +48,8 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
   late List<IRoutingGraphData> routes;
 
+  late FutureOr<void> initViewCall;
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +57,7 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
 
     routes = widget.bootstrapRouting();
     themes = widget.bootstrapTheming();
+    initViewCall = widget.initView(context);
 
     InjectorUtils.addSingleton<IRouter>(
       Router(routes),
@@ -67,7 +70,7 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
       textDirection: TextDirection.ltr,
       child: AsyncWidget<void>(
         isVoid: true,
-        future: widget.initView(context),
+        future: initViewCall,
         loadingBuilder: (BuildContext ctx) {
           return LoadingIndicator(
             foreColor: Colors.blue[900]!,
