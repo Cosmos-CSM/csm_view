@@ -1,4 +1,4 @@
-part of './../abstractions/bases/package_landing_view_base.dart';
+part of '../abstractions/bases/package_landing_view_base.dart';
 
 ///
 final Future<BaseDeviceInfo> deviceInfo = DeviceInfoPlugin().deviceInfo;
