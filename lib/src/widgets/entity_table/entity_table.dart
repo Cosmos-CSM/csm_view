@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 export 'entity_table_adapter_deleter.dart';
 export 'entity_table_adapter_editor.dart';
+export 'entity_table_adapter_viewer.dart';
 
 part '../abstractions/bases/entity_table_adapter_base.dart';
 part '_entity_table_refresh_notifier.dart';
