@@ -9,6 +9,7 @@ export './abstractions/interfaces/iactions_ribbon_action.dart';
 export './abstractions/interfaces/iactions_ribbon_node.dart';
 export './abstractions/interfaces/icategory_layout_page.dart';
 export './category_layout_routing_graph_data.dart';
+export 'category_layout_page.dart';
 
 part './widgets/_message_chip.dart';
 part '_category_layout_messenger.dart';
