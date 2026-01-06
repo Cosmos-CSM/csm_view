@@ -33,7 +33,9 @@ final class PropertyViewer extends StatelessWidget {
         ),
         Text(
           value ?? '---',
-          style: TextStyle(color: pageTheme.fore),
+          style: TextStyle(
+            color: pageTheme.fore,
+          ),
         ),
       ],
     );

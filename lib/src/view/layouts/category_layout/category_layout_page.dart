@@ -1,5 +1,4 @@
 import 'package:csm_view/csm_view.dart';
-import 'package:csm_view/src/view/layouts/category_layout/abstractions/bases/category_layout_page_base.dart';
 import 'package:flutter/material.dart' hide Route;
 
 /// {page} class.

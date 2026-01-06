@@ -1,5 +1,5 @@
-import 'package:csm_view/src/view/landing/abstractions/bases/package_landing_theme_base.dart';
 import 'package:csm_view/src/core/theming/models/theming_data.dart';
+import 'package:csm_view/src/view/landing/abstractions/bases/package_landing_theme_base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 

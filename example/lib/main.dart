@@ -1,6 +1,7 @@
 
 import 'package:csm_view/csm_view.dart';
 import 'package:example/entries/navigation_layout_entry.dart';
+import 'package:example/entries/property_group_viewer_entry.dart';
 import 'package:example/theme/view_package_theme_base.dart';
 import 'package:example/theme/view_package_theme_dark.dart';
 import 'package:example/theme/view_package_theme_light.dart';
@@ -33,6 +34,7 @@ final class ViewPackageLanding extends PackageLandingViewBase<ViewPackageThemeBa
                 CSMViewThemeLight(),
               ],
             ),
+            PropertyGroupViewerEntry(),
           ],
         );
 
