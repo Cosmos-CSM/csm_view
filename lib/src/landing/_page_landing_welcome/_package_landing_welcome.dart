@@ -45,7 +45,7 @@ final class _PackageLandingWelcome<T extends PackageLandingThemeBase> extends Vi
             padding: EdgeInsets.all(16),
             child: SingleChildScrollView(
               child: Text.rich(
-                packageDescription(theme, theme.pageTheming.fore),
+                packageDescription(theme, theme.page.fore),
               ),
             ),
           ),

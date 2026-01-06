@@ -7,18 +7,15 @@ import 'package:flutter/material.dart' show Colors, Icons;
 ///
 /// Defines a theme configuration implementation when the context is [light] theme.
 class PackageLandingThemeDark extends PackageLandingThemeBase {
-  /// Creates a new [PackageLandingThemeDark] instance.
-  PackageLandingThemeDark([String? themeId])
+  /// Creates a new instance.
+  PackageLandingThemeDark([
+    String? themeId,
+  ])
       : super(
           themeId ?? 'package-landing-theme-dark',
-          icon: Icon(Icons.dark_mode),
+          icon: const Icon(Icons.dark_mode),
           iconBackground: Colors.black54,
-          pageTheming: ThemingData(
-            back: Colors.black87,
-            fore: Colors.white,
-            accent: Colors.grey.shade600,
-          ),
-          headerTheming: ThemingData(
+          landingHeader: ThemingData(
             back: Colors.grey.shade600,
             fore: Colors.white,
             accent: Colors.white,
@@ -28,22 +25,27 @@ class PackageLandingThemeDark extends PackageLandingThemeBase {
             fore: Colors.white,
             accent: Colors.white,
           ),
-          control: ThemingData(
+          control: const ThemingData(
             back: Colors.black,
             fore: Colors.white,
             accent: Colors.grey,
           ),
-          controlError: ThemingData(
+          controlError: const ThemingData(
             back: Colors.transparent,
             fore: Colors.red,
             accent: Colors.redAccent,
           ),
-          controlSuccess: ThemingData(
+          controlSuccess: const ThemingData(
             back: Colors.transparent,
             fore: Colors.green,
             accent: Colors.greenAccent,
           ),
-          page: ThemingData(
+          controlDisabled: const ThemingData(
+            back: Colors.grey,
+            fore: Colors.black,
+            accent: Colors.blueGrey,
+          ),
+          page: const ThemingData(
             back: Colors.black,
             fore: Colors.white,
             accent: Colors.black87,

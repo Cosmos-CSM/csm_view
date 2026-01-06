@@ -27,7 +27,10 @@ abstract interface class IThemeData {
   /// Theming data for all application primary controls when they are at { success } state.
   final ThemingData controlSuccess;
 
-  /// Creates a new [IThemeData] instance.
+  /// Themind data for all application primary controls when they are at { disabled } state.
+  final ThemingData controlDisabled;
+
+  /// Creates a new instance.
   const IThemeData(
     this.icon,
     this.page,
@@ -37,5 +40,6 @@ abstract interface class IThemeData {
     this.control,
     this.controlError,
     this.controlSuccess,
+    this.controlDisabled,
   );
 }

@@ -39,7 +39,7 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeBase> extend
                   border: Border(
                     bottom: BorderSide(
                       width: .5,
-                      color: theme.pageTheming.accent,
+                      color: theme.page.accent,
                     ),
                   ),
                 ),
@@ -55,7 +55,7 @@ final class _PackageLandingEntryLayout<T extends PackageLandingThemeBase> extend
                         width: sectionWidth,
                         child: SingleChildScrollView(
                           child: Text.rich(
-                            landingEntry.description(theme, theme.pageTheming.fore),
+                            landingEntry.description(theme, theme.page.fore),
                             style: TextStyle(
                               inherit: true,
                               color: Colors.red,

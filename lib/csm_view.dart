@@ -83,6 +83,7 @@ export 'src/widgets/abstractions/interfaces/ireactive_widget.dart';
 
 export 'src/widgets/text_input.dart';
 export 'src/widgets/button_flat.dart';
+export 'src/widgets/bordered_box.dart';
 export 'src/widgets/pointer_area.dart';
 export 'src/widgets/theme_switcher.dart';
 export 'src/widgets/reactive_widget.dart';
@@ -106,3 +107,4 @@ export 'src/landing/package_landing_theme/package_landing_theme_light.dart';
 
 //! --> Exporting [Layouts]
 export 'src/layouts/navigation_layout/navigation_layout.dart';
+export 'src/layouts/category_layout/category_layout.dart';

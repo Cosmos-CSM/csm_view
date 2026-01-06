@@ -3,10 +3,12 @@ import 'package:csm_view/src/theming/models/theming_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Colors, Icons;
 
-///
+/// Represents the theming configuration for a { Package Landing } for { Dark } mode.
 class PackageLandingThemeLight extends PackageLandingThemeBase {
-  ///
-  PackageLandingThemeLight([String? themeId])
+  /// Creates a new instance.
+  PackageLandingThemeLight([
+    String? themeId,
+  ])
       : super(
           themeId ?? 'package-landing-theme-light',
           icon: Icon(Icons.light_mode),
@@ -16,12 +18,7 @@ class PackageLandingThemeLight extends PackageLandingThemeBase {
             fore: Colors.black,
             accent: Colors.blue.shade900,
           ),
-          pageTheming: ThemingData(
-            back: Color(0xfff2f2f2),
-            fore: Colors.black,
-            accent: Colors.blue.shade900,
-          ),
-          headerTheming: ThemingData(
+          landingHeader: ThemingData(
             back: Colors.blue.shade900,
             fore: Colors.white,
             accent: Colors.white70,
@@ -45,6 +42,11 @@ class PackageLandingThemeLight extends PackageLandingThemeBase {
             back: Colors.transparent,
             fore: Colors.green,
             accent: Colors.greenAccent,
+          ),
+          controlDisabled: const ThemingData(
+            back: Colors.grey,
+            fore: Colors.black,
+            accent: Colors.blueGrey,
           ),
         );
 }

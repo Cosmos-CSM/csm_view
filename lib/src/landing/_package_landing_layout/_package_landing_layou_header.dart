@@ -30,7 +30,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
     final IRouter router = InjectorUtils.get();
 
     return ColoredBox(
-      color: theme.headerTheming.back,
+      color: theme.landingHeader.back,
       child: SizedBox(
         width: double.maxFinite,
         child: Padding(
@@ -53,7 +53,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
                     },
                     icon: Icon(
                       Icons.menu,
-                      color: theme.headerTheming.accent,
+                      color: theme.landingHeader.accent,
                     ),
                   ),
                   Padding(
@@ -64,7 +64,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
                       entryTitle,
                       style: TextStyle(
                         fontSize: 16,
-                        color: theme.headerTheming.fore,
+                        color: theme.landingHeader.fore,
                       ),
                     ),
                   ),
@@ -78,7 +78,7 @@ final class _PackageLandingLayouHeader extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       Icons.home,
-                      color: theme.headerTheming.accent,
+                      color: theme.landingHeader.accent,
                     ),
                     onPressed: () {
                       router.go(context, _homeRouteData);

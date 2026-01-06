@@ -32,7 +32,7 @@ final class _PackageLandingLayoutMenu<TLandingThemeBase extends PackageLandingTh
                 builder: (BuildContext context) {
                   final bool isSelected = routeData == routingLeaf.key;
                   final ThemingData buttonTheme =
-                      isSelected ? theme.pageTheming : theme.headerTheming;
+                      isSelected ? theme.page : theme.landingHeader;
       
                   return Padding(
                     padding: EdgeInsets.symmetric(

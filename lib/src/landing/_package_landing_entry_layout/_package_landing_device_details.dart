@@ -41,7 +41,7 @@ final class _PackageLandingDeviceDetails extends StatelessWidget with PlatformMi
             style: TextStyle(
               fontSize: 16,
               height: 1.5,
-              color: theme.pageTheming.fore,
+              color: theme.page.fore,
             ),
             children: <InlineSpan>[
               TextSpan(

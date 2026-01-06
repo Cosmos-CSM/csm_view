@@ -102,19 +102,19 @@ abstract class PackageLandingViewBase<TLandingThemeBase extends PackageLandingTh
     return super.bootstrapBuild(
       context,
       ColoredBox(
-        color: theme.pageTheming.back,
+        color: theme.page.back,
         child: Theme(
           data: ThemeData(
             textTheme: TextTheme(
               headlineSmall: TextStyle(
-                color: theme.pageTheming.fore,
+                color: theme.page.fore,
               ),
             ),
           ),
           child: DefaultTextStyle(
             key: UniqueKey(),
             style: TextStyle(
-              color: theme.pageTheming.fore,
+              color: theme.page.fore,
             ),
             child: app!,
           ),

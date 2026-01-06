@@ -35,6 +35,10 @@ abstract class ThemeDataBase implements IThemeData {
   @override
   final ThemingData controlSuccess;
 
+  /// Theming data for all application primary controls when they are at { disabled } state.
+  @override
+  final ThemingData controlDisabled;
+
   /// Creates a new instance.
   const ThemeDataBase(
     this.identifier, {
@@ -45,5 +49,6 @@ abstract class ThemeDataBase implements IThemeData {
     required this.control,
     required this.controlError,
     required this.controlSuccess,
+    required this.controlDisabled,
   });
 }
