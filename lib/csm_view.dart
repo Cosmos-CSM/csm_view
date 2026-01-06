@@ -5,6 +5,10 @@ library;
 // --> Package proxies
 export 'package:device_info_plus/device_info_plus.dart' show AndroidDeviceInfo, IosDeviceInfo, LinuxDeviceInfo, WindowsDeviceInfo, WebBrowserInfo, BaseDeviceInfo;
 
+//! --> Exporting modules
+export 'src/widgets/widgets_module.dart';
+export 'src/abstractions/abstractions_module.dart';
+
 //! --> Exporing [src]
 export 'src/abstractions/bases/view_module_base.dart';
 
