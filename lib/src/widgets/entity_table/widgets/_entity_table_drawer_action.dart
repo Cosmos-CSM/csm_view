@@ -49,8 +49,8 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
     super.didChangeDependencies();
 
     themeData = ThemingUtils.get(context);
-    foreColor = widget.fore ?? themeData.page.accent;
-    backColor = themeData.page.accent;
+    foreColor = widget.fore ?? themeData.control.fore;
+    backColor = themeData.control.back;
   }
 
   @override
