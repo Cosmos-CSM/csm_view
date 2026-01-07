@@ -218,7 +218,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                             child: ListView.builder(
                               itemCount: widget.items.length,
                               itemBuilder: (_, int index) {
-                                bool current = widget.items[index] == currValue;
+                                bool isCurrent = widget.items[index] == currValue;
 
                                 return MouseRegion(
                                   cursor: SystemMouseCursors.click,
@@ -227,7 +227,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                                     onTap: () {
                                       toogleDropUp(true).then(
                                         (void value) {
-                                          if (current != currValue) {
+                                          if (!isCurrent) {
                                             setState(() {
                                               currValue = widget.items[index];
                                               widget.onChange(currValue);
@@ -244,6 +244,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                                           '${widget.items[index]}',
                                           style: TextStyle(
                                             color: fgColor,
+                                            fontWeight: isCurrent ? FontWeight.w800 : FontWeight.w400,
                                           ),
                                         ),
                                       ),
