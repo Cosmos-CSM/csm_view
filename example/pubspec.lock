@@ -46,7 +46,7 @@ packages:
     description:
       path: csm_client_core
       ref: HEAD
-      resolved-ref: "76ca20095c87817834bcbe9ccd424e8c9f7ef10e"
+      resolved-ref: "4f08bd38dd4e8811312d499b5a95bf01695d8af2"
       url: "https://github.com/Cosmos-CSM/csm_client"
     source: git
     version: "8.2.0"

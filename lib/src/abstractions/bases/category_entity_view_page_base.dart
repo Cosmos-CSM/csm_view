@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:csm_client_core/csm_client_core.dart';
 import 'package:csm_view/csm_view.dart';
 import 'package:flutter/material.dart';
 
 /// Represents an [IEntity] based { view } page for a [CategoryLayout].
 ///
 /// [TEntityTableAdapter] - Type of the inner [EntityTable] adapter configuration.
-abstract class CategoryEntityViewPageBase<TEntityTableAdapter extends IEntityTableAdapter> implements ICategoryLayoutPage {
+abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEntityTableAdapter extends IEntityTableAdapter<TEntity>> implements ICategoryLayoutPage {
   /// Button title.
   @override
   final String title;

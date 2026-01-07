@@ -4,7 +4,7 @@ import 'package:csm_view/csm_view.dart';
 /// Represents an [IEntity] based { view } page.
 ///
 /// [TEntityTableAdapter] - Type of the inner entity table adapter.
-abstract interface class IEntityViewPage<TEntityTableAdapter extends IEntityTableAdapter> implements IViewPage {
+abstract interface class IEntityViewPage<TEntity extends IEntity<TEntity>, TEntityTableAdapter extends IEntityTableAdapter<TEntity>> implements IViewPage {
   /// [EntityTable] adapter configuration.
   final TEntityTableAdapter adapter;
 

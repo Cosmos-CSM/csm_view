@@ -1,7 +1,7 @@
 part of '../../entity_table/entity_table.dart';
 
 /// Represents an [IEntity] based table adapter configuration.
-abstract class EntityTableAdapterBase<TEntity extends IEntity<TEntity>> implements IEntityTableAdapter {
+abstract class EntityTableAdapterBase<TEntity extends IEntity<TEntity>> implements IEntityTableAdapter<TEntity> {
   /// Internal reference for [refresh] notification to listeners.
   final _EntityTableRefreshNotifier _refreshNotifier = _EntityTableRefreshNotifier();
 
@@ -29,11 +29,10 @@ abstract class EntityTableAdapterBase<TEntity extends IEntity<TEntity>> implemen
   FutureOr<String> composeAuth();
 
   /// Composes the conifgurations adapted for {Edition} [EntityTable] behavior.
+  @override
   EntityTableAdapterEditor<TEntity>? composeEditor() => null;
 
   /// Composes the conifgurations adapted for {Deeltion} [EntityTable] behavior.
+  @override
   EntityTableAdapterDeleter<TEntity>? composeDeleter() => null;
-
-  /// Composes the view details drawer at the [EntityTable].
-  Widget composeViewer(BuildContext buildContext, TEntity entity);
 }
