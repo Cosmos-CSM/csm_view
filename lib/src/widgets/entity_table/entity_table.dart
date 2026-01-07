@@ -376,11 +376,14 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                                       child: LayoutBuilder(
                                         builder: (BuildContext context, BoxConstraints constraints) {
                                           final bool centerControls = boxConstraints.maxWidth < (448 + 628);
-                                          return Wrap(
-                                            alignment: centerControls ? WrapAlignment.center : WrapAlignment.start,
-                                            spacing: 12,
-                                            runSpacing: 12,
-                                            children: widget.composeFiltersView!(filterSet, dateInterval),
+                                          return Visibility(
+                                            visible: widget.composeFiltersView != null,
+                                            child: Wrap(
+                                              alignment: centerControls ? WrapAlignment.center : WrapAlignment.start,
+                                              spacing: 12,
+                                              runSpacing: 12,
+                                              children: widget.composeFiltersView?.call(filterSet, dateInterval) ?? <Widget>[],
+                                            ),
                                           );
                                         },
                                       ),
