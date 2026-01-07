@@ -18,7 +18,7 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
 
   /// Category page action ribbon configuration.
   @override
-  final List<IActionsRibbonNode>? actions;
+  late final List<IActionsRibbonNode>? actions;
 
   @protected
   late final TEntityTableAdapter adapter;
@@ -27,9 +27,9 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
   CategoryEntityViewPageBase({
     required this.title,
     required this.routeData,
-    this.actions = const <IActionsRibbonNode>[],
   }) {
     adapter = composeAdapter();
+    actions = composeActions(adapter);
   }
 
   /// Composes the authentication token for the server request.
@@ -39,7 +39,7 @@ abstract class CategoryEntityViewPageBase<TEntity extends IEntity<TEntity>, TEnt
   TEntityTableAdapter composeAdapter();
 
   /// Composes the required {controller} for the inner [CategoryLayout] ribbon actions controlling.
-  List<IActionsRibbonNode> composeRibbonController(TEntityTableAdapter adapter);
+  List<IActionsRibbonNode> composeActions(TEntityTableAdapter adapter);
 
   @override
   List<IRoutingGraphData> composeRoutes() => <IRoutingGraphData>[];
