@@ -59,10 +59,10 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
   CSMStates state = CSMStates.none;
 
   /// {state} [Widget] background color.
-  late Color backColor;
+  late Color bgColor;
 
   /// {state} [Widget] foreground color.
-  late Color foreColor;
+  late Color fgColor;
 
   /// --> {DropUp} Animation Configuration <--
 
@@ -111,6 +111,10 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
     if (widget.disabled != oldWidget.disabled) {
       _defineColors();
     }
+    if (currValue != widget.item) {
+      currValue = widget.item;
+    }
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -123,7 +127,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
   /// {event} triggered when [DropUp] has been clicked.
   void onClick() {
     if (widget.disabled) return;
-    if (widget.items.isEmpty) return;
+    if (widget.items.length <= 1) return;
 
     toogleDropUp(overlay != null);
   }
@@ -138,16 +142,16 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
 
   /// Defines the [DropUp] {widget} background color dependning on the current [state].
   void _defineColors() {
-    foreColor = themeData.page.foreAlt ?? themeData.page.fore;
+    fgColor = themeData.controlDisabled.fore;
 
-    if (widget.disabled) {
-      backColor = themeData.page.back;
+    if (widget.disabled || widget.items.length <= 1) {
+      bgColor = themeData.controlDisabled.back;
       return;
     }
 
-    backColor = themeData.page.accent;
+    bgColor = themeData.controlDisabled.accent;
     if (state == CSMStates.hovered) {
-      backColor = backColor.withValues(alpha: .85);
+      bgColor = bgColor.withValues(alpha: .85);
     }
   }
 
@@ -237,7 +241,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                                         child: Text(
                                           '${widget.items[index]}',
                                           style: TextStyle(
-                                            color: foreColor,
+                                            color: fgColor,
                                           ),
                                         ),
                                       ),
@@ -272,7 +276,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
           onClick: onClick,
           onHover: onHover,
           child: ColoredBox(
-            color: backColor,
+            color: bgColor,
             child: SizedBox(
               width: 75,
               height: 30,
@@ -283,14 +287,14 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                   Text(
                     '$currValue',
                     style: TextStyle(
-                      color: foreColor,
+                      color: fgColor,
                     ),
                   ),
                   RotationTransition(
                     turns: iconRotAnimTween,
                     child: Icon(
                       Icons.arrow_drop_up_rounded,
-                      color: foreColor,
+                      color: fgColor,
                       size: 30,
                     ),
                   ),

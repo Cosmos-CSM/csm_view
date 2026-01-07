@@ -37,11 +37,11 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
   late ThemingData theming;
 
   /// {state} Current pagination options calculations.
-  late PaginationData options;
+  late PaginationData paginationData;
 
   @override
   void initState() {
-    options = widget.paginationData;
+    paginationData = widget.paginationData;
     super.initState();
   }
 
@@ -53,8 +53,8 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
 
   @override
   void didUpdateWidget(covariant PaginationHandler oldWidget) {
-    if (widget.paginationData != options) {
-      options = widget.paginationData;
+    if (widget.paginationData != paginationData) {
+      paginationData = widget.paginationData;
     }
 
     super.didUpdateWidget(oldWidget);
@@ -63,20 +63,20 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
   /// {event}
   void onRangeChange(int newRange) {
     setState(() {
-      options = options.clone(
+      paginationData = paginationData.clone(
         range: newRange,
       );
-      widget.onChange(options);
+      widget.onChange(paginationData);
     });
   }
 
   /// {event}
   void onPageChange(int newPage) {
     setState(() {
-      options = options.clone(
+      paginationData = paginationData.clone(
         page: newPage,
       );
-      widget.onChange(options);
+      widget.onChange(paginationData);
     });
   }
 
@@ -107,12 +107,12 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
                     ),
                     children: <TextSpan>[
                       TextSpan(
-                        text: '(${options.pageCount})',
+                        text: '(${paginationData.pageCount})',
                         style: const TextStyle(fontWeight: FontWeight.w900),
                       ),
                       const TextSpan(text: ' records from '),
                       TextSpan(
-                        text: '(${options.total})',
+                        text: '(${paginationData.total})',
                         style: const TextStyle(fontWeight: FontWeight.w900),
                       ),
                     ],
@@ -131,7 +131,7 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: ' (${options.pageCount})',
+                            text: ' (${paginationData.pageCount})',
                             style: const TextStyle(fontWeight: FontWeight.w900),
                           ),
                         ],
@@ -147,7 +147,7 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
                         ),
                         children: <TextSpan>[
                           TextSpan(
-                            text: ' (${options.total})',
+                            text: ' (${paginationData.total})',
                             style: const TextStyle(fontWeight: FontWeight.w900),
                           ),
                         ],
@@ -166,17 +166,17 @@ final class _PaginationState extends State<PaginationHandler> with ThemingStateM
                   DropUp<int>(
                     disabled: widget.disabled,
                     tooltip: 'Page range selection',
-                    item: options.range,
-                    items: options.ranges,
+                    item: paginationData.range,
+                    items: paginationData.ranges,
                     onChange: onRangeChange,
                   ),
                   // --> Page selector
                   DropUp<int>(
                     disabled: widget.disabled,
                     tooltip: 'Page selection',
-                    item: options.page,
+                    item: paginationData.page,
                     items: List<int>.generate(
-                      options.pages,
+                      paginationData.pages,
                       (int i) => i + 1,
                     ),
                     onChange: onPageChange,
