@@ -139,7 +139,7 @@ final class _EntityTableDrawerState<TEntity extends IEntity<TEntity>> extends St
                             _EntityTableDrawerAction(
                               action: 'Close Details',
                               onClick: widget.onCloseDrawer,
-                              icon: Icons.arrow_circle_right_outlined,
+                              icon: Icons.arrow_right_sharp,
                             ),
                           ]
 
