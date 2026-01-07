@@ -24,16 +24,16 @@ final class PropertyGroupViewerEntry extends PackageLandingEntryBase<ViewPackage
       child: Center(
         child: ExpandibleSection(
           title: 'Example Viewer Group',
-          children: <PropertyViewer>[
-            PropertyViewer(
+          children: <Widget>[
+            PropertyViewer<String>(
               label: 'Property 1',
               value: 'First value',
             ),
-            PropertyViewer(
+            PropertyViewer<String>(
               label: 'Property 2',
               value: 'Second value',
             ),
-            PropertyViewer(
+            PropertyViewer<String>(
               label: 'Property 3',
               value: 'Third value',
             ),
