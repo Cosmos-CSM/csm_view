@@ -417,10 +417,16 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
                                           constraints: drawerAnimationConstraint,
                                           child: _EntityTableLoadingIndicator(),
                                         ),
-                                        errorBuilder: (_, __, ___) => ConstrainedBox(
-                                          constraints: drawerAnimationConstraint,
-                                          child: _EntityTableErrorIndicator(),
-                                        ),
+                                        errorBuilder: (_, Object? error, __) {
+                                          ConsoleUtils.warningLog(
+                                            error?.toString() ?? '---',
+                                          );
+
+                                          return ConstrainedBox(
+                                            constraints: drawerAnimationConstraint,
+                                            child: _EntityTableErrorIndicator(),
+                                          );
+                                        },
                                         successBuilder: (BuildContext buildContext, ViewOutput<TEntity> data) {
                                           return ConstrainedBox(
                                             constraints: drawerAnimationConstraint,
