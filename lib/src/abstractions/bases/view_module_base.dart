@@ -66,13 +66,13 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
     themes = widget.bootstrapTheming();
     initViewCall = widget.initView(context);
 
+    InjectorUtils.addSingleton<IRouter>(
+      Router(routes),
+    );
+
     routingGraph = RoutingGraph(
       routes: routes,
       redirect: widget.boostrapRedirection,
-    );
-
-    InjectorUtils.addSingleton<IRouter>(
-      Router(routes),
     );
   }
   
