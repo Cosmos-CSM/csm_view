@@ -200,7 +200,10 @@ final class _EntityTableState<TEntity extends IEntity<TEntity>, TResponseResolve
 
     /// Filter configurations
     if (addFilters) {
-      final List<IViewFilter<TEntity>> tableFiltersNodes = widget.composeFilterDatas!(filterSet, dateInterval);
+      List<IViewFilter<TEntity>> tableFiltersNodes = <IViewFilter<TEntity>>[];
+      if (widget.composeFilterDatas != null) {
+        tableFiltersNodes = widget.composeFilterDatas?.call(filterSet, dateInterval) ?? <IViewFilter<TEntity>>[];
+      }
 
       final List<ViewLogicalFilter<TEntity>> filterPropertyNodes = <ViewLogicalFilter<TEntity>>[];
       final List<ViewDateFilter<TEntity>> filterDateNodes = <ViewDateFilter<TEntity>>[];
