@@ -125,45 +125,49 @@ final class _ActionButtonState extends State<_ActionButton> {
       cursor: isLoading ? MouseCursor.defer : SystemMouseCursors.click,
       onClick: isLoading ? null : onClick,
       onHover: isLoading ? null : onHover,
-      child: ColoredBox(
-        color: back,
-        child: SizedBox.fromSize(
-          size: Size.square(75),
-          child: Visibility(
-            visible: !isLoading,
-            replacement: LoadingIndicator(
-              fit: BoxFit.fitHeight,
-              foreColor: theming.foreground!,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 12,
-                horizontal: 8,
+      child: Tooltip(
+        message: widget.actionData.description,
+        waitDuration: 2.seconds,
+        child: ColoredBox(
+          color: back,
+          child: SizedBox.fromSize(
+            size: Size.square(75),
+            child: Visibility(
+              visible: !isLoading,
+              replacement: LoadingIndicator(
+                fit: BoxFit.fitHeight,
+                foreColor: theming.foreground!,
               ),
-              child: Column(
-                spacing: 8,
-                children: <Widget>[
-                  /// ---> Icon Builder
-                  IconTheme(
-                    data: IconThemeData(
-                      size: 28,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 8,
+                ),
+                child: Column(
+                  spacing: 8,
+                  children: <Widget>[
+                    /// ---> Icon Builder
+                    IconTheme(
+                      data: IconThemeData(
+                        size: 28,
+                      ),
+                      child: widget.actionData.composeIcon(fore),
                     ),
-                    child: widget.actionData.composeIcon(fore),
-                  ),
 
-                  /// --> Action title.
-                  Text(
-                    widget.actionData.title,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: fore,
-                      overflow: TextOverflow.ellipsis,
+                    /// --> Action title.
+                    Text(
+                      widget.actionData.title,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: fore,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
