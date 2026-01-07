@@ -208,7 +208,7 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
                   child: SizeTransition(
                     sizeFactor: dropUpAnimTween,
                     child: ColoredBox(
-                      color: themeData.page.accent,
+                      color: bgColor,
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(maxHeight: 250),
                         child: SizedBox(
