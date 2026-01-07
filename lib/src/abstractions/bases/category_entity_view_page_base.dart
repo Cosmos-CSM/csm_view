@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:csm_view/csm_view.dart';
+import 'package:flutter/material.dart';
 
 /// Represents an [IEntity] based { view } page for a [CategoryLayout].
 ///
@@ -18,12 +19,17 @@ abstract class CategoryEntityViewPageBase<TEntityTableAdapter extends IEntityTab
   @override
   final List<IActionsRibbonNode>? actions;
 
+  @protected
+  late final TEntityTableAdapter adapter;
+
   /// Creates a new instance.
-  const CategoryEntityViewPageBase({
+  CategoryEntityViewPageBase({
     required this.title,
     required this.routeData,
     this.actions = const <IActionsRibbonNode>[],
-  });
+  }) {
+    adapter = composeAdapter();
+  }
 
   /// Composes the authentication token for the server request.
   FutureOr<String?>? composeAuth() => null;
