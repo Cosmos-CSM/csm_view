@@ -1,5 +1,6 @@
 
 import 'package:csm_view/csm_view.dart';
+import 'package:example/entries/checkbox_entry.dart';
 import 'package:example/entries/navigation_layout_entry.dart';
 import 'package:example/entries/property_group_viewer_entry.dart';
 import 'package:example/entries/property_viewer_entry.dart';
@@ -35,6 +36,7 @@ final class ViewPackageLanding extends PackageLandingViewBase<ViewPackageThemeBa
                 CSMViewThemeLight(),
               ],
             ),
+            CheckboxInputEntry(),
             PropertyViewerEntry(),
             PropertyGroupViewerEntry(),
           ],
