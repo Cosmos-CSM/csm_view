@@ -34,10 +34,10 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
   late IThemeData themeData = ThemingUtils.get(context);
 
   /// {state} current calcualted button fore color.
-  late Color foreColor;
+  late Color fgColor;
 
   /// {state} current calcualted button back color.
-  late Color backColor;
+  late Color bgColor;
 
   @override
   void initState() {
@@ -46,11 +46,11 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
 
   @override
   void didChangeDependencies() {
-    super.didChangeDependencies();
-
     themeData = ThemingUtils.get(context);
-    foreColor = widget.fore ?? themeData.control.fore;
-    backColor = themeData.control.back;
+    fgColor = widget.fore ?? themeData.control.back;
+    bgColor = themeData.control.fore;
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -61,10 +61,10 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
         cursor: SystemMouseCursors.click,
         onHover: (bool $in) {
           setState(() {
-            backColor = themeData.page.accent;
+            bgColor = themeData.page.fore;
             if ($in) {
-              backColor = backColor.withValues(
-                alpha: .85,
+              bgColor = bgColor.withValues(
+                alpha: .75,
               );
             }
           });
@@ -73,13 +73,13 @@ final class _EntityTableDrawerActionState extends State<_EntityTableDrawerAction
         child: DecoratedBox(
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: backColor,
+            color: bgColor,
           ),
           child: Padding(
             padding: const EdgeInsets.all(3),
             child: Icon(
               widget.icon,
-              color: foreColor,
+              color: fgColor,
               size: 20,
             ),
           ),
