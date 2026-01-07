@@ -142,16 +142,18 @@ final class _DropUpState<T> extends State<DropUp<T>> with TickerProviderStateMix
 
   /// Defines the [DropUp] {widget} background color dependning on the current [state].
   void _defineColors() {
-    fgColor = themeData.controlDisabled.fore;
+    fgColor = themeData.control.fore;
+    bgColor = themeData.control.back;
 
     if (widget.disabled || widget.items.length <= 1) {
       bgColor = themeData.controlDisabled.back;
+      fgColor = themeData.controlDisabled.fore;
       return;
     }
-
-    bgColor = themeData.controlDisabled.accent;
     if (state == CSMStates.hovered) {
-      bgColor = bgColor.withValues(alpha: .85);
+      bgColor = bgColor.withValues(
+        alpha: .85,
+      );
     }
   }
 
