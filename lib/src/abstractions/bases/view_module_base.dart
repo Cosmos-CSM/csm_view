@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:csm_view/csm_view.dart';
+import 'package:csm_view/src/core/routing/abstractions/interfaces/irouting_graph.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Router;
 
@@ -44,11 +45,17 @@ abstract class ViewModuleBase extends StatefulWidget {
 }
 
 final class _ViewModuleBaseState extends State<ViewModuleBase> {
+  /// Application themes.
   late List<IThemeData> themes;
 
+  /// View initialization callback.
+  late FutureOr<void> initViewCall;
+
+  /// Application routes.
   late List<IRoutingGraphData> routes;
 
-  late FutureOr<void> initViewCall;
+  /// Application routing graph.
+  late IRoutingGraph routingGraph;
 
   @override
   void initState() {
@@ -59,9 +66,23 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
     themes = widget.bootstrapTheming();
     initViewCall = widget.initView(context);
 
+    routingGraph = RoutingGraph(
+      routes: routes,
+      redirect: widget.boostrapRedirection,
+    );
+
     InjectorUtils.addSingleton<IRouter>(
       Router(routes),
     );
+  }
+  
+  @override
+  void didUpdateWidget(covariant ViewModuleBase oldWidget) {
+    if (widget.bootstrapRouting != oldWidget.bootstrapRouting) {
+      debugPrint('Routing has changed');
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -84,10 +105,7 @@ final class _ViewModuleBaseState extends State<ViewModuleBase> {
         successBuilder: (BuildContext context, void _) {
           return MaterialApp.router(
             debugShowCheckedModeBanner: widget.showLegacyDebugBanner,
-            routerConfig: RoutingGraph(
-              routes: routes,
-              redirect: widget.boostrapRedirection,
-            ),
+            routerConfig: routingGraph,
             restorationScopeId: 'view',
             builder: (BuildContext context, Widget? child) {
               final Widget viewBuild = _ThemeManagerUpdater(
